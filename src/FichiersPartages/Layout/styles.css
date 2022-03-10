@@ -1,0 +1,47 @@
+.ant-layout {
+  min-height: 100vh;
+  min-width: fit-content;
+}
+
+.header-title {
+  cursor: pointer;
+  color: white;
+}
+
+.ant-page-header-heading-extra {
+  width: 548px;
+}
+.dropdownMenu {
+  width: 50%;
+}
+
+.ant-layout-footer {
+  background-color: black;
+}
+
+.footer {
+  font-size: large;
+  color: white;
+  font-family: "Courier New", Courier, monospace;
+}
+.audi-logo {
+  cursor: pointer;
+}
+
+.login_button {
+  background-color: green;
+  color: white;
+  border: none;
+}
+.login_button:hover {
+  background-color: green;
+  color: white;
+  border: none;
+}
+
+.connected {
+  background-color: #ffffff;
+}
+.disconnected {
+  background-color: #000000
+}
