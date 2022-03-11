@@ -81,7 +81,7 @@ export default function TestComponent()
 
       <Button id="first" onClick={handleClick} type="primary" size="small" >add first</Button>
       <Row>
-        <Col style={{display: 'flex',justifyContent: 'center',flexDirection: 'column'}}>
+        <Col style={{display: 'flex',justifyContent: 'space-around',flexDirection: 'column'}}>
           {
             rubriques.map((item,index)=>(
               <button id={'li-'+(item.ordre+1)} key={index} onClick={handleClick}>{'Add'+(item.ordre+1)}</button>
