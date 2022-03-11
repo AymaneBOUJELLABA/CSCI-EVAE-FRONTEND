@@ -63,6 +63,7 @@ export default function TestComponent()
     ])
   };
 
+  let key=1;
   return(
     <>
       <ul>
@@ -78,9 +79,7 @@ export default function TestComponent()
       </ul>
 
 
-      <Button id="first" onClick={handleClick} type="primary" size="small" >add</Button>
-      {currentAdd==="first"?<InputRubrique onFinish={onFinish}/>:''}
-
+      <Button id="first" onClick={handleClick} type="primary" size="small" >add first</Button>
       <Row>
         <Col style={{display: 'flex',justifyContent: 'center',flexDirection: 'column'}}>
           {
@@ -91,16 +90,20 @@ export default function TestComponent()
         </Col>
         <Col>
           <Collapse bordered>
+            {currentAdd==="first"?
+              <Panel key={key++} header="Ajouter premier rubrique">
+                <InputRubrique onFinish={onFinish}/>
+              </Panel>:''}
             {
               rubriques.map((item,index)=>
-              (
+              (               
                 <>
-                  <Panel key={index} header={item.nom+' '+item.id}>
+                  <Panel key={key++} header={item.nom+' '+item.id}>
                     {item.nom}
                   </Panel>
-                  
+
                   {currentAdd==="li-"+(item.ordre+1)?
-                    <Panel key={index}>
+                    <Panel key={key++} header={'Ajouter une rubrique dans la position ' + (item.ordre+1)}showArrow={false}>
                       <InputRubrique onFinish={onFinish}/>
                     </Panel> : ''}
                 </>
