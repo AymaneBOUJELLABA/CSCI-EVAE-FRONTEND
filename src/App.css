@@ -40,3 +40,7 @@
 .ant-table-pagination-right {
   justify-content: center;
 }
+
+.ant-btn-round.ant-btn-sm {
+  padding: 0%;
+}

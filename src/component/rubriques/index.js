@@ -1,137 +1,222 @@
 import React, { useState } from "react";
+import { Form, Input, Button, Row, Col, Divider, Collapse } from "antd";
 import {
-  SortableContainer,
-  SortableElement,
-  SortableHandle,
-} from "react-sortable-hoc";
+  MinusCircleOutlined,
+  PlusCircleTwoTone,
+  CheckCircleOutlined,
+  CheckOutlined,
+} from "@ant-design/icons";
+import flatten from "lodash/flatten";
+import "./style.css";
 
-import { Table, Row, Col, Input, Button } from "antd";
-import { arrayMoveImmutable } from "array-move";
-import { PlusCircleFilled, MenuOutlined } from "@ant-design/icons";
+const formItemLayout = {
+  labelCol: {
+    xs: { span: 24 },
+    sm: { span: 4 },
+  },
+  wrapperCol: {
+    xs: { span: 24 },
+    sm: { span: 20 },
+  },
+};
+const formItemLayoutWithOutLabel = {
+  wrapperCol: {
+    xs: { span: 24, offset: 0 },
+    sm: { span: 20, offset: 4 },
+  },
+};
 
+const { Panel } = Collapse;
+
+const DynamicFieldSet = ({ form, data, onClickConfirm, onClickDelete }) => (
+  <Form
+    showArrow={true}
+    initialValues={{ names: data }}
+    form={form}
+    name="dynamic_form_item"
+    {...formItemLayoutWithOutLabel}
+  >
+    <Form.List name="names">
+      {(fields, { add, remove }, { errors }) => {
+        console.log("fields :>> ", fields);
+        return (
+          <>
+            {fields.map((field, index) => (
+              <Form.Item
+                {...(index === 0 ? formItemLayout : formItemLayoutWithOutLabel)}
+                label={index === 0 ? "Rubriques" : ""}
+                required={false}
+                key={field.key}
+              >
+                {fields.length && index === 0 && (
+                  <Form.Item style={{ height: "1px" }}>
+                    <Row>
+                      <Col md={12}>
+                        <div>
+                          <PlusCircleTwoTone
+                            id="top-add-btn"
+                            type="link"
+                            shape="round"
+                            size="small"
+                            onClick={() => add(null, index)}
+                          />
+                        </div>
+                      </Col>
+                    </Row>
+
+                    {/* <Button
+                      type="link"
+                      shape="round"
+                      size="small"
+                      onClick={() => add(null, index)}
+                      style={{ width: "40px" }}
+                      icon={<PlusCircleTwoTone />}
+                    /> */}
+                  </Form.Item>
+                )}
+
+                <Form.Item
+                  {...field}
+                  validateTrigger={["onChange", "onBlur"]}
+                  rules={[
+                    {
+                      required: true,
+                      whitespace: true,
+                      message: "This is a required field",
+                    },
+                  ]}
+                  noStyle
+                >
+                  <Input
+                    required
+                    id="input-rebrique"
+                    size="large"
+                    placeholder="Nom de rubrique"
+                    style={{ width: "60%" }}
+                    // onChange={() => setdisabled(true)
+                    // }
+                    addonAfter={
+                      <>
+                        <CheckCircleOutlined
+                          className="dynamic-confirm-button"
+                          onClick={onClickConfirm}
+                        />
+                        <MinusCircleOutlined
+                          className="dynamic-delete-button"
+                          onClick={() => {
+                            remove(field.name);
+                            onClickDelete(field);
+                          }}
+                        />
+                      </>
+                    }
+                  />
+                </Form.Item>
+                <Form.Item style={{ height: "0px" }}>
+                  <Row>
+                    <Col md={12}>
+                      <PlusCircleTwoTone
+                        id="buttom-add-btn"
+                        type="link"
+                        shape="round"
+                        size="small"
+                        onClick={() => add(null, index + 1)}
+                      />
+                    </Col>
+                  </Row>
+                  {/* <Button
+                    type="link"
+                    shape="round"
+                    size="small"
+                    onClick={() => add(null, index + 1)}
+                    style={{ width: "40px", marginTop: "20px" }}
+                    icon={<PlusCircleTwoTone />}
+                  /> */}
+                </Form.Item>
+              </Form.Item>
+            ))}
+            <Form.ErrorList errors={errors} />
+            {fields.length < 1 && (
+              <Form.Item>
+                <Button
+                  type="dashed"
+                  onClick={() => add()}
+                  style={{ width: "60%" }}
+                  icon={<PlusCircleTwoTone />}
+                >
+                  Ajouter Rubrique
+                </Button>
+              </Form.Item>
+            )}
+          </>
+        );
+      }}
+    </Form.List>
+  </Form>
+);
+const List = ({ rubriques }) => (
+  <Col span={24}>
+    <h1>Rubriques</h1>
+    <Collapse>
+      {rubriques.map((item, index) => (
+        <Panel style={{ justifyItems: "center" }} header={item} key={index}>
+          <p>Questions</p>
+        </Panel>
+      ))}
+    </Collapse>
+  </Col>
+);
 const Rubriques = () => {
-  const DragHandle = SortableHandle(() => (
-    <MenuOutlined style={{ cursor: "grab", color: "#999" }} />
-  ));
-  const SortableItem = SortableElement((props) => <tr {...props} />);
-  const SortableBody = SortableContainer((props) => <tbody {...props} />);
+  const data = ["Rub1", "Rub2", "Rub3", "Rub4"];
 
-  const columns = [
-    {
-      title: "Sort",
-      dataIndex: "sort",
-      width: 30,
-      className: "drag-visible",
-      render: () => <DragHandle />,
-    },
-    {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
-      className: "drag-visible",
-    },
-  ];
-
-  const data = [
-    {
-      key: 1,
-      name: "Cours",
-      index: 1,
-    },
-    {
-      key: 2,
-      name: "TPs",
-      index: 2,
-    },
-    {
-      key: 3,
-      name: "TDs",
-      index: 3,
-    },
-    {
-      key: 4,
-      name: "Stage",
-      index: 4,
-    },
-  ];
-  const [rubrique, setRubrique] = useState("");
-  console.log("rubrique :>> ", rubrique);
-  const [state, setState] = useState({ data, index: data.length + 1 });
-
-  const onSortEnd = ({ oldIndex, newIndex }) => {
-    const { data } = state;
-    if (oldIndex !== newIndex) {
-      const newData = arrayMoveImmutable(
-        [].concat(data),
-        oldIndex,
-        newIndex
-      ).filter((el) => !!el);
-      console.log("newData :>> ", newData);
-      console.log("Sorted items: ", newData);
-      setState({ ...state, data: newData });
-    }
-  };
-
-  const DraggableContainer = (props) => (
-    <SortableBody
-      useDragHandle
-      disableAutoscroll
-      helperClass="row-dragging"
-      onSortEnd={onSortEnd}
-      {...props}
-    />
-  );
-
-  const DraggableBodyRow = ({ className, style, ...restProps }) => {
-    const { data } = state;
-    // function findIndex base on Table rowKey props and should always be a right array index
-    const index = data.findIndex((x) => x.index === restProps["data-row-key"]);
-    return <SortableItem index={index} {...restProps} />;
-  };
+  const [form] = Form.useForm();
+  const { getFieldValue } = form;
+  const [rubriques, setRubriques] = useState(data);
+  const [list, setList] = useState(true);
+  // const [disabled, setdisabled] = useState(true);
+  const onClickConfirm = () => setRubriques(flatten(getFieldValue("names")));
+  const onClickDelete = (field) =>
+    setRubriques([...rubriques.filter((_, index) => index !== field.name)]);
   return (
-    <>
-      <Row justify="space-around">
-        <Col>
-          <Input
-            placeholder="Ajouter rubrique ... "
-            onChange={(e) => setRubrique(e.target.value)}
-          />
-        </Col>
-        <Col>
-          <Button
-            icon={<PlusCircleFilled />}
-            onClick={() =>
-              setState({
-                data: [
-                  ...state.data,
-                  {
-                    key: state.index + 1,
-                    index: state.index + 1,
-                    name: rubrique,
-                    className: "drag-visible",
-                  },
-                ],
-                index: state.index + 1,
-              })
-            }
-          >
-            Ajouter
-          </Button>
+    <div className="container__antd p-top-20">
+      <Row justify="space-between">
+        <Col span={24}>
+          {list ? (
+            <>
+              <Button
+                type="dashed"
+                onClick={() => setList(false)}
+                style={{ width: "60%" }}
+                icon={<PlusCircleTwoTone />}
+              >
+                Ajouter Rubrique
+              </Button>
+              <List {...{ rubriques }} />
+            </>
+          ) : (
+            <>
+              <Row>
+                <Col offset={8} span={12}>
+                  <Button
+                    size="small"
+                    type="dashed"
+                    onClick={() => setList(true)}
+                    style={{ width: "20%" }}
+                    icon={<CheckOutlined />}
+                  >
+                    Confirmer
+                  </Button>
+                </Col>
+              </Row>
+
+              <DynamicFieldSet
+                {...{ data, form, onClickConfirm, onClickDelete }}
+              />
+            </>
+          )}
         </Col>
       </Row>
-      <Table
-        pagination={{ position: "center" }}
-        rowKey={"index"}
-        columns={columns}
-        dataSource={state.data}
-        components={{
-          body: {
-            wrapper: DraggableContainer,
-            row: DraggableBodyRow,
-          },
-        }}
-      />
-    </>
+    </div>
   );
 };
 
