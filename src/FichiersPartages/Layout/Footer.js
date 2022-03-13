@@ -1,18 +1,13 @@
 import React from "react";
-import { Layout, Row, Col } from "antd";
+import { Layout } from "antd";
+import "./styles.css";
 
 const { Footer } = Layout;
 
-const AppFooter = () => (
-  <Footer>
-    <div className="container_antd">
-      <Row type="flex" align="middle" justify="center">
-        <Col sm={24}>
-          <p className="text-center footer">© CSCI-EVAE 2022</p>
-        </Col>
-      </Row>
-    </div>
+const FooterPage = () => (
+  <Footer style={{ textAlign: "center", color: "white" }}>
+    CSCI-EVAE ©2022 Created by DosiStudent
   </Footer>
 );
 
-export default AppFooter;
+export default FooterPage;

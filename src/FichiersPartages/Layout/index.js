@@ -1,21 +1,39 @@
 import React from "react";
-import { Layout } from "antd";
+
 import Header from "./Header";
 import Footer from "./Footer";
 import Sider from "./Sider";
+import { Layout, Breadcrumb } from "antd";
+import "./styles.css";
+
+const { Content } = Layout;
 
 const Container = (Wrapped) => () =>
   (
-    <Layout>
-      <Sider />
+    <>
       <Layout>
         <Header />
-        <div style={{ margin: "100px", overflow: "auto" }}>
-          <Wrapped />
-        </div>
+        <Content style={{ padding: "0 50px" }}>
+          <Breadcrumb style={{ margin: "16px 0" }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>List</Breadcrumb.Item>
+            <Breadcrumb.Item>App</Breadcrumb.Item>
+          </Breadcrumb>
+          <Layout
+            className="site-layout-background"
+            style={{ padding: "24px 0" }}
+          >
+            <Sider />
+            <Content style={{ padding: "0 24px", minHeight: 280 }}>
+              {" "}
+              <Wrapped />
+            </Content>
+          </Layout>
+        </Content>
+
         <Footer />
       </Layout>
-    </Layout>
+    </>
   );
 
 export default Container;
