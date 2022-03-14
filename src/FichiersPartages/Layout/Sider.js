@@ -1,31 +1,21 @@
 import React from "react";
 import { Layout, Menu } from "antd";
+import { useHistory } from "react-router";
 import "./styles.css";
 import {
-  UserOutlined,
+  DatabaseOutlined,
+  FileAddOutlined,
+  OrderedListOutlined,
   LaptopOutlined,
   NotificationOutlined,
 } from "@ant-design/icons";
 
 const { SubMenu } = Menu;
 const { Sider } = Layout;
-// const { Sider } = Layout;
 
 const SiderPage = () => {
+  const { push } = useHistory();
   return (
-    //     <Sider breakpoint="lg" collapsedWidth="0">
-    //       <div className="logo" />
-    //       <Menu theme="light" mode="inline">
-    //         <Menu.Item
-
-    //         //onClick={() => push(PATHS.CANDIDATS.LIST)}
-    //         >
-    //           Liste Rubrique
-    //         </Menu.Item>
-    //       </Menu>
-    //     </Sider>
-    //   );
-    // };
     <Sider className="site-layout-background" width={200}>
       <Menu
         mode="inline"
@@ -33,11 +23,21 @@ const SiderPage = () => {
         defaultOpenKeys={["sub1"]}
         style={{ height: "100%" }}
       >
-        <SubMenu key="sub1" icon={<UserOutlined />} title="subnav 1">
-          <Menu.Item key="1">option1</Menu.Item>
-          <Menu.Item key="2">option2</Menu.Item>
-          <Menu.Item key="3">option3</Menu.Item>
-          <Menu.Item key="4">option4</Menu.Item>
+        <SubMenu key="sub1" icon={<DatabaseOutlined />} title="Rubriques">
+          <Menu.Item
+            key="1"
+            icon={<FileAddOutlined />}
+            onClick={() => {
+              console.log("hwwwwwww :>> ");
+              push("/rubriques/ajouter");
+            }}
+          >
+            Ajouter rubrique
+          </Menu.Item>
+
+          <Menu.Item key="2" icon={<OrderedListOutlined />}>
+            Liste des rubriques
+          </Menu.Item>
         </SubMenu>
         <SubMenu key="sub2" icon={<LaptopOutlined />} title="subnav 2">
           <Menu.Item key="5">option5</Menu.Item>

@@ -24,7 +24,7 @@ const Container = (Wrapped) => () =>
             style={{ padding: "24px 0" }}
           >
             <Sider />
-            <Content style={{ padding: "0 24px", minHeight: 280 }}>
+            <Content style={{ padding: "100px", minHeight: 280 }}>
               {" "}
               <Wrapped />
             </Content>

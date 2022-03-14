@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+
 import { Form, Input, Button, Row, Col, Collapse } from "antd";
+import List from "../listRubrique";
 import {
   MinusCircleOutlined,
   PlusCircleTwoTone,
@@ -8,20 +10,17 @@ import {
 } from "@ant-design/icons";
 import flatten from "lodash/flatten";
 import "./style.css";
+import { useHistory } from "react-router-dom";
 
 const formItemLayout = {
-  labelCol: {
-    xs: { span: 24 },
-    sm: { span: 4 },
-  },
   wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 20 },
+    xs: { span: 24, offset: 4 },
+    sm: { span: 20, offset: 4 },
   },
 };
 const formItemLayoutWithOutLabel = {
   wrapperCol: {
-    xs: { span: 24, offset: 0 },
+    xs: { span: 24, offset: 4 },
     sm: { span: 20, offset: 4 },
   },
 };
@@ -154,25 +153,25 @@ const DynamicFieldSet = ({ form, data, onClickConfirm, onClickDelete }) => (
     </Form.List>
   </Form>
 );
-const List = ({ rubriques }) => (
-  <Col span={24}>
-    <h1>Rubriques</h1>
-    <Collapse>
-      {rubriques.map((item, index) => (
-        <Panel style={{ justifyItems: "center" }} header={item} key={index}>
-          <p>Questions</p>
-        </Panel>
-      ))}
-    </Collapse>
-  </Col>
-);
+// const List = ({ rubriques }) => (
+//   <Col span={24}>
+//     <h1>Rubriques</h1>
+//     <Collapse>
+//       {rubriques.map((item, index) => (
+//         <Panel style={{ justifyItems: "center" }} header={item} key={index}>
+//           <p>Questions</p>
+//         </Panel>
+//       ))}
+//     </Collapse>
+//   </Col>
+// );
 const Rubriques = () => {
   const data = ["Rub1", "Rub2", "Rub3", "Rub4"];
-
   const [form] = Form.useForm();
   const { getFieldValue } = form;
   const [rubriques, setRubriques] = useState(data);
   const [list, setList] = useState(true);
+  const history = useHistory();
   // const [disabled, setdisabled] = useState(true);
   const onClickConfirm = () => setRubriques(flatten(getFieldValue("names")));
   const onClickDelete = (field) =>
@@ -183,14 +182,19 @@ const Rubriques = () => {
         <Col span={24}>
           {list ? (
             <>
-              <Button
-                type="dashed"
-                onClick={() => setList(false)}
-                style={{ width: "60%" }}
-                icon={<PlusCircleTwoTone />}
-              >
-                Ajouter Rubrique
-              </Button>
+              <Row>
+                <Col offset={8} span={12}>
+                  <Button
+                    type="dashed"
+                    onClick={() => setList(false)}
+                    style={{ width: "60%" }}
+                    icon={<PlusCircleTwoTone />}
+                  >
+                    Ajouter Rubrique
+                  </Button>
+                </Col>
+              </Row>
+
               <List {...{ rubriques }} />
             </>
           ) : (
@@ -201,7 +205,7 @@ const Rubriques = () => {
                     size="small"
                     type="dashed"
                     onClick={() => setList(true)}
-                    style={{ width: "20%" }}
+                    style={{ width: "22%" }}
                     icon={<CheckOutlined />}
                   >
                     Confirmer
