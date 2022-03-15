@@ -1,7 +1,7 @@
 import React from "react";
 import { Switch, BrowserRouter, Route } from "react-router-dom";
 import Rubriques from "./component/rubriques/index";
-import AddRubrique from "./component/AddRubrique";
+import AddRubrique from "./components/rubriques/AddRubrique";
 import Layout from "./PagePartager/layout";
 
 const App = () => {

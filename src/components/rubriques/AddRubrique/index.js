@@ -151,7 +151,7 @@ const DynamicFieldSet = ({ form, data, onClickConfirm, onClickDelete }) => (
     </Form.List>
   </Form>
 );
-const AddRubriques = () => {
+const AddRubrique = () => {
   const data = ["Rub1", "Rub2", "Rub3", "Rub4"];
 
   const [form] = Form.useForm();
@@ -187,4 +187,4 @@ const AddRubriques = () => {
   );
 };
 
-export default AddRubriques;
+export default AddRubrique;
