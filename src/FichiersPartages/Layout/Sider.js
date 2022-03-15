@@ -1,6 +1,6 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { Layout, Menu } from "antd";
-import { useHistory } from "react-router";
 import "./styles.css";
 import {
   DatabaseOutlined,
@@ -14,7 +14,7 @@ const { SubMenu } = Menu;
 const { Sider } = Layout;
 
 const SiderPage = () => {
-  const { push } = useHistory();
+  const history = useHistory();
   return (
     <Sider className="site-layout-background" width={200}>
       <Menu
@@ -25,18 +25,15 @@ const SiderPage = () => {
       >
         <SubMenu key="sub1" icon={<DatabaseOutlined />} title="Rubriques">
           <Menu.Item
+            onClick={() => history.push("/rubriques/add")}
             key="1"
-            icon={<FileAddOutlined />}
-            onClick={() => {
-              console.log("hwwwwwww :>> ");
-              push("/rubriques/ajouter");
-            }}
+            icon={<OrderedListOutlined />}
           >
-            Ajouter rubrique
-          </Menu.Item>
-
-          <Menu.Item key="2" icon={<OrderedListOutlined />}>
             Liste des rubriques
+          </Menu.Item>
+          <Menu.Item key="2" icon={<FileAddOutlined />}>
+            {" "}
+            Ajouter Rubrique
           </Menu.Item>
         </SubMenu>
         <SubMenu key="sub2" icon={<LaptopOutlined />} title="subnav 2">
@@ -49,7 +46,7 @@ const SiderPage = () => {
           <Menu.Item key="9">option9</Menu.Item>
           <Menu.Item key="10">option10</Menu.Item>
           <Menu.Item key="11">option11</Menu.Item>
-          <Menu.Item key="12">option12</Menu.Item>
+          <Menu.Item key="12">ogit ption12</Menu.Item>
         </SubMenu>
       </Menu>
     </Sider>
