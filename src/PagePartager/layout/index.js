@@ -17,8 +17,6 @@ const Container = (props)  =>{
   };
   
   return(
-    
-    
     <Layout>
       
       <Sider collapsed={collapsed}/>
