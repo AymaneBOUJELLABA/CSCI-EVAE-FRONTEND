@@ -1,6 +1,7 @@
-import React from "react";
-import { Alert } from "antd";
+import { Alert, Button, Result } from "antd";
+
 import { Link } from "react-router-dom";
+import React from "react";
 
 const Error = (props) => {
   return (
