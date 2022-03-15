@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, Collapse, Spin, Button } from "antd";
-import { LoadingOutlined } from "@ant-design/icons";
+import { Row, Col, Collapse, Spin, Button, Tag, Divider } from "antd";
 import "./style.css";
 import { useHistory } from "react-router";
+import ListRubrique from "./listRubrique";
+import { Link } from "react-router-dom";
 
 const { Panel } = Collapse;
 
@@ -47,29 +48,12 @@ const Rubriques = () => {
         <Col span={24}>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <h1>Rubriques</h1>
-            <Button onClick={() => history.push("/rubriques/add")}>
+            <Link to="/rubriques/add">
               Ajouter Rubrique
-            </Button>
+            </Link>
           </div>
 
-          <Collapse accordion>
-            {rubriques.map((item, index) => (
-              <Panel
-                style={{ justifyItems: "center" }}
-                header={item.designation.replace(/�/g, "é")}
-                key={item.idRubrique}
-              >
-                <ul>
-                  {item.questions.map((question) => (
-                    <li key={question.idQuestion}>
-                      {" "}
-                      {question.intitule.replace(/�/g, "é")}
-                    </li>
-                  ))}
-                </ul>
-              </Panel>
-            ))}
-          </Collapse>
+          <ListRubrique rubriques={rubriques} />
         </Col>
       </Row>
     </div>

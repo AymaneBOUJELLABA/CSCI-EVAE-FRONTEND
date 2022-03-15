@@ -14,7 +14,6 @@ const { SubMenu } = Menu;
 const { Sider } = Layout;
 
 const SiderPage = () => {
-  const history = useHistory();
   return (
     <Sider className="site-layout-background" width={200}>
       <Menu
@@ -25,7 +24,6 @@ const SiderPage = () => {
       >
         <SubMenu key="sub1" icon={<DatabaseOutlined />} title="Rubriques">
           <Menu.Item
-            onClick={() => history.push("/rubriques/add")}
             key="1"
             icon={<OrderedListOutlined />}
           >
