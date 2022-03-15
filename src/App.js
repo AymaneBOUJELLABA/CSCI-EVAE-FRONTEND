@@ -1,16 +1,18 @@
 import React from "react";
-import { Switch, BrowserRouter, Route } from "react-router-dom";
-import Rubrique from "./component/rubriques";
-import Layout from "./FichiersPartages/Layout";
+import { Switch, Route } from "react-router-dom";
+
+import rubrique from "./component/rubriques";
+import Layout from "./PagePartager/layout";
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <Layout>
       <Switch>
-        <Route component={Rubrique} path="/" exact />
+        <Route component={rubrique} path="/AjouterRubriques" exact />
       </Switch>
-    </BrowserRouter>
+      </Layout>
+  
   );
 };
 
-export default Layout(App);
+export default App;
