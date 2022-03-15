@@ -1,8 +1,9 @@
-import React from "react";
-import { Switch, BrowserRouter, Route } from "react-router-dom";
-import Rubriques from "./component/rubriques/index";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+
 import AddRubrique from "./components/rubriques/AddRubrique";
-import Layout from "./PagePartager/layout";
+import Layout from "./shared/layout";
+import React from "react";
+import Rubriques from "./components/rubriques";
 
 const App = () => {
   return (
