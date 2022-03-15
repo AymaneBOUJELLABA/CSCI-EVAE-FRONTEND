@@ -4,7 +4,7 @@ import AddRubrique from "./components/rubriques/AddRubrique";
 import DragTest from "./components/test/dragTest";
 import Error from "./shared/Error";
 import Home from "./components/home";
-import Layout from "./shared/Layout";
+import Layout from "./shared/layout";
 import React from "react";
 import Rubriques from "./components/rubriques";
 

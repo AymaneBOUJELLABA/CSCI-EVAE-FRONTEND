@@ -16,7 +16,8 @@ const Container = (props) => {
 
   return (
     <Layout>
-      <Sider collapsed={collapsed} />
+      {/* <Sider collapsed={collapsed} /> */}
+      <Sider _collapsed={collapsed} />
       <Layout className="site-layout" style={{ height: "100vh" }}>
         <Header togglee={toggle} collapsed={collapsed} />
 
