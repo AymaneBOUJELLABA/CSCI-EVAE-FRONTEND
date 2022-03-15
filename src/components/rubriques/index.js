@@ -4,6 +4,7 @@ import "./style.css";
 import { useHistory } from "react-router";
 import ListRubrique from "./listRubrique";
 import { Link } from "react-router-dom";
+import Error from '../../PagePartager/layout/Error';
 
 const { Panel } = Collapse;
 
@@ -11,7 +12,7 @@ const Rubriques = () => {
   const history = useHistory();
   const [rubriques, setRubriques] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     setLoading(true);
@@ -29,7 +30,7 @@ const Rubriques = () => {
       })
       .catch((error) => {
         setLoading(false);
-        setError(true);
+        setError(error);
       });
   }, []);
 
@@ -40,7 +41,7 @@ const Rubriques = () => {
         size="large"
       />
     );
-  if (error) return <div>Erreur !</div>;
+  if (error===null) return <Error />;
 
   return (
     <div className="container__antd p-top-20">

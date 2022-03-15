@@ -12,6 +12,7 @@ const App = () => {
           <Route component={Rubriques} path="/ues" exact/>
           <Route component={AddRubrique} path="/rubriques/add" exact />
           <Route component={Rubriques} path="/rubriques" exact/>
+          <Route component={Rubriques} path="/"/>
         </Switch>
       </Layout>
   );

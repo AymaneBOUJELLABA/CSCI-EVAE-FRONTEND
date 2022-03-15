@@ -1,23 +1,14 @@
 import React from 'react'
 import { Alert } from 'antd';
+import { Link } from 'react-router-dom';
 
-const onClose = (e) => {
-  console.log(e, 'I was closed.');
-};
-
-const ErrorRubrique =() => {
-
-
+const Error =(props) => {
 return(
-    <>
-     <Alert
-      message="Error Text"
-      description="Error Description Error Description Error Description Error Description Error Description Error Description"
-      type="error"
-      closable
-      onClose={onClose}
+    <Result
+      status="404"
+      title="404"
+      subTitle="Sorry, the page you visited does not exist."
+      extra={<Link to="/"><Button type="primary">Back Home</Button></Link>}
     />
-    </>
-)
-}
-export default ErrorRubrique;
+)}
+export default Error;
