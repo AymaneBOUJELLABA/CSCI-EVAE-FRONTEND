@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Row, Col, Collapse, Spin, Button, Tag, Divider } from "antd";
 import "./style.css";
-import { useHistory } from "react-router";
-import ListRubrique from "./listRubrique";
+
+import { Button, Col, Collapse, Divider, Row, Spin, Tag } from "antd";
+import React, { useEffect, useState } from "react";
+
+import Error from '../../shared/Error';
 import { Link } from "react-router-dom";
-import Error from '../../PagePartager/layout/Error';
+import ListRubrique from "./listRubrique";
+import { useHistory } from "react-router";
 
 const { Panel } = Collapse;
 
@@ -41,7 +43,7 @@ const Rubriques = () => {
         size="large"
       />
     );
-  if (error===null) return <Error />;
+  if (error!==null) return <Error />;
 
   return (
     <div className="container__antd p-top-20">
