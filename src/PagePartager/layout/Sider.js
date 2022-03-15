@@ -36,13 +36,11 @@ export default class SiderApp extends Component {
         >
           
           <SubMenu key="sub1" icon={<AppstoreOutlined />} title="Rubrique" >
-            <Menu.Item key="5"><Link to="/AjouterRubriques" style={{textDecoration:"none"}}>Ajouter Rubrique</Link></Menu.Item>
+            <Menu.Item key="5"><Link to="/rubriques" style={{textDecoration:"none"}}>Rubriques</Link></Menu.Item>
             
           </SubMenu>
           <SubMenu key="sub2" icon={<AppstoreOutlined />} title="evaluation">
-            <Menu.Item key="9"><Link to="/AjouterEvaluation" style={{textDecoration:"none"}}>Ajouter evaluation</Link> </Menu.Item>
-            <Menu.Item key="10"><Link to="/VisualiseEvaluation" style={{textDecoration:"none"}}>Visualiser evaluation</Link></Menu.Item>
-            
+            <Menu.Item key="9"><Link to="/ues" style={{textDecoration:"none"}}>List des UEs</Link> </Menu.Item>            
           </SubMenu>
           
       
