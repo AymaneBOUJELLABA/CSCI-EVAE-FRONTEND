@@ -40,3 +40,7 @@
 .ant-table-pagination-right {
   justify-content: center;
 }
+
+.app-icon {
+  pointer-events: 'none';
+}

@@ -11,7 +11,8 @@ import { useHistory } from "react-router";
 
 const { Panel } = Collapse;
 
-const Rubriques = () => {
+const Rubriques = () =>
+{
   const history = useHistory();
   const [rubriques, setRubriques] = useState([]);
   const [loading, setLoading] = useState(false);
