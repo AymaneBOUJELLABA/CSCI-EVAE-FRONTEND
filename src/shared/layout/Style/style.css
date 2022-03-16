@@ -10,7 +10,7 @@
   color: #1890ff;
 }
 
- .logo {
+.logo {
   height: 32px;
   margin: 16px;
 }
@@ -18,12 +18,6 @@
 .site-layout .site-layout-background {
   background: #fff;
 }
-.contentscroll{
+.contentscroll {
   overflow: auto;
-  
-}
-
-img{
-  height: 100%;
-  width: 80%;
 }
