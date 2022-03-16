@@ -3,10 +3,10 @@ import "./style.css";
 import { Button, Col, Collapse, Divider, Row, Spin, Tag } from "antd";
 import React, { useEffect, useState } from "react";
 
-import Error from '../../shared/Error';
+import Error from "../../shared/Error";
 import { Link } from "react-router-dom";
 import ListRubrique from "./listRubrique";
-import getAllRubriques from "../../services/RubriqueService"
+import getAllRubriques from "../../services/RubriqueService";
 import { useHistory } from "react-router";
 
 const { Panel } = Collapse;
@@ -17,17 +17,15 @@ const Rubriques = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  useEffect(() =>
-  {
+  useEffect(() => {
     setLoading(true);
-    const loadData = async () =>
-    {
+    const loadData = async () => {
       const response = await getAllRubriques();
-      console.log(response)
+      console.log(response);
       setRubriques(response);
-      setError(response.status?response:null);
-      setLoading(false);  
-    }
+      setError(response.status ? response : null);
+      setLoading(false);
+    };
     loadData();
   }, []);
 
@@ -38,7 +36,7 @@ const Rubriques = () => {
         size="large"
       />
     );
-  if (error!==null) return <Error />;
+  if (error !== null) return <Error />;
 
   return (
     <div className="container__antd p-top-20">
@@ -46,9 +44,7 @@ const Rubriques = () => {
         <Col span={24}>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <h1>Rubriques</h1>
-            <Link to="/rubriques/add">
-              Ajouter Rubrique
-            </Link>
+            <Link to="/rubriques/add">Ajouter Rubrique</Link>
           </div>
 
           <ListRubrique rubriques={rubriques} />
