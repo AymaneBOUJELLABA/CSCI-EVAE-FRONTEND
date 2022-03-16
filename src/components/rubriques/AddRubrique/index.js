@@ -8,6 +8,7 @@ import {
 } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
 
+import {ajoutRubrique} from "../../../services/RubriqueService"
 import cuid from "cuid";
 import flatten from "lodash/flatten";
 import { isEmpty } from "lodash";
@@ -37,6 +38,9 @@ const DynamicFieldSet = ({
 }) => {
   const [form] = Form.useForm();
 
+
+
+  let lastkey;
   return (
     <Form
       initialValues={{
@@ -48,7 +52,10 @@ const DynamicFieldSet = ({
     >
       <Form.List name="designations">
         {(fields, { add, remove }, { errors }) => {
-          console.log("fields :>> ", fields);
+          
+          lastkey = fields[fields.length-1].key;
+
+          console.log(lastkey)
           return (
             <>
               {fields.map((field, index) => (
@@ -98,6 +105,7 @@ const DynamicFieldSet = ({
                           index: field.name,
                         })
                       }
+                      disabled={field.key <= lastkey? true:false}
                       required
                       id="input-rebrique"
                       size="large"
@@ -105,11 +113,14 @@ const DynamicFieldSet = ({
                       style={{ width: "60%" }}
                       addonAfter={
                         <MinusCircleOutlined
+                          disabled={field.key <= lastkey ? true:false}
                           className="dynamic-delete-button"
-                          onClick={() => {
+                          onClick={field.key <= lastkey ? null:() => {
                             remove(field.name);
-                            onClickDelete(field);
-                          }}
+                            onClickDelete(field);}}
+                            
+                            
+                           
                         />
                       }
                     />
@@ -180,15 +191,10 @@ const AddRubriques = () => {
     fetchData();
   }, []);
 
-
-  const handleSend = (e) =>
+  
+  const handleSend = () =>
   {
-    let newRub;
-
-    data.forEach((item,index) =>
-    {
-      
-    });
+      ajoutRubrique(data);
     
   }
 
