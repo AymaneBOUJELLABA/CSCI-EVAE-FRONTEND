@@ -3,6 +3,7 @@ import "./style.css";
 import { Button, Col, Collapse, Divider, Row, Spin, Tag } from "antd";
 import React, { useEffect, useState } from "react";
 
+import AddRubriques from "./AddRubrique";
 import Error from "../../shared/Error";
 import { Link } from "react-router-dom";
 import ListRubrique from "./listRubrique";
@@ -16,6 +17,7 @@ const Rubriques = () => {
   const [rubriques, setRubriques] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [update, setUpdate] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -27,7 +29,7 @@ const Rubriques = () => {
       setLoading(false);
     };
     loadData();
-  }, []);
+  }, [update]);
 
   if (loading)
     return (
@@ -38,13 +40,18 @@ const Rubriques = () => {
     );
   if (error !== null) return <Error />;
 
+
+  if(update)
+  {
+    return <AddRubriques closeUpdate={() => setUpdate(false)}/>
+  }
   return (
     <div className="container__antd p-top-20">
       <Row justify="space-between">
         <Col span={24}>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <h1>Rubriques</h1>
-            <Link to="/rubriques/add">Ajouter Rubrique</Link>
+            <Button onClick={()=>setUpdate(true)}>Ajouter Rubrique</Button>
           </div>
 
           <ListRubrique rubriques={rubriques} />

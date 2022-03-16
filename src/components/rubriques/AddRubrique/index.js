@@ -7,9 +7,8 @@ import {
 } from "@ant-design/icons";
 import { DynamicFieldSet } from "./DynamicFieldSet";
 import Error from "../../../shared/Error";
-import cuid from "cuid";
 
-const AddRubriques = () => {
+const AddRubriques = (props) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -35,13 +34,15 @@ const AddRubriques = () => {
     fetchData();
   }, []);
 
-  const handleSend = () => {
+  const handleSend = () =>
+  {
     ajoutRubrique(data);
+    props.closeUpdate();
   };
 
   const onSetNewRubrique = ({ form, value, index }) => {
     data.splice(index, 0, {
-      idRubrique: 1000,
+      idRubrique: null,
       ordre: index + 1,
       type: "RBS",
       designation: value,
