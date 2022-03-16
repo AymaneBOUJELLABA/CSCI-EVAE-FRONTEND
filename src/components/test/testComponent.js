@@ -1,7 +1,8 @@
-import React, { useEffect, useRef, useState} from 'react';
+import { Button, Col, Collapse, Form, Input, Row } from 'antd';
+import { MinusCircleOutlined, PlusOutlined, SearchOutlined } from '@ant-design/icons';
+import React, { useEffect, useRef, useState } from 'react';
+
 import InputRubrique from './inputRubrique';
-import { Button, Col, Collapse, Row } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
 
 const initialState = [
   {
@@ -23,97 +24,83 @@ const initialState = [
 
 export default function TestComponent()
 {
-  const { Panel } = Collapse;
-  const text = `
-  A dog is a type of domesticated animal.
-  Known for its loyalty and faithfulness,
-  it can be found as a welcome guest in many households across the world.
-`;
-  const [rubriques, setRubriques] = useState(initialState);
-  const [currentAdd, setCurrentAdd] = useState('none');
-  const [activekey,setActiveKey] = useState('0');
-
-  rubriques.sort((a,b) => {return a.ordre- b.ordre;});
-
-  const handleClick = (e) =>
-  {
-    setCurrentAdd(e.target.id);
-    setActiveKey(e.target.key);
-  }     
-
-  const onFinish = (values) =>
-  {
-    let ordre = currentAdd==="first" ? 1: currentAdd.split('-')[1];
-
-    let newArray = [...rubriques];
-
-    for(let i = 0; i < newArray.length;i++)
-    {
-      if(newArray[i].ordre >= ordre)
-        newArray[i].ordre++;
-    }
-
-    setRubriques([
-      ...newArray,
-      {
-        id:rubriques[rubriques.length-1].id++,
-        ordre : Number(ordre),
-        nom : values.nomRubrique
-      }
-    ])
+  const onFinish = values => {
+    console.log('Received values of form:', values);
   };
 
-  let key=1;
-  return(
-    <>
-      <ul>
-      {rubriques.map((item,index)=>(
-          <div key={index}>
-          <li>
-            {item.nom+' '+item.id+'  ordre:'+item.ordre}
-            <button id={'li-'+(item.ordre+1)} key={index} onClick={handleClick}>{'Add'+(item.ordre+1)}</button>
-          </li>
-
-          </div>
-        ))}    
-      </ul>
-
-
-      <Button id="first" onClick={handleClick} type="primary" size="small" >add first</Button>
-      <Row>
-        <Col style={{display: 'flex',justifyContent: 'space-around',flexDirection: 'column'}}>
+  return (
+    <Form name="dynamic_form_item" onFinish={onFinish}>
+      <Form.List
+        name="names"
+        rules={[
           {
-            rubriques.map((item,index)=>(
-              <button id={'li-'+(item.ordre+1)} key={index} onClick={handleClick}>{'Add'+(item.ordre+1)}</button>
-            ))
-          }
-        </Col>
-        <Col>
-          <Collapse bordered>
-            {currentAdd==="first"?
-              <Panel key={key++} header="Ajouter premier rubrique">
-                <InputRubrique onFinish={onFinish}/>
-              </Panel>:''}
-            {
-              rubriques.map((item,index)=>
-              (               
-                <>
-                  <Panel key={key++} header={item.nom+' '+item.id}>
-                    {item.nom}
-                  </Panel>
-
-                  {currentAdd==="li-"+(item.ordre+1)?
-                    <Panel key={key++} header={'Ajouter une rubrique dans la position ' + (item.ordre+1)}showArrow={false}>
-                      <InputRubrique onFinish={onFinish}/>
-                    </Panel> : ''}
-                </>
-              ))
-            }
-          </Collapse>
-        </Col>
-      </Row>
-      
-      
-    </>
+            validator: async (_, names) => {
+              if (!names || names.length < 2) {
+                return Promise.reject(new Error('At least 2 passengers'));
+              }
+            },
+          },
+        ]}
+      >
+        {(fields, { add, remove }, { errors }) => (
+          <>
+            {fields.map((field, index) => (
+              <Form.Item
+                label={index === 0 ? 'Passengers' : ''}
+                required={false}
+                key={field.key}
+              >
+                <Form.Item
+                  {...field}
+                  validateTrigger={['onChange', 'onBlur']}
+                  rules={[
+                    {
+                      required: true,
+                      whitespace: true,
+                      message: "Please input passenger's name or delete this field.",
+                    },
+                  ]}
+                  noStyle
+                >
+                  <Input placeholder="passenger name" style={{ width: '60%' }} />
+                </Form.Item>
+                {fields.length > 1 ? (
+                  <MinusCircleOutlined
+                    className="dynamic-delete-button"
+                    onClick={() => remove(field.name)}
+                  />
+                ) : null}
+              </Form.Item>
+            ))}
+            <Form.Item>
+              <Button
+                type="dashed"
+                onClick={() => add()}
+                style={{ width: '60%' }}
+                icon={<PlusOutlined />}
+              >
+                Add field
+              </Button>
+              <Button
+                type="dashed"
+                onClick={() => {
+                  add('The head item', 0);
+                }}
+                style={{ width: '60%', marginTop: '20px' }}
+                icon={<PlusOutlined />}
+              >
+                Add field at head
+              </Button>
+              <Form.ErrorList errors={errors} />
+            </Form.Item>
+          </>
+        )}
+      </Form.List>
+      <Form.Item>
+        <Button type="primary" htmlType="submit">
+          Submit
+        </Button>
+      </Form.Item>
+    </Form>
   );
 } 

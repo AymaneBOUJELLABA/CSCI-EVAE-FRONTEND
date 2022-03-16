@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { Form, Input, Button, Row, Col, Collapse, Spin } from "antd";
+import { Button, Col, Collapse, Form, Input, Row, Spin } from "antd";
 import {
-  MinusCircleOutlined,
-  PlusCircleTwoTone,
   CheckCircleOutlined,
   CheckOutlined,
+  MinusCircleOutlined,
+  PlusCircleTwoTone,
 } from "@ant-design/icons";
+import React, { useEffect, useState } from "react";
+
 import flatten from "lodash/flatten";
 import { isEmpty } from "lodash";
 
@@ -141,6 +142,7 @@ const DynamicFieldSet = ({ data, onSetNewRubrique, onClickDelete }) => {
     </Form>
   );
 };
+
 const AddRubriques = () => {
   //const data = ["Rub1", "Rub2", "Rub3", "Rub4"];
   const [data, setData] = useState([]);
@@ -174,7 +176,7 @@ const AddRubriques = () => {
 
   // const [disabled, setdisabled] = useState(true);
   const onSetNewRubrique = ({ form, value, index }) => {
-    console.log("form :>> ");
+    console.log("form :>> ",form);
     console.log("value :>> ", value);
     console.log("index :>> ", index);
 
