@@ -8,7 +8,7 @@ import {
 } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
 
-import {ajoutRubrique} from "../../../services/RubriqueService"
+import { ajoutRubrique } from "../../../services/RubriqueService";
 import cuid from "cuid";
 import flatten from "lodash/flatten";
 import { isEmpty } from "lodash";
@@ -38,8 +38,6 @@ const DynamicFieldSet = ({
 }) => {
   const [form] = Form.useForm();
 
-
-
   let lastkey;
   return (
     <Form
@@ -52,10 +50,9 @@ const DynamicFieldSet = ({
     >
       <Form.List name="designations">
         {(fields, { add, remove }, { errors }) => {
-          
-          lastkey = fields[fields.length-1].key;
+          lastkey = fields[fields.length - 1].key;
 
-          console.log(lastkey)
+          console.log(lastkey);
           return (
             <>
               {fields.map((field, index) => (
@@ -105,7 +102,7 @@ const DynamicFieldSet = ({
                           index: field.name,
                         })
                       }
-                      disabled={field.key <= lastkey? true:false}
+                      disabled={field.key <= lastkey ? true : false}
                       required
                       id="input-rebrique"
                       size="large"
@@ -113,14 +110,16 @@ const DynamicFieldSet = ({
                       style={{ width: "60%" }}
                       addonAfter={
                         <MinusCircleOutlined
-                          disabled={field.key <= lastkey ? true:false}
+                          disabled={field.key <= lastkey ? true : false}
                           className="dynamic-delete-button"
-                          onClick={field.key <= lastkey ? null:() => {
-                            remove(field.name);
-                            onClickDelete(field);}}
-                            
-                            
-                           
+                          onClick={
+                            field.key <= lastkey
+                              ? null
+                              : () => {
+                                  remove(field.name);
+                                  onClickDelete(field);
+                                }
+                          }
                         />
                       }
                     />
@@ -191,13 +190,9 @@ const AddRubriques = () => {
     fetchData();
   }, []);
 
-  
-  const handleSend = () =>
-  {
-      ajoutRubrique(data);
-    
-  }
-
+  const handleSend = () => {
+    ajoutRubrique(data);
+  };
 
   const onSetNewRubrique = ({ form, value, index }) => {
     data.splice(index, 0, {
@@ -210,17 +205,15 @@ const AddRubriques = () => {
     setData(data.map((item, key) => ({ ...item, ordre: key + 1 })));
   };
 
-  const onClickDelete = (field) =>
-  {
+  const onClickDelete = (field) => {
     setData(
       [...data.filter((_, index) => index !== field.name)].map(
         (item, index) => {
           return { ...item, ordre: index + 1 };
         }
-      ))
-    
-  }
-
+      )
+    );
+  };
 
   console.log("data :>> ", data);
 
