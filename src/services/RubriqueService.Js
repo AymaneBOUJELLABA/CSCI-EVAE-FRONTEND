@@ -3,10 +3,8 @@ const API_URL = "http://localhost:8082/api/rubriques";
 
 const getAllRubriques = async () =>
 {
-    let response;
-    let error;
     
-    fetch(API_URL,
+    const response = fetch(API_URL,
     {
       method: "GET",
       headers: {
@@ -16,15 +14,44 @@ const getAllRubriques = async () =>
       .then((response) => response.json())
       .then((data) =>
       {
-        response = data;
-        console.log("Get all rubriques : ", response);
+        
+        console.log("Get all rubriques : ", data);
+        return data;
       })
       .catch((error) =>
       {
-        error = error
+          console.error("Erreur get All rubriques", error);
+          return error;
       });
-      return {
-          data : response,
-          error : error
-      }
+
+      return response;
 }
+
+
+const ajoutRubrique = async (rubrique) =>
+{
+    const response = fetch(API_URL,
+    {
+        method: "POST",
+        body : JSON.stringify(rubrique),
+        headers: {
+        "Content-Type": "application/json",
+        },
+    })
+    .then((response) => response.json())
+    .then((data) =>
+    {
+    
+        console.log("Ajouter rubrique : ", data);
+        return data;
+    })
+    .catch((error) =>
+    {
+        console.error("Erreur ajouter rubrique", error);
+        return error;
+    });
+
+    return response;
+}
+
+export default getAllRubriques;
