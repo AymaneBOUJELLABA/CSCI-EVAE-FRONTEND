@@ -22,7 +22,7 @@ export const getAllRubriques = async () => {
 
 export const ajoutRubrique = async (rubriques) => {
   const response = fetch(API_URL + "/AddOrUpdate", {
-    method: "PUT",
+    method: "POST",
     body: JSON.stringify(rubriques),
     headers: {
       "Content-Type": "application/json",

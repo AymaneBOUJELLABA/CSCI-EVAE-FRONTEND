@@ -43,7 +43,7 @@ const AddRubriques = (props) => {
 
   const onSetNewRubrique = ({ form, value, index }) => {
     data.splice(index, 0, {
-      idRubrique: null,
+      idRubrique: 10000,
       ordre: index + 1,
       type: "RBS",
       designation: value,
