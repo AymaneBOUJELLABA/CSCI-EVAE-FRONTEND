@@ -1,19 +1,14 @@
 import "./style.css";
 
-import { Button, Col, Collapse, Divider, Row, Spin, Tag } from "antd";
+import { Button, Col, Row, Spin } from "antd";
 import React, { useEffect, useState } from "react";
 
 import AddRubriques from "./AddRubrique";
 import Error from "../../shared/Error";
-import { Link } from "react-router-dom";
 import ListRubrique from "./listRubrique";
 import { getAllRubriques } from "../../services/RubriqueService";
-import { useHistory } from "react-router";
-
-const { Panel } = Collapse;
 
 const Rubriques = () => {
-  const history = useHistory();
   const [rubriques, setRubriques] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
