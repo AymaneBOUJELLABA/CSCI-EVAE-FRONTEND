@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import Error from '../../shared/Error';
 import { Link } from "react-router-dom";
 import ListRubrique from "./listRubrique";
+import getAllRubriques from "../../services/RubriqueService"
 import { useHistory } from "react-router";
 
 const { Panel } = Collapse;
@@ -16,24 +17,18 @@ const Rubriques = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
+  useEffect(() =>
+  {
     setLoading(true);
-    fetch("http://localhost:8082/api/rubriques", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setLoading(false);
-        setRubriques(data);
-        console.log("Success:", data);
-      })
-      .catch((error) => {
-        setLoading(false);
-        setError(error);
-      });
+    const loadData = async () =>
+    {
+      const response = await getAllRubriques();
+      console.log(response)
+      setRubriques(response);
+      setError(response.status?response:null);
+      setLoading(false);  
+    }
+    loadData();
   }, []);
 
   if (loading)

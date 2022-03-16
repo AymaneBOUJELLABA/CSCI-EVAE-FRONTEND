@@ -1,27 +1,9 @@
 import { Col, Collapse, Divider, Row, Tag } from 'antd'
 import React, { useEffect } from 'react'
 
-import getAllRubriques from '../../services/RubriqueService';
-
 const {Panel} = Collapse;
 export default function ListRubrique(props)
 {
-
-
-  useEffect(() =>
-  {
-    const loadData = async () => {
-      const response = await getAllRubriques();
-
-      console.log(response);
-    }
-    
-  
-    return () => {
-      
-    }
-  }, [])
-  
   return (
     <Collapse accordion>
             {props.rubriques.map((item, index) => (
