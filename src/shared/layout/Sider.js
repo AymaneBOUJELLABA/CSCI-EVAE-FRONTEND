@@ -1,13 +1,15 @@
+import {
+  AppstoreAddOutlined,
+  AppstoreOutlined,
+  DatabaseOutlined,
+  UnorderedListOutlined,
+} from "@ant-design/icons";
 import { Layout, Menu } from "antd";
 import React, { useState } from "react";
+
 import { Link } from "react-router-dom";
 import ubo from "../../ubo.png";
-import {
-  AppstoreOutlined,
-  UnorderedListOutlined,
-  AppstoreAddOutlined,
-  DatabaseOutlined,
-} from "@ant-design/icons";
+
 const { Sider } = Layout;
 const { SubMenu } = Menu;
 const rootSubmenuKeys = ["sub1", "sub2", "sub3"];
@@ -65,14 +67,14 @@ const Sider2 = (props) => {
           </Menu.Item>
         </SubMenu>
         <SubMenu key="sub2" icon={<AppstoreOutlined />} title="Test">
-          <Menu.Item key="2">
+          <Menu.Item key="3">
             <Link to="/test" style={{ textDecoration: "none" }}>
               Test
             </Link>
           </Menu.Item>
         </SubMenu>
         <SubMenu key="sub3" icon={<AppstoreOutlined />} title="Evaluation">
-          <Menu.Item key="3">
+          <Menu.Item key="4">
             <Link to="/ues" style={{ textDecoration: "none" }}>
               List des UEs
             </Link>{" "}
