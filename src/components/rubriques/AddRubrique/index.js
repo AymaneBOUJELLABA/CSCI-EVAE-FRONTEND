@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Form, Input, Button, Row, Col, Collapse, Spin } from "antd";
+import { Form, Input, Button, Row, Col, Spin, Space } from "antd";
 import {
   MinusCircleOutlined,
   PlusCircleTwoTone,
-  CheckCircleOutlined,
   CheckOutlined,
+  ClockCircleOutlined,
 } from "@ant-design/icons";
-import flatten from "lodash/flatten";
-import { isEmpty } from "lodash";
+import cuid from "cuid";
 
 const formItemLayout = {
   labelCol: {
@@ -26,7 +25,12 @@ const formItemLayoutWithOutLabel = {
   },
 };
 
-const DynamicFieldSet = ({ data, onSetNewRubrique, onClickDelete }) => {
+const DynamicFieldSet = ({
+  data,
+  setData,
+  onSetNewRubrique,
+  onClickDelete,
+}) => {
   const [form] = Form.useForm();
 
   return (
@@ -83,7 +87,7 @@ const DynamicFieldSet = ({ data, onSetNewRubrique, onClickDelete }) => {
                     noStyle
                   >
                     <Input
-                      onChange={(_) =>
+                      onBlur={(_) =>
                         onSetNewRubrique({
                           form,
                           value: _.target.value,
@@ -142,7 +146,6 @@ const DynamicFieldSet = ({ data, onSetNewRubrique, onClickDelete }) => {
   );
 };
 const AddRubriques = () => {
-  //const data = ["Rub1", "Rub2", "Rub3", "Rub4"];
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -172,22 +175,25 @@ const AddRubriques = () => {
     fetchData();
   }, []);
 
-  // const [disabled, setdisabled] = useState(true);
   const onSetNewRubrique = ({ form, value, index }) => {
-    console.log("form :>> ");
-    console.log("value :>> ", value);
-    console.log("index :>> ", index);
-
-    const designations = form.getFieldValue("designations");
-    const ff = designations.map((item) =>
-      data.find((el) => el.designation === item)
+    data.splice(index, 0, {
+      idRubrique: cuid(),
+      ordre: index + 1,
+      type: "RBS",
+      designation: value,
+      questions: [],
+    });
+    setData(data.map((item, key) => ({ ...item, ordre: key + 1 })));
+  };
+  const onClickDelete = (field) => {
+    setData(
+      [...data.filter((_, index) => index !== field.name)].map(
+        (item, index) => {
+          return { ...item, ordre: index + 1 };
+        }
+      )
     );
   };
-  //setData(flatten(getFieldValue("names")));
-
-  const onClickDelete = (field) =>
-    setData([...data.filter((_, index) => index !== field.name)]);
-
   console.log("data :>> ", data);
 
   if (idle || loading)
@@ -207,6 +213,7 @@ const AddRubriques = () => {
               <Button
                 size="small"
                 type="dashed"
+                htmlType="submit"
                 onClick={() => {}}
                 style={{ width: "20%" }}
                 icon={<CheckOutlined />}
@@ -218,8 +225,9 @@ const AddRubriques = () => {
           <DynamicFieldSet
             {...{
               data: data.sort((a, b) => a.ordre - b.ordre),
-              onSetNewRubrique,
               onClickDelete,
+              setData,
+              onSetNewRubrique,
             }}
           />
         </Col>

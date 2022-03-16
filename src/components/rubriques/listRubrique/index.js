@@ -1,4 +1,4 @@
-import { Col, Collapse, Divider, Row, Tag } from "antd";
+import { Col, Collapse, Divider, Row, Tag, Space } from "antd";
 import React from "react";
 
 const { Panel } = Collapse;
@@ -8,9 +8,9 @@ export default function ListRubrique(props) {
       {props.rubriques.map((item, index) => (
         <Panel
           style={{ justifyItems: "center" }}
-          header={item.designation}
+          header={<Tag color="cyan">{item.designation}</Tag>}
           key={item.idRubrique}
-          extra={<span>{item.ordre}</span>}
+          extra={<Tag color="blue">{item.ordre}</Tag>}
         >
           {item.questions.map((question) => (
             <div key={question.idQuestion}>

@@ -32,7 +32,9 @@ const Container = (props) => {
           {props.children}
         </Content>
 
-        <Footer style={{ textAlign: "center" }}>Dosi Promos ©2022</Footer>
+        <Footer style={{ textAlign: "center" }}>
+          CSCI-EVAE © 2022 by Dosi Student
+        </Footer>
       </Layout>
     </Layout>
   );
