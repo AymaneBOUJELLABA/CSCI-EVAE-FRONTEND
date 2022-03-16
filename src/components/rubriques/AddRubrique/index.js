@@ -1,10 +1,11 @@
 import { Button, Col, Row, Spin } from "antd";
+import {
+  CheckOutlined,
+  CloseOutlined
+} from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
 import { ajoutRubrique, getAllRubriques } from "../../../services/RubriqueService";
 
-import {
-  CheckOutlined
-} from "@ant-design/icons";
 import { DynamicFieldSet } from "./DynamicFieldSet";
 import Error from "../../../shared/Error";
 
@@ -90,6 +91,16 @@ const AddRubriques = (props) => {
                 icon={<CheckOutlined />}
               >
                 Confirmer
+              </Button>
+              <Button
+                size="small"
+                type="dashed"
+                htmlType="submit"
+                onClick={props.closeUpdate}
+                style={{ width: "20%" }}
+                icon={<CloseOutlined />}
+              >
+                Annuler
               </Button>
             </Col>
           </Row>
