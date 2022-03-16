@@ -1,26 +1,16 @@
-<<<<<<< HEAD
-import React, { useState, useEffect } from "react";
-import { Form, Input, Button, Row, Col, Spin, Space } from "antd";
-import {
-  MinusCircleOutlined,
-  PlusCircleTwoTone,
-  CheckOutlined,
-  ClockCircleOutlined,
-} from "@ant-design/icons";
-import cuid from "cuid";
-=======
-import { Button, Col, Collapse, Form, Input, Row, Spin } from "antd";
+import { Button, Col, Collapse, Form, Input, Row, Space, Spin } from "antd";
 import {
   CheckCircleOutlined,
   CheckOutlined,
+  ClockCircleOutlined,
   MinusCircleOutlined,
   PlusCircleTwoTone,
 } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
 
+import cuid from "cuid";
 import flatten from "lodash/flatten";
 import { isEmpty } from "lodash";
->>>>>>> e7ebd3e153841ef5f07a832b17059463b3c2bb92
 
 const formItemLayout = {
   labelCol: {
@@ -190,8 +180,20 @@ const AddRubriques = () => {
     fetchData();
   }, []);
 
+
+  const handleSend = (e) =>
+  {
+    let newRub;
+
+    data.forEach((item,index) =>
+    {
+      
+    });
+    
+  }
+
+
   const onSetNewRubrique = ({ form, value, index }) => {
-<<<<<<< HEAD
     data.splice(index, 0, {
       idRubrique: cuid(),
       ordre: index + 1,
@@ -201,24 +203,19 @@ const AddRubriques = () => {
     });
     setData(data.map((item, key) => ({ ...item, ordre: key + 1 })));
   };
-  const onClickDelete = (field) => {
+
+  const onClickDelete = (field) =>
+  {
     setData(
       [...data.filter((_, index) => index !== field.name)].map(
         (item, index) => {
           return { ...item, ordre: index + 1 };
         }
-      )
-=======
-    console.log("form :>> ",form);
-    console.log("value :>> ", value);
-    console.log("index :>> ", index);
+      ))
+    
+  }
 
-    const designations = form.getFieldValue("designations");
-    const ff = designations.map((item) =>
-      data.find((el) => el.designation === item)
->>>>>>> e7ebd3e153841ef5f07a832b17059463b3c2bb92
-    );
-  };
+
   console.log("data :>> ", data);
 
   if (idle || loading)
@@ -239,7 +236,7 @@ const AddRubriques = () => {
                 size="small"
                 type="dashed"
                 htmlType="submit"
-                onClick={() => {}}
+                onClick={handleSend}
                 style={{ width: "20%" }}
                 icon={<CheckOutlined />}
               >
