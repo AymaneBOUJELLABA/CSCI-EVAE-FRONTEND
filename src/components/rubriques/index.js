@@ -6,13 +6,12 @@ import React, { useEffect, useState } from "react";
 import Error from "../../shared/Error";
 import { Link } from "react-router-dom";
 import ListRubrique from "./listRubrique";
-import getAllRubriques from "../../services/RubriqueService";
+import { getAllRubriques } from "../../services/RubriqueService";
 import { useHistory } from "react-router";
 
 const { Panel } = Collapse;
 
-const Rubriques = () =>
-{
+const Rubriques = () => {
   const history = useHistory();
   const [rubriques, setRubriques] = useState([]);
   const [loading, setLoading] = useState(false);

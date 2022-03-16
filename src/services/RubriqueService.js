@@ -1,7 +1,7 @@
 const API_URL = "http://localhost:8082/api/rubriques";
 
 
-const getAllRubriques = async () =>
+export const getAllRubriques = async () =>
 {
     
     const response = fetch(API_URL,
@@ -28,9 +28,9 @@ const getAllRubriques = async () =>
 }
 
 
-const ajoutRubrique = async (rubrique) =>
+export const ajoutRubrique = async (rubrique) =>
 {
-    const response = fetch(API_URL,
+    const response = fetch(API_URL+'/AddOrUpdate',
     {
         method: "POST",
         body : JSON.stringify(rubrique),
@@ -53,5 +53,3 @@ const ajoutRubrique = async (rubrique) =>
 
     return response;
 }
-
-export default getAllRubriques;
