@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
 import { Form, Input, Button, Row, Col, Spin, Space } from "antd";
 import {
@@ -7,6 +8,19 @@ import {
   ClockCircleOutlined,
 } from "@ant-design/icons";
 import cuid from "cuid";
+=======
+import { Button, Col, Collapse, Form, Input, Row, Spin } from "antd";
+import {
+  CheckCircleOutlined,
+  CheckOutlined,
+  MinusCircleOutlined,
+  PlusCircleTwoTone,
+} from "@ant-design/icons";
+import React, { useEffect, useState } from "react";
+
+import flatten from "lodash/flatten";
+import { isEmpty } from "lodash";
+>>>>>>> e7ebd3e153841ef5f07a832b17059463b3c2bb92
 
 const formItemLayout = {
   labelCol: {
@@ -145,6 +159,7 @@ const DynamicFieldSet = ({
     </Form>
   );
 };
+
 const AddRubriques = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -176,6 +191,7 @@ const AddRubriques = () => {
   }, []);
 
   const onSetNewRubrique = ({ form, value, index }) => {
+<<<<<<< HEAD
     data.splice(index, 0, {
       idRubrique: cuid(),
       ordre: index + 1,
@@ -192,6 +208,15 @@ const AddRubriques = () => {
           return { ...item, ordre: index + 1 };
         }
       )
+=======
+    console.log("form :>> ",form);
+    console.log("value :>> ", value);
+    console.log("index :>> ", index);
+
+    const designations = form.getFieldValue("designations");
+    const ff = designations.map((item) =>
+      data.find((el) => el.designation === item)
+>>>>>>> e7ebd3e153841ef5f07a832b17059463b3c2bb92
     );
   };
   console.log("data :>> ", data);
