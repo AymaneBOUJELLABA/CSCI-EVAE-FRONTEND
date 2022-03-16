@@ -20,10 +20,10 @@ export const getAllRubriques = async () => {
   return response;
 };
 
-export const ajoutRubrique = async (rubrique) => {
+export const ajoutRubrique = async (rubriques) => {
   const response = fetch(API_URL + "/AddOrUpdate", {
     method: "PUT",
-    body: JSON.stringify(rubrique),
+    body: JSON.stringify(rubriques),
     headers: {
       "Content-Type": "application/json",
     },
