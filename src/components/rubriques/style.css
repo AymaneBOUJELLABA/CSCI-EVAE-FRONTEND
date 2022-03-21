@@ -86,3 +86,25 @@
 .ant-form-item-control-input-content {
   height: 74px;
 }
+.fab-item {
+  color: rgba(255, 255, 255, 0.603) !important;
+  background-color: rgba(0, 22, 41, 0.705) !important;
+}
+
+.fab-item:hover {
+  color: rgba(255, 255, 255, 0.904) !important;
+  background-color: rgba(0, 22, 41, 0.911) !important;
+}
+
+.addRubriquebtn {
+  color: rgba(255, 255, 255, 0.863) !important;
+  background-color: #00aefffb !important;
+}
+.addRubriquebtn:hover {
+  color: #fffffffb !important;
+  background-color: #001629 !important;
+}
+
+.h1-titre {
+  color: "red";
+}

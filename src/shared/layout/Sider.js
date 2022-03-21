@@ -1,5 +1,4 @@
 import {
-  AppstoreAddOutlined,
   AppstoreOutlined,
   DatabaseOutlined,
   UnorderedListOutlined,
@@ -60,24 +59,12 @@ const Sider2 = (props) => {
               Liste des Rubriques
             </Link>
           </Menu.Item>
-          <Menu.Item icon={<AppstoreAddOutlined />} key="2">
-            <Link to="/rubriques/add" style={{ textDecoration: "none" }}>
-              Ajouter Rubriques
-            </Link>
-          </Menu.Item>
         </SubMenu>
-        <SubMenu key="sub2" icon={<AppstoreOutlined />} title="Test">
-          <Menu.Item key="3">
-            <Link to="/test" style={{ textDecoration: "none" }}>
-              Test
+        <SubMenu key="sub2" icon={<DatabaseOutlined />} title="Unite Enseignementes">
+          <Menu.Item icon={<UnorderedListOutlined />} key="2">
+            <Link to="/UniteEnseignements" style={{ textDecoration: "none" }}>
+              Liste des UEs
             </Link>
-          </Menu.Item>
-        </SubMenu>
-        <SubMenu key="sub3" icon={<AppstoreOutlined />} title="Evaluation">
-          <Menu.Item key="4">
-            <Link to="/ues" style={{ textDecoration: "none" }}>
-              List des UEs
-            </Link>{" "}
           </Menu.Item>
         </SubMenu>
       </Menu>

@@ -44,3 +44,7 @@
 .app-icon {
   pointer-events: 'none';
 }
+
+.hidden-inputs {
+  display : none;
+}

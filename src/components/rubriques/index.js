@@ -7,6 +7,7 @@ import AddRubriques from "./AddRubrique";
 import Error from "../../shared/Error";
 import ListRubrique from "./listRubrique";
 import { getAllRubriques } from "../../services/RubriqueService";
+import { PlusCircleOutlined } from "@ant-design/icons";
 
 const Rubriques = () => {
   const [rubriques, setRubriques] = useState([]);
@@ -35,19 +36,20 @@ const Rubriques = () => {
     );
   if (error !== null) return <Error />;
 
-
-  if(update)
-  {
-    return <AddRubriques closeUpdate={() => setUpdate(false)}/>
+  if (update) {
+    return <AddRubriques closeUpdate={() => setUpdate(false)} />;
   }
   return (
     <div className="container__antd p-top-20">
       <Row justify="space-between">
         <Col span={24}>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <h1>Rubriques</h1>
-            <Button onClick={()=>setUpdate(true)}>Ajouter Rubrique</Button>
+            <h1 className="h1-titre">Liste des Rubriques</h1>
+            <Button className="addRubriquebtn" onClick={() => setUpdate(true)}>
+              <PlusCircleOutlined /> Ajouter Rubrique
+            </Button>
           </div>
+          <br />
 
           <ListRubrique rubriques={rubriques} />
         </Col>

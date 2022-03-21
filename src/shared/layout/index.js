@@ -1,9 +1,11 @@
-import React, { useState } from "react";
-import { Layout } from "antd";
-import Header from "./Header";
-import Sider from "./Sider";
 import "antd/dist/antd.css";
 import "./Style/style.css";
+
+import React, { useState } from "react";
+
+import Header from "./Header";
+import { Layout } from "antd";
+import Sider from "./Sider";
 
 const { Content, Footer } = Layout;
 
@@ -33,7 +35,7 @@ const Container = (props) => {
         </Content>
 
         <Footer style={{ textAlign: "center" }}>
-          CSCI-EVAE © 2022 by Dosi Student
+          CSCI-EVAE © 2022 créer par DOSI DEV Tiger
         </Footer>
       </Layout>
     </Layout>
