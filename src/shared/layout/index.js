@@ -34,7 +34,7 @@ const Container = (props) => {
           {props.children}
         </Content>
 
-        <Footer style={{ textAlign: "center" }}>
+        <Footer style={{ textAlign: "center",maxHeight:15}}>
           CSCI-EVAE © 2022 créer par DOSI DEV Tiger
         </Footer>
       </Layout>
