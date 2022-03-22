@@ -87,7 +87,7 @@ const AddRubriques = (props) => {
     }
     if (!found && !existed) {
       const element = {
-        idRubrique: 0,
+        idRubrique: -1,
         ordre: index + 1,
         type: "RBS",
         designation: value,

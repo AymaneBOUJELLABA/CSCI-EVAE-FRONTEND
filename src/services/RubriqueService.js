@@ -20,7 +20,9 @@ export const getAllRubriques = async () => {
   return response;
 };
 
-export const ajoutRubrique = async (rubriques) => {
+export const ajoutRubrique = async (rubriques) =>
+{
+  console.log('rubriques to send : ', rubriques)
   const response = fetch(API_URL + "/AddOrUpdate", {
     method: "POST",
     body: JSON.stringify(rubriques),
