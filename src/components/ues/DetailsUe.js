@@ -45,7 +45,7 @@ export default function DetailsUe({columns,table,loading,data})
     <PageHeader onBack={() => history.goBack()} title={<span><FileSearchOutlined />Détails</span>}
         subTitle={"Page de détails d'une unité d'enseignements" } 
         extra={[
-          <Button type="primary"> Statistique</Button>,
+          <Tag color="cyan">Statistique : </Tag>,
         ]}
       
           />
