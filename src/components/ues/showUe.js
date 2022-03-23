@@ -78,8 +78,7 @@ class ShowUe extends React.Component {
               shape="round"
               icon={<ScheduleOutlined />}
               onClick={() => 
-                this.setState({openPopup:true,ue:record})
-              }
+                window.location.href=`/Evaluation/popup/${record.codeUe}`}
             >
               Evaluation
             </Button>
