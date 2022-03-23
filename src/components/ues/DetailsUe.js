@@ -43,7 +43,11 @@ export default function DetailsUe({columns,table,loading,data})
   return (
     <>
     <PageHeader onBack={() => history.goBack()} title={<span><FileSearchOutlined />Détails</span>}
-        subTitle={"Page de détails d'une unité d'enseignements"}
+        subTitle={"Page de détails d'une unité d'enseignements" } 
+        extra={[
+          <Button type="primary"> Statistique</Button>,
+        ]}
+      
           />
     <div className='details-ue'>
       <Card loading={!loading} title={<span>{data.designation + ' ( ' + data.codeUe + ' )'}<Tag style={{float:'right'}} color="magenta">Semestre 9</Tag></span>}>

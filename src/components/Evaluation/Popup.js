@@ -115,7 +115,7 @@ export default function Popup (props)
       return () => {
         setEvaluation(initalEvalState)
       }
-    
+  
     }, []);
     console.log("UeInfo ", UeInfo)
     const initialValues = {
