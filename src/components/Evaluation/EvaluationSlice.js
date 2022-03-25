@@ -30,7 +30,6 @@ export const getEvaluationOfUe = async(codeUe) => {
         method:'GET'
       });
       const json = response.json();
-
       return json;
     }catch(e)
     {
@@ -108,3 +107,40 @@ export const getEvalParId = async (id) => {
   
       return response;
   }
+
+  export const getStudentsNumber = async (codeFormation, anneeUniv) =>
+{
+    try
+    {
+        const response = await fetch('http://localhost:8082/api/evaluations/students?codeFormation='+codeFormation+'&anneeUniv='+anneeUniv,
+        {
+            method:'GET'
+        });
+
+        const json = response.json();
+
+        return json;
+
+    }catch(e)
+    {
+        console.error(e);
+    }
+}
+
+export const getStudentsUnswerNumber = async (id) =>
+{
+    try
+    {
+        const response = await fetch('http://localhost:8082/api/evaluations/'+id+'/details',
+        {
+            method:'GET'
+        });
+
+        const json = response.json();
+        return json;
+
+    }catch(e)
+    {
+        console.error(e);
+    }
+}
