@@ -1,12 +1,55 @@
-import { Alert, Button, Card, Col, PageHeader, Result, Row, Table, Tag } from 'antd';
+import { Alert, Button, Card, Col, PageHeader, Result, Row, Table, Tag, Typography, Space, Spin } from 'antd';
 import { FileSearchOutlined, MailOutlined, PhoneOutlined } from '@ant-design/icons';
 import { Link, useHistory } from 'react-router-dom';
 
-import React from 'react'
+import React, { useEffect, useState } from 'react';
+import { getEvaluationOfUe, getStudentsNumber, getStudentsUnswerNumber } from '../Evaluation/EvaluationSlice';
 
 export default function DetailsUe({columns,table,loading,data})
 {
   const history = useHistory();
+  const { Text } = Typography;
+  const [ studentsNumber, setStudentsNumber ] = useState();
+  const [ studentsUnswerNumber , setStudentsUnswerNumber ] = useState();
+  const [evaluation, setEvaluation] = useState();
+
+  
+  useEffect(() => 
+  {
+    if(data && data.codeUe)
+    {
+      const fetchEval = async () =>
+      {
+        const response = await getEvaluationOfUe(data.codeUe);
+        setEvaluation(response);
+      }
+      fetchEval();
+    }
+    
+  },[data]);
+
+  useEffect(()=>
+  {
+    if(evaluation && evaluation.codeFormation)
+    {
+      const fetchData = async () =>
+      {
+        const etdNum = await getStudentsNumber(evaluation.codeFormation, evaluation.anneeUniversitaire);
+        setStudentsNumber(etdNum);
+      }
+
+      const fetchUnsNumb = async() => {
+        const etdUnsNum = await getStudentsUnswerNumber(evaluation.idEvaluation);
+        setStudentsUnswerNumber(etdUnsNum);
+      } 
+      fetchData();
+      fetchUnsNumb();
+    }
+  
+  },[evaluation])
+
+  console.log("students answer : ", studentsUnswerNumber);
+
   
   let EnseignantInfo;
   
@@ -18,7 +61,6 @@ export default function DetailsUe({columns,table,loading,data})
       nom : data.nomEnseigant,
       pernom : data.prenomEnseignant,
       emailUbo : data.emailUbo,
-      emailPerso : data.emailPerso,
       mobile: data.mobile
     }
 
@@ -43,7 +85,7 @@ export default function DetailsUe({columns,table,loading,data})
   return (
     <>
     <PageHeader onBack={() => history.goBack()} title={<span><FileSearchOutlined />Détails</span>}
-        subTitle={"Page de détails d'une unité d'enseignements"}
+        subTitle={"Page de détails d'une unité d'enseignements" } 
           />
     <div className='details-ue'>
       <Card loading={!loading} title={<span>{data.designation + ' ( ' + data.codeUe + ' )'}<Tag style={{float:'right'}} color="magenta">Semestre 9</Tag></span>}>
@@ -67,11 +109,13 @@ export default function DetailsUe({columns,table,loading,data})
                     )
                 }
               )}
+
             </Card>
+     
           </Col>  
         </Row>
-        <Row>
-          <Col style={{marginTop:5}} span={16}>
+        <Row justify='space-between'>
+          <Col style={{marginTop:40}} span={16}>
                 {!data.description ?
                   <Alert message={"Déscription de "+data.codeUe+ " :"} type="info" description="Aucune description disponible" />
                   :
@@ -80,6 +124,29 @@ export default function DetailsUe({columns,table,loading,data})
                   </Card>
                 }
           </Col>
+      
+        </Row>
+        <Row>
+        <Col style={{marginTop:40}} span ={6} offset={6}>
+            <Card title={"Historique "} type='inner' >
+              <Space direction="vertical">
+             
+              <Button type="primary" style={{}}>Historique (Graphe)</Button>
+              </Space>
+            </Card>
+          </Col>
+
+          {evaluation && evaluation.codeFormation &&
+          <Col style={{marginTop:40}} span ={6} offset={6}>
+            <Card title={"Evaluation "} type='inner' >
+              <Space direction="vertical">
+              <Text > Élève : {studentsUnswerNumber? studentsUnswerNumber+'/'+studentsNumber: <Spin />}  </Text>
+              <Text > AVG :  </Text>
+              <Button type="primary" style={{}}>Statistique </Button>
+              </Space>
+            </Card>
+          </Col>
+          }
         </Row>
       </Card>
     </div>
