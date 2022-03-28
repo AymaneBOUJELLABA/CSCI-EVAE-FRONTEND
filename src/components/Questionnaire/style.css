@@ -1,0 +1,19 @@
+.res-col {
+  justify-content: center;
+  display: flex;
+  /* padding-top: 4px;
+  padding-bottom: 4px; */
+}
+
+.res-tag {
+  width: 8em;
+  text-align: center;
+  /* padding-top: 10px; */
+}
+
+.emote-unhappy {
+  color: red;
+}
+.emote-unhappy::after {
+  color: rgb(17, 16, 16);
+}
