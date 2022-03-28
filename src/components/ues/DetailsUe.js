@@ -142,7 +142,10 @@ export default function DetailsUe({columns,table,loading,data})
               <Space direction="vertical">
               <Text > Élève : {studentsUnswerNumber? studentsUnswerNumber+'/'+studentsNumber: <Spin />}  </Text>
               <Text > AVG :  </Text>
-              <Button type="primary" style={{}}>Statistique </Button>
+              
+              <Button type="primary" style={{}}
+              onClick={() => window.location.href=`/resEval/${evaluation.idEvaluation}`}>Statistique </Button>
+             
               </Space>
             </Card>
           </Col>
