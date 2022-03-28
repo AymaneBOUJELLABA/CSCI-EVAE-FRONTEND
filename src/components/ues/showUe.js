@@ -72,6 +72,8 @@ class ShowUe extends React.Component {
              </Button>
             </Tooltip>
 
+            
+
             <Tooltip placement="topRight" title="Cliquer pour accéder aux évaluations de cette UE">
             <Button
               type="light"

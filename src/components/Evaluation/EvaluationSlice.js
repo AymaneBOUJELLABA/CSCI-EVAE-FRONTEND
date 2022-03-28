@@ -22,6 +22,8 @@ export const getUeDetails = async (codeUe) =>
 }
 
 
+
+
 export const getEvaluationOfUe = async(codeUe) => {
     try
     {
@@ -55,6 +57,28 @@ export const getEvalParId = async (id) => {
     }
     
   }
+
+
+  export const getResultatEvaluationById = async(id)  =>
+{
+    try
+    {
+        const id =1;
+        console.log("fetch id"+id);
+        const response = await fetch(url + "evaluations/statEval/"+id,
+        {
+            method:'GET'
+        });
+        
+
+        const json = await response.json();
+        
+        return json; 
+    }catch(e)
+    {
+        console.error(e);
+    }    
+}
 
   export const getrubriques = async (id) =>
   {
