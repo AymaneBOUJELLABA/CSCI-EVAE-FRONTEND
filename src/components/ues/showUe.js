@@ -68,7 +68,7 @@ class ShowUe extends React.Component {
               icon={<FileSearchOutlined />}
               onClick={() => window.location.href=`/UniteEnseignement/${record.codeUe}`}
              >
-               Details
+               Détails
              </Button>
             </Tooltip>
 
@@ -81,7 +81,7 @@ class ShowUe extends React.Component {
                 this.setState({openPopup:true,ue:record})
               }
             >
-              Evaluation
+              Évaluation
             </Button>
             </Tooltip>
           </Space>
