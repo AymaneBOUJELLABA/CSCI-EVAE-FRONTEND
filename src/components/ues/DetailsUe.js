@@ -1,155 +1,221 @@
-import { Alert, Button, Card, Col, PageHeader, Result, Row, Table, Tag, Typography, Space, Spin } from 'antd';
-import { FileSearchOutlined, MailOutlined, PhoneOutlined } from '@ant-design/icons';
-import { Link, useHistory } from 'react-router-dom';
+import {
+  Alert,
+  Button,
+  Card,
+  Col,
+  PageHeader,
+  Result,
+  Row,
+  Table,
+  Tag,
+  Typography,
+  Space,
+  Spin,
+} from "antd";
+import {
+  FileSearchOutlined,
+  MailOutlined,
+  PhoneOutlined,
+} from "@ant-design/icons";
+import { Link, useNavigate } from "react-router-dom";
 
-import React, { useEffect, useState } from 'react';
-import { getEvaluationOfUe, getStudentsNumber, getStudentsUnswerNumber } from '../Evaluation/EvaluationSlice';
+import React, { useEffect, useState } from "react";
+import {
+  getEvaluationOfUe,
+  getStudentsNumber,
+  getStudentsUnswerNumber,
+} from "../Evaluation/EvaluationSlice";
 
-export default function DetailsUe({columns,table,loading,data})
-{
-  const history = useHistory();
+export default function DetailsUe({ columns, table, loading, data }) {
+  const navigate = useNavigate();
   const { Text } = Typography;
-  const [ studentsNumber, setStudentsNumber ] = useState();
-  const [ studentsUnswerNumber , setStudentsUnswerNumber ] = useState();
+  const [studentsNumber, setStudentsNumber] = useState();
+  const [studentsUnswerNumber, setStudentsUnswerNumber] = useState();
   const [evaluation, setEvaluation] = useState();
 
-  
-  useEffect(() => 
-  {
-    if(data && data.codeUe)
-    {
-      const fetchEval = async () =>
-      {
+  useEffect(() => {
+    if (data && data.codeUe) {
+      const fetchEval = async () => {
         const response = await getEvaluationOfUe(data.codeUe);
         setEvaluation(response);
-      }
+      };
       fetchEval();
     }
-    
-  },[data]);
+  }, [data]);
 
-  useEffect(()=>
-  {
-    if(evaluation && evaluation.codeFormation)
-    {
-      const fetchData = async () =>
-      {
-        const etdNum = await getStudentsNumber(evaluation.codeFormation, evaluation.anneeUniversitaire);
+  useEffect(() => {
+    if (evaluation && evaluation.codeFormation) {
+      const fetchData = async () => {
+        const etdNum = await getStudentsNumber(
+          evaluation.codeFormation,
+          evaluation.anneeUniversitaire
+        );
         setStudentsNumber(etdNum);
-      }
+      };
 
-      const fetchUnsNumb = async() => {
-        const etdUnsNum = await getStudentsUnswerNumber(evaluation.idEvaluation);
+      const fetchUnsNumb = async () => {
+        const etdUnsNum = await getStudentsUnswerNumber(
+          evaluation.idEvaluation
+        );
         setStudentsUnswerNumber(etdUnsNum);
-      } 
+      };
       fetchData();
       fetchUnsNumb();
     }
-  
-  },[evaluation])
+  }, [evaluation]);
 
   console.log("students answer : ", studentsUnswerNumber);
 
-  
   let EnseignantInfo;
-  
-  if(!loading)
-    return <Card loading />
-  else
-  {
+
+  if (!loading) return <Card loading />;
+  else {
     EnseignantInfo = {
-      nom : data.nomEnseigant,
-      pernom : data.prenomEnseignant,
-      emailUbo : data.emailUbo,
-      mobile: data.mobile
-    }
+      nom: data.nomEnseigant,
+      pernom: data.prenomEnseignant,
+      emailUbo: data.emailUbo,
+      mobile: data.mobile,
+    };
 
     //    data.description = "Description du unité d'enseignemants";
   }
-  
-  if(data && Object.keys(data).length === 0 && Object.getPrototypeOf(data) === Object.prototype)
-  {
-    return <Result
-    status="404"
-    title="404"
-    subTitle="Oops! Page introuvable ou Code UE invalide!"
-    extra={<><Link to="/">
-            <Button type="primary">Page d'accueil</Button>
-          </Link>
-          <Link to='/UniteEnseignements'>
-            <Button type="primary">List des unités d'enseignemants</Button>
-          </Link></>}
-  />
+
+  if (
+    data &&
+    Object.keys(data).length === 0 &&
+    Object.getPrototypeOf(data) === Object.prototype
+  ) {
+    return (
+      <Result
+        status="404"
+        title="404"
+        subTitle="Oops! Page introuvable ou Code UE invalide!"
+        extra={
+          <>
+            <Link to="/">
+              <Button type="primary">Page d'accueil</Button>
+            </Link>
+            <Link to="/UniteEnseignements">
+              <Button type="primary">List des unités d'enseignemants</Button>
+            </Link>
+          </>
+        }
+      />
+    );
   }
 
   return (
     <>
-    <PageHeader onBack={() => history.goBack()} title={<span><FileSearchOutlined />Détails</span>}
-        subTitle={"Page de détails d'une unité d'enseignements" } 
-          />
-    <div className='details-ue'>
-      <Card loading={!loading} title={<span>{data.designation + ' ( ' + data.codeUe + ' )'}<Tag style={{float:'right'}} color="magenta">Semestre 9</Tag></span>}>
-        <Row justify='space-between'>
-          <Col span={16}>
-            <Card title="Volume Horaire" type='inner'>
-              <Table size='middle' columns={columns} dataSource={table} pagination={false} />  
-            </Card>
-          </Col>
-          <Col span={6}>
-            <Card title={"Enseigné par "+ EnseignantInfo.nom + ' '+EnseignantInfo.pernom} type='inner'>
-              {
-                Object.entries(EnseignantInfo).map(([key,item],idx)=>{
-                  
-                  return ( 
-                    idx > 1 ?
-                    <>
-                    {key==="mobile" ? <PhoneOutlined /> : <MailOutlined />}              
-                    <span>{' '+item}</span><br/>
-                    </> : ''
-                    )
-                }
-              )}
-
-            </Card>
-     
-          </Col>  
-        </Row>
-        <Row justify='space-between'>
-          <Col style={{marginTop:40}} span={16}>
-                {!data.description ?
-                  <Alert message={"Déscription de "+data.codeUe+ " :"} type="info" description="Aucune description disponible" />
-                  :
-                  <Card type="inner" title={"Déscription de l'UE : " + data.codeUe}>
-                    {data.description}
-                  </Card>
-                }
-          </Col>
-      
-        </Row>
-        <Row>
-        <Col style={{marginTop:40}} span ={6} offset={6}>
-            <Card title={"Historique "} type='inner' >
-              <Space direction="vertical">
-             
-              <Button type="primary" style={{}}>Historique (Graphe)</Button>
-              </Space>
-            </Card>
-          </Col>
-
-          {evaluation && evaluation.codeFormation &&
-          <Col style={{marginTop:40}} span ={6} offset={6}>
-            <Card title={"Evaluation "} type='inner' >
-              <Space direction="vertical">
-              <Text > Élève : {studentsUnswerNumber? studentsUnswerNumber+'/'+studentsNumber: <Spin />}  </Text>
-              <Text > AVG :  </Text>
-              <Button type="primary" style={{}}>Statistique </Button>
-              </Space>
-            </Card>
-          </Col>
+      <PageHeader
+        onBack={() => navigate(-1)}
+        title={
+          <span>
+            <FileSearchOutlined />
+            Détails
+          </span>
+        }
+        subTitle={"Page de détails d'une unité d'enseignements"}
+      />
+      <div className="details-ue">
+        <Card
+          loading={!loading}
+          title={
+            <span>
+              {data.designation + " ( " + data.codeUe + " )"}
+              <Tag style={{ float: "right" }} color="magenta">
+                Semestre 9
+              </Tag>
+            </span>
           }
-        </Row>
-      </Card>
-    </div>
+        >
+          <Row justify="space-between">
+            <Col span={16}>
+              <Card title="Volume Horaire" type="inner">
+                <Table
+                  size="middle"
+                  columns={columns}
+                  dataSource={table}
+                  pagination={false}
+                />
+              </Card>
+            </Col>
+            <Col span={6}>
+              <Card
+                title={
+                  "Enseigné par " +
+                  EnseignantInfo.nom +
+                  " " +
+                  EnseignantInfo.pernom
+                }
+                type="inner"
+              >
+                {Object.entries(EnseignantInfo).map(([key, item], idx) => {
+                  return idx > 1 ? (
+                    <>
+                      {key === "mobile" ? <PhoneOutlined /> : <MailOutlined />}
+                      <span>{" " + item}</span>
+                      <br />
+                    </>
+                  ) : (
+                    ""
+                  );
+                })}
+              </Card>
+            </Col>
+          </Row>
+          <Row justify="space-between">
+            <Col style={{ marginTop: 40 }} span={16}>
+              {!data.description ? (
+                <Alert
+                  message={"Déscription de " + data.codeUe + " :"}
+                  type="info"
+                  description="Aucune description disponible"
+                />
+              ) : (
+                <Card
+                  type="inner"
+                  title={"Déscription de l'UE : " + data.codeUe}
+                >
+                  {data.description}
+                </Card>
+              )}
+            </Col>
+          </Row>
+          <Row>
+            <Col style={{ marginTop: 40 }} span={6} offset={6}>
+              <Card title={"Historique "} type="inner">
+                <Space direction="vertical">
+                  <Button type="primary" style={{}}>
+                    Historique (Graphe)
+                  </Button>
+                </Space>
+              </Card>
+            </Col>
+
+            {evaluation && evaluation.codeFormation && (
+              <Col style={{ marginTop: 40 }} span={6} offset={6}>
+                <Card title={"Evaluation "} type="inner">
+                  <Space direction="vertical">
+                    <Text>
+                      {" "}
+                      Élève :{" "}
+                      {studentsUnswerNumber ? (
+                        studentsUnswerNumber + "/" + studentsNumber
+                      ) : (
+                        <Spin />
+                      )}{" "}
+                    </Text>
+                    <Text> AVG : </Text>
+                    <Button type="primary" style={{}}>
+                      Statistique{" "}
+                    </Button>
+                  </Space>
+                </Card>
+              </Col>
+            )}
+          </Row>
+        </Card>
+      </div>
     </>
-  )
+  );
 }
