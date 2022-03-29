@@ -6,11 +6,15 @@ export const RUBRIQUES_WARNING_MESSAGES = {
   MODIFIED: "Modification effectuée avec succès",
 };
 export const RUBRIQUES_SUCCESS_MESSAGES = {
-  ADDED: "Rubrique est bien ajoutée",
+  ADDED: "La rubrique est ajoutée avec succès",
 };
 
 export const USER_SUCCESS_LOGIN_MESSAGE = {
   LOGGED: "Connexion réussie",
+};
+
+export const ADD_EVALUATION_SUCCESS_MESSAGE = {
+  ADDED: "L'évaluation est ajoutée avec succès",
 };
 
 export const USER_FAILED_LOGIN_MESSAGE = {

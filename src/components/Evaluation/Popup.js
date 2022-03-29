@@ -1,4 +1,7 @@
-import { ALERT_TYPES, onShowAlert } from "../../shared/constant";
+import {
+  ALERT_TYPES,
+  ADD_EVALUATION_SUCCESS_MESSAGE,
+} from "../../shared/constant";
 import { Alert, Button, Collapse, Space, message } from "antd";
 
 import React, { useEffect, useState } from "react";
@@ -11,7 +14,7 @@ import { getAllRubriques } from "../../services/RubriqueService";
 import { useParams } from "react-router";
 import { getUeByCode } from "../../services/UeService";
 import { PlusOutlined } from "@ant-design/icons";
-
+import { useNavigate } from "react-router-dom";
 const { Panel } = Collapse;
 
 function callback(key) {
@@ -19,7 +22,7 @@ function callback(key) {
 }
 
 const initalEvalState = { designation: "", idEvaluation: -1, rubriques: [] };
-
+const onShowAlert = (msg, type) => message[type](msg);
 export default function Popup(props) {
   let { codeUe } = useParams();
   console.log("Code ue", codeUe);
@@ -30,7 +33,7 @@ export default function Popup(props) {
   const [selectedTitle, setSelectedTitle] = useState("");
   const [isUpdate, setIsUpdate] = useState(false);
   const [UeInfo, setUeInfo] = useState({});
-
+  const navigate = useNavigate();
   const handleChange = (value) => {
     setSelectedTitle(value);
   };
@@ -81,11 +84,13 @@ export default function Popup(props) {
         console.log("server response ", response);
         setEvaluation(response);
 
-        message.info("Ajout d'evaluation avec succès");
+        //message.info("Ajout d'evaluation avec succès");
       };
       console.table(values);
       console.table(pvalues);
       fetchData(values);
+      onShowAlert(ADD_EVALUATION_SUCCESS_MESSAGE.ADDED, ALERT_TYPES.SUCCESS);
+      navigate(-1);
     }
   };
 
@@ -124,7 +129,7 @@ export default function Popup(props) {
     codeUe: UeInfo.codeUe,
     codeEc: null,
     noEvaluation: 3,
-    designation: UeInfo.designation,
+    designation: "Evaluation " + UeInfo.codeUe,
     etat: "ELA",
     periode: "",
     debutReponse: "",
