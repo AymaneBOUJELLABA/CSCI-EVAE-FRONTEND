@@ -1,4 +1,4 @@
-import { Alert, Button, Card, Col, PageHeader, Result, Row, Table, Tag, Typography, Space, Spin } from 'antd';
+import { Alert, Button, Card, Col, PageHeader, Result, Row, Table, Tag, Typography, Space, Spin , Divider } from 'antd';
 import { FileSearchOutlined, MailOutlined, PhoneOutlined } from '@ant-design/icons';
 import { Link, useHistory } from 'react-router-dom';
 
@@ -12,6 +12,7 @@ export default function DetailsUe({columns,table,loading,data})
   const [ studentsNumber, setStudentsNumber ] = useState();
   const [ studentsUnswerNumber , setStudentsUnswerNumber ] = useState();
   const [evaluation, setEvaluation] = useState();
+  const { Title } = Typography;
 
   
   useEffect(() => 
@@ -126,23 +127,26 @@ export default function DetailsUe({columns,table,loading,data})
           </Col>
       
         </Row>
+        <Divider style={{ marginTop : 60, marginBottom : 20}} />
+
+                <Title level={3}> Plus de détails sur l'Evaluation </Title>
         <Row>
         <Col style={{marginTop:40}} span ={6} offset={6}>
             <Card title={"Historique "} type='inner' >
               <Space direction="vertical">
              
-              <Button type="primary" style={{}}>Historique (Graphe)</Button>
+              <Button type="primary" onClick={() => console.log("this button shows graphes ! ")}>Historique (Graphe)</Button>
               </Space>
             </Card>
           </Col>
 
           {evaluation && evaluation.codeFormation &&
           <Col style={{marginTop:40}} span ={6} offset={6}>
-            <Card title={"Evaluation "} type='inner' >
+            <Card title={ evaluation.designation} type='inner' >
               <Space direction="vertical">
               <Text > Élève : {studentsUnswerNumber? studentsUnswerNumber+'/'+studentsNumber: <Spin />}  </Text>
               <Text > AVG :  </Text>
-              <Button type="primary" style={{}}>Statistique </Button>
+              <Button type="primary" onClick={() => console.log("this button shows statistics !")}>Statistique </Button>
               </Space>
             </Card>
           </Col>
