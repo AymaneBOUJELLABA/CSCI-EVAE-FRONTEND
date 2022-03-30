@@ -1,6 +1,6 @@
 import "antd/dist/antd.css";
 
-import {Alert, Col, Layout, Row, Space, Spin, Table, Tag} from "antd";
+import {Alert, Button, Col, Layout, Row, Space, Spin, Table, Tag, Tooltip} from "antd";
 import React, { Component } from 'react'
 
 import {
@@ -75,7 +75,8 @@ componentDidMount= () => {
     .catch(err => console.error(err));
 }
   render() {
-    console.log(this.props);
+    console.log('wewedw '+this.props.code);
+
     return (
      <div style={{ paddingTop: "30px", fontFamily:"Arial"}}>
      <Title level={5} style={{ paddingBottom: "10px", fontFamily:"Garamond"}}>
@@ -123,7 +124,19 @@ componentDidMount= () => {
           <Alert message={"Description de "+this.state.data.codeUe+ " :"} type="info" description="Aucune description disponible" />
     
     }</Col>
-      </Row></>}
+      </Row>
+      </>}
+      <Tooltip placement="topLeft" title="Cliquer pour accéder aux statistiques des promotions de cette UE">
+             <Button
+              type="primary"
+              shape="round"
+              icon={<FileSearchOutlined />}
+              onClick={() => window.location.href=`/UniteEnseignements/graphes/${this.props.code}`}
+              style={{marginTop:'4px'}}
+             >
+               Details dflknsdkfkjsfnjklasjklf sdlfkskjnf
+             </Button>
+            </Tooltip>
       </div>
     );
   }

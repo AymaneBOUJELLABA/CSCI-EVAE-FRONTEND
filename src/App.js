@@ -14,6 +14,7 @@ import Layout from './shared/layout';
 import { Link } from "react-router-dom";
 import React from 'react';
 import Rubriques from './components/rubriques';
+import StatistiqueGraphe from "./components/ues/StatistiqueGraphe";
 
 export const App = () => {
   return (
@@ -24,6 +25,7 @@ export const App = () => {
           <Route exact path="/UniteEnseignement/Evaluation/:code" component={GetEval} />
           <Route exact path="/UniteEnseignement/:code" component={GetUeCode} />
           <Route exact path="/UniteEnseignements" component={GetUe} />
+          <Route exact path="/UniteEnseignements/graphes/:code" component={StatistiqueGraphe} />
           <Route component={Home} path="/" exact/>
           <Route render={()=>{
             return <>
