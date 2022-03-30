@@ -64,6 +64,7 @@ const StepsLine = ({ evaluation = {} }) => {
   const initialState = {
     idEvaluation: evaluation.idEvaluation,
     idEtudiant: null,
+    commentaire: "",
     rubriques: evaluation.rubriques.map(
       ({ idRubrique, designation, questions }) => ({
         idRubrique,

@@ -1,5 +1,7 @@
+import { fontFamily } from "@mui/system";
 import { Button, Col, Collapse, Divider, Input, List, Row, Tag } from "antd";
 import React, { useState } from "react";
+import { envoyerQuestionnaire } from "../../services/QuestionnaireService";
 import {
   RiEmotionUnhappyLine,
   RiEmotionSadLine,
@@ -22,18 +24,26 @@ const tagColor = {
   4: "blue",
   5: "green",
 };
+
 const Recaputilatif = (recap) => {
   console.log("recap :>> ", recap);
   const { Panel } = Collapse;
   const { TextArea } = Input;
-
+  const [comment, setComment] = useState("");
+  const [disabled, setDisabled] = useState(false);
+  const [state, setstate] = useState(recap.location.state);
+  console.log("comment :>> ", comment);
+  console.log("state12 :>> ", state);
+  const handleSend = async () => {
+    await envoyerQuestionnaire(recap);
+  };
   return (
     <>
       <Row justify="center">
         <h1 style={{ margin: "10px" }}>Recaputilatif:</h1>
       </Row>
       <Collapse accordion defaultActiveKey={["1"]}>
-        {recap.location.state.rubriques.map((rubrique) => (
+        {state.rubriques.map((rubrique) => (
           <Panel
             style={{ justifyItems: "center" }}
             header={
@@ -82,11 +92,30 @@ const Recaputilatif = (recap) => {
           showCount
           maxLength={2500}
           style={{ height: 120, width: 500 }}
+          onChange={(_) => setComment(_.target.value)}
+          disabled={disabled}
         />
+        <Button
+          disabled={disabled}
+          onClick={() => {
+            setstate({ ...state, commentaire: comment });
+            setDisabled(true);
+          }}
+        >
+          valider
+        </Button>
       </Row>
+
       <Divider />
       <Row justify="center">
-        <Button>Envoyer</Button>
+        <Button
+          onClick={() => {
+            handleSend();
+            console.log("state Envoyé :>> ", state);
+          }}
+        >
+          Envoyer
+        </Button>
       </Row>
     </>
   );
