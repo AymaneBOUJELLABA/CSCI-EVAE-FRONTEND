@@ -8,6 +8,9 @@ export const RUBRIQUES_WARNING_MESSAGES = {
 export const RUBRIQUES_SUCCESS_MESSAGES = {
   ADDED: "Rubrique est bien ajoutée",
 };
+export const QUESTIONNAIRE_SUCCESS_MESSAGES = {
+  ADDED: "Votre réponse a été envoyée ",
+};
 
 export const ALERT_TYPES = {
   SUCCESS: "success",

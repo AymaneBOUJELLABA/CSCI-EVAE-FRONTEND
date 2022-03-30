@@ -19,37 +19,37 @@ import Recaputilatif from "./components/Questionnaire/Recaputilatif";
 
 export const App = () => {
   return (
-    <Layout>
-      <Switch>
-        {/** ADD YOUR COMPONENT ROUTES HERE! */}
-        <Route component={Rubriques} path="/rubriques" exact />
-        <Route component={Questionnaire} path="/questionnaire" exact />
-        <Route component={Recaputilatif} path="/recaputilatif" exact />
-        <Route
-          exact
-          path="/UniteEnseignement/Evaluation/:code"
-          component={GetEval}
-        />
-        <Route exact path="/UniteEnseignement/:code" component={GetUeCode} />
-        <Route exact path="/UniteEnseignements" component={GetUe} />
-        <Route component={Home} path="/" exact />
-        <Route
-          render={() => {
-            return (
-              <>
-                <Link to="/">
-                  <Button type="primary">Page d'accueil</Button>
-                </Link>
-                <Alert
-                  message={"Page non trouvée"}
-                  description="Perdu ? Impossible de trouver la page"
-                />
-              </>
-            );
-          }}
-        />
-      </Switch>
-    </Layout>
+    // {/* <Layout> */}
+    <Switch>
+      {/** ADD YOUR COMPONENT ROUTES HERE! */}
+      <Route component={Rubriques} path="/rubriques" exact />
+      <Route component={Questionnaire} path="/questionnaire" exact />
+      <Route component={Recaputilatif} path="/recaputilatif" exact />
+      <Route
+        exact
+        path="/UniteEnseignement/Evaluation/:code"
+        component={GetEval}
+      />
+      <Route exact path="/UniteEnseignement/:code" component={GetUeCode} />
+      <Route exact path="/UniteEnseignements" component={GetUe} />
+      <Route component={Home} path="/" exact />
+      <Route
+        render={() => {
+          return (
+            <>
+              <Link to="/">
+                <Button type="primary">Page d'accueil</Button>
+              </Link>
+              <Alert
+                message={"Page non trouvée"}
+                description="Perdu ? Impossible de trouver la page"
+              />
+            </>
+          );
+        }}
+      />
+    </Switch>
+    /*  </Layout> */
   );
 };
 

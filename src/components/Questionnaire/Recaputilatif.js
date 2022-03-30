@@ -1,6 +1,21 @@
 import { fontFamily } from "@mui/system";
-import { Button, Col, Collapse, Divider, Input, List, Row, Tag } from "antd";
+import {
+  Button,
+  Col,
+  Collapse,
+  Divider,
+  Input,
+  List,
+  Modal,
+  Row,
+  Tag,
+} from "antd";
 import React, { useState } from "react";
+import {
+  ALERT_TYPES,
+  QUESTIONNAIRE_SUCCESS_MESSAGES,
+  onShowAlert,
+} from "../../shared/constant";
 import { envoyerQuestionnaire } from "../../services/QuestionnaireService";
 import {
   RiEmotionUnhappyLine,
@@ -31,6 +46,7 @@ const Recaputilatif = (recap) => {
   const { TextArea } = Input;
   const [comment, setComment] = useState("");
   const [disabled, setDisabled] = useState(false);
+  const [visible, setVisible] = useState(false);
   const [state, setstate] = useState(recap.location.state);
   console.log("comment :>> ", comment);
   console.log("state12 :>> ", state);
@@ -82,41 +98,55 @@ const Recaputilatif = (recap) => {
         ))}
       </Collapse>
       <Divider />
-      <Row justify="center">
-        <h1>Laisser nous votre commentaire</h1>
-      </Row>
-      <Row justify="center">
+
+      <Modal
+        title="Laissez nous votre commentaire"
+        visible={visible}
+        onOk={() => {
+          setstate({ ...state, commentaire: comment });
+          setVisible(!visible);
+          setDisabled(!disabled);
+        }}
+        onCancel={() => {
+          setVisible(!visible);
+        }}
+      >
         <TextArea
           rows={4}
           placeholder="Commentaire"
           showCount
           maxLength={2500}
-          style={{ height: 120, width: 500 }}
+          style={{ height: 120, width: 470 }}
           onChange={(_) => setComment(_.target.value)}
           disabled={disabled}
         />
-        <Button
-          disabled={disabled}
-          onClick={() => {
-            setstate({ ...state, commentaire: comment });
-            setDisabled(true);
-          }}
-        >
-          valider
-        </Button>
-      </Row>
-
-      <Divider />
+      </Modal>
       <Row justify="center">
         <Button
+          disabled={disabled}
+          hidden={disabled}
+          onClick={() => {
+            /* setstate({ ...state, commentaire: comment }); */
+            setVisible(true);
+          }}
+        >
+          Valider
+        </Button>
+        <Button
+          hidden={!disabled}
           onClick={() => {
             handleSend();
             console.log("state Envoyé :>> ", state);
+            onShowAlert(
+              QUESTIONNAIRE_SUCCESS_MESSAGES.ADDED,
+              ALERT_TYPES.SUCCESS
+            );
           }}
         >
           Envoyer
         </Button>
       </Row>
+      <Divider />
     </>
   );
 };
