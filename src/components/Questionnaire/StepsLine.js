@@ -10,6 +10,7 @@ import {
 
 import Question from "./Question";
 import "./style.css";
+import { Link } from "react-router-dom";
 
 const { Step } = Steps;
 
@@ -138,7 +139,6 @@ const StepsLine = ({ evaluation = {} }) => {
                   //onClick={() => onClickSuivant(rubrique)}
                 />
               ))}
-              <Step title="Recaputilatif" />
             </Steps>
           </div>
           <br />
@@ -172,14 +172,16 @@ const StepsLine = ({ evaluation = {} }) => {
               </Button> */}
             <Col>
               {current === state.rubriques.length - 1 ? (
-                <Button
-                  hidden={isButtonHidden}
-                  onClick={() => {
-                    onChangeCurrent(current + 1);
+                <Link
+                  to={{
+                    pathname: "/recaputilatif",
+                    state: state,
                   }}
                 >
-                  <CheckOutlined /> Terminer
-                </Button>
+                  <Button hidden={isButtonHidden} /* onClick={() => {}} */>
+                    <CheckOutlined /> Terminer
+                  </Button>
+                </Link>
               ) : (
                 <Button
                   hidden={isButtonHidden}

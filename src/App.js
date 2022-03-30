@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 import React from "react";
 import Rubriques from "./components/rubriques";
 import Questionnaire from "./components/Questionnaire";
+import Recaputilatif from "./components/Questionnaire/Recaputilatif";
 
 export const App = () => {
   return (
@@ -23,6 +24,7 @@ export const App = () => {
         {/** ADD YOUR COMPONENT ROUTES HERE! */}
         <Route component={Rubriques} path="/rubriques" exact />
         <Route component={Questionnaire} path="/questionnaire" exact />
+        <Route component={Recaputilatif} path="/recaputilatif" exact />
         <Route
           exact
           path="/UniteEnseignement/Evaluation/:code"
