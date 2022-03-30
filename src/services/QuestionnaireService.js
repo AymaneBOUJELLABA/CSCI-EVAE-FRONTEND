@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:8082/api/evaluations/reponses";
+const API_URL = "http://localhost:8082/api/questionnaire";
 export const envoyerQuestionnaire = async (questionnaire) => {
 
   questionnaire = {
