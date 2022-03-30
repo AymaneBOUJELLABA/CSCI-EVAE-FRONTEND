@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 import { Button } from 'antd';
 import Popup from './Popup';
+import { Link } from 'react-router-dom'
+
 
 export const EvaluationPage = (props) => 
 {
@@ -13,18 +15,18 @@ export const EvaluationPage = (props) =>
         <Button 
         type="primary" 
         shape="round" 
-        onClick={() => setOpenPopup(true)}  
+        onClick={() => window.location.href="/Evaluation/popup"}  
         size= 'large'
         className="evaluationButton">
           Évaluation
         </Button>
 
-        <Popup 
+        {/* <Popup 
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
         >
 
-        </Popup>
+        </Popup> */}
         
         </div>
 

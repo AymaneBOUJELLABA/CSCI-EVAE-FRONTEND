@@ -3,6 +3,7 @@ import "antd/dist/antd.css";
 import {Alert, Button, Col, Layout, Row, Space, Spin, Table, Tag, Tooltip} from "antd";
 import React, { Component } from 'react'
 
+import DetailsUe from "./DetailsUe";
 import {
   FileSearchOutlined,
 } from "@ant-design/icons";
@@ -15,22 +16,21 @@ export default class ShowDetails extends Component {
   state={
     columns : [
       {
-        title: () => <div style={{fontSize:"13px", fontWeight:"bolder"}}>Volume Horaire</div>,
         children: [
           {
-            title: () => <div style={{fontSize:"12px", fontWeight:"bolder"}}>Cours</div>,
+            title: () => <div style={{fontSize:"12px", fontWeight:"bolder"}}>Cours magistral</div>,
             dataIndex: 'cours',
             key: 'cours',
             width: 100,
           },
           {
-            title: () => <div style={{fontSize:"12px", fontWeight:"bolder"}}>TD</div>,
+            title: () => <div style={{fontSize:"12px", fontWeight:"bolder"}}>Travaux dirigés</div>,
             dataIndex: 'td',
             key: 'td',
             width: 100,
           },
           {
-            title: () => <div style={{fontSize:"12px", fontWeight:"bolder"}}>TP</div>,
+            title: () => <div style={{fontSize:"12px", fontWeight:"bolder"}}>Travaux pratiques</div>,
             dataIndex: 'tp',
             key: 'tp',
             width: 100,
@@ -56,27 +56,20 @@ componentDidMount= () => {
   fetch('http://localhost:8082/api/ue/'+this.props.code,this.state.options)
     .then(response =>  response.json())  
     .then(response => {
-        console.log(response);
-       // let i = 0;
-        //response.map((elt)=>{
-          //elt.key=i;
-          //i++;
-        //});
-        //console.log(response);
         this.setState({data:response,table:[{
           key:0,
           cours: response.nbhCm,
           td: response.nbhTd,
           tp: response.nbhTp,
         }],loading:true});
-        console.log(this.state.data);
-        console.log(this.state.table);
     })
     .catch(err => console.error(err));
 }
-  render() {
-    console.log('wewedw '+this.props.code);
-
+  render() 
+  {
+    return (<DetailsUe {...this.state} />)
+    /*
+    console.log(this.props);
     return (
      <div style={{ paddingTop: "30px", fontFamily:"Arial"}}>
      <Title level={5} style={{ paddingBottom: "10px", fontFamily:"Garamond"}}>
@@ -138,6 +131,6 @@ componentDidMount= () => {
              </Button>
             </Tooltip>
       </div>
-    );
+    );*/
   }
 }

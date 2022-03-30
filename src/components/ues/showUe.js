@@ -72,14 +72,15 @@ class ShowUe extends React.Component {
              </Button>
             </Tooltip>
 
+            
+
             <Tooltip placement="topRight" title="Cliquer pour accéder aux évaluations de cette UE">
             <Button
               type="light"
               shape="round"
               icon={<ScheduleOutlined />}
               onClick={() => 
-                this.setState({openPopup:true,ue:record})
-              }
+                window.location.href=`/Evaluation/popup/${record.codeUe}`}
             >
               Evaluation
             </Button>
