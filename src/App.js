@@ -12,12 +12,13 @@ import GetUeCode from "./components/ues/getUeCode";
 import Home from "./components/home";
 import Layout from "./shared/layout";
 import { Link } from "react-router-dom";
-import React from "react";
-import Rubriques from "./components/rubriques";
 import Questionnaire from "./components/Questionnaire";
+import React from "react";
 import Recaputilatif from "./components/Questionnaire/Recaputilatif";
+import Rubriques from "./components/rubriques";
 
 export const App = () => {
+
   return (
     // {/* <Layout> */}
     <Switch>

@@ -1,4 +1,8 @@
-import { fontFamily } from "@mui/system";
+import {
+  ALERT_TYPES,
+  QUESTIONNAIRE_SUCCESS_MESSAGES,
+  onShowAlert,
+} from "../../shared/constant";
 import {
   Button,
   Col,
@@ -10,20 +14,17 @@ import {
   Row,
   Tag,
 } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
-  ALERT_TYPES,
-  QUESTIONNAIRE_SUCCESS_MESSAGES,
-  onShowAlert,
-} from "../../shared/constant";
-import { envoyerQuestionnaire } from "../../services/QuestionnaireService";
-import {
-  RiEmotionUnhappyLine,
-  RiEmotionSadLine,
-  RiEmotionNormalLine,
-  RiEmotionLine,
   RiEmotionLaughLine,
+  RiEmotionLine,
+  RiEmotionNormalLine,
+  RiEmotionSadLine,
+  RiEmotionUnhappyLine,
 } from "react-icons/ri";
+
+import { envoyerQuestionnaire } from "../../services/QuestionnaireService";
+import { fontFamily } from "@mui/system";
 
 const customIcons = {
   1: <RiEmotionUnhappyLine fontSize={20} />,
@@ -48,11 +49,45 @@ const Recaputilatif = (recap) => {
   const [disabled, setDisabled] = useState(false);
   const [visible, setVisible] = useState(false);
   const [state, setstate] = useState(recap.location.state);
-  console.log("comment :>> ", comment);
-  console.log("state12 :>> ", state);
-  const handleSend = async () => {
-    await envoyerQuestionnaire(recap);
+  const [response,setResponse] = useState({});
+  const [done, setDone] = useState(false);
+  /*console.log("comment :>> ", comment);
+  console.log("state12 :>> ", state);*/
+
+  
+  console.log("response : " , response);
+  const handleSend = async () =>
+  {
+      const sendData = async () => {
+        console.log("...sending data...");
+        const r = await envoyerQuestionnaire(state);
+        setResponse(r);
+        console.log("....data sent!");
+        console.log(response);
+        setDone(true);
+      }
+      await sendData();
   };
+  
+
+
+  useEffect(() => {
+    if(done)
+    {
+      if(response &&response.data)
+      {
+        onShowAlert(QUESTIONNAIRE_SUCCESS_MESSAGES, ALERT_TYPES.SUCCESS);
+      }
+      else if(response && response.error)
+      {
+        onShowAlert(response.error.message, ALERT_TYPES.WARNING);
+      }
+    }
+    return () => {
+      
+    }
+  }, [done])
+  
   return (
     <>
       <Row justify="center">
@@ -136,11 +171,6 @@ const Recaputilatif = (recap) => {
           hidden={!disabled}
           onClick={() => {
             handleSend();
-            console.log("state Envoyé :>> ", state);
-            onShowAlert(
-              QUESTIONNAIRE_SUCCESS_MESSAGES.ADDED,
-              ALERT_TYPES.SUCCESS
-            );
           }}
         >
           Envoyer
