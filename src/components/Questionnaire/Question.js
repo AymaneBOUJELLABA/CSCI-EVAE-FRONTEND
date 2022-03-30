@@ -9,7 +9,13 @@ import {
   RiEmotionLine,
   RiEmotionLaughLine,
 } from "react-icons/ri";
-
+const tagColor = {
+  1: "red",
+  2: "yellow",
+  3: "orange",
+  4: "blue",
+  5: "green",
+};
 const Question = (props) => {
   const [recap, setRecap] = useState({
     idEvaluation: props.idEvaluation,
@@ -22,6 +28,7 @@ const Question = (props) => {
       },
     ],
   });
+  const [note, setNote] = useState(0);
   const starsColor = (value) => {
     if (value === 1) return "red";
     else if (value === 2) return "yellow";
@@ -92,6 +99,7 @@ const Question = (props) => {
                   setStarColor(color);
                 }} */
                 onChange={(value) => {
+                  setNote(value);
                   onSetNewResponse(
                     value,
                     qst.idQuestion,
@@ -106,6 +114,15 @@ const Question = (props) => {
                 {qst.qualificatif.maximal}
               </Tag>
             </Col>
+            {/* <Col span={4}>
+              <Tag
+                key={index  }
+                style={{ width: "8em", textAlign: "center" }}
+                color={tagColor[qst.reponse]}
+              >
+                Note :{note}/5
+              </Tag>
+            </Col> */}
           </Row>
 
           <Divider />
