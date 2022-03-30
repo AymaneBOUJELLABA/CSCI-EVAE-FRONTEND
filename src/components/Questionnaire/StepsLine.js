@@ -184,18 +184,30 @@ const StepsLine = ({ evaluation = {} }) => {
                   </Button>
                 </Link>
               ) : (
-                <Button
-                  hidden={isButtonHidden}
-                  disabled={
-                    element && element.questions.some((e) => e.reponse === 0)
-                  }
-                  onClick={() => {
-                    onChangeCurrent(current + 1);
-                  }}
-                >
-                  <ArrowRightOutlined />
-                  Suivant
-                </Button>
+                <>
+                  <Button
+                    hidden={isButtonHidden}
+                    disabled={
+                      element && element.questions.some((e) => e.reponse === 0)
+                    }
+                    onClick={() => {
+                      onChangeCurrent(current + 1);
+                    }}
+                  >
+                    <ArrowRightOutlined />
+                    Suivant
+                  </Button>
+                  {/* <Button
+                    hidden={isButtonHidden}
+                    disabled={false}
+                    onClick={() => {
+                      onChangeCurrent(current - 1);
+                    }}
+                  >
+                    <ArrowRightOutlined />
+                    Precedant
+                  </Button> */}
+                </>
               )}
             </Col>
           </Row>
