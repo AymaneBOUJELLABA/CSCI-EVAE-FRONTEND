@@ -1,6 +1,14 @@
-import { ALERT_TYPES, onShowAlert } from "../../shared/constant";
+import {
+  ADD_EVALUATION_SUCCESS_MESSAGE,
+  ALERT_TYPES,
+  onShowAlert,
+} from "../../shared/constant";
 import { Alert, Button, Collapse, PageHeader, Space, message } from "antd";
-import { FileTextOutlined, PlusOutlined } from "@ant-design/icons";
+import {
+  EditOutlined,
+  FileTextOutlined,
+  PlusOutlined,
+} from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
 import { ajoutEvaluation, getEvaluationOfUe } from "./EvaluationSlice";
 
@@ -10,6 +18,7 @@ import InfoEvaluation from "./InfoEvaluation";
 import { getAllRubriques } from "../../services/RubriqueService";
 import { getUeByCode } from "../../services/UeService";
 import { useParams } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 const { Panel } = Collapse;
 
@@ -155,7 +164,7 @@ export default function Popup(props) {
 
   if (isExist) {
     content = isUpdate ? (
-      <DragDropRubriques evaluation={evaluation} handleCancel={handleCancel}/>
+      <DragDropRubriques evaluation={evaluation} handleCancel={handleCancel} />
     ) : (
       <InfoEvaluation evaluation={evaluation} ue={UeInfo} callback={callback} />
     );
@@ -203,16 +212,25 @@ export default function Popup(props) {
   }
   return (
     <>
-      <PageHeader onBack={() => history.back()} title={<span><FileTextOutlined />Évaluation</span>}
-        subTitle={"Page de l'évaluation d'une unité d'enseignements" } />
+      <PageHeader
+        onBack={() => navigate(-1)}
+        title={
+          <span>
+            <FileTextOutlined />
+            Évaluation
+          </span>
+        }
+        subTitle={"Page de l'évaluation d'une unité d'enseignement"}
+      />
       <div style={{ overflow: "auto" }}>{content}</div>
       {isExist && !isUpdate && (
         <Button
-          style={{ marginTop: 15 }}
+          style={{ marginTop: 7 }}
           type="primary"
           onClick={() => setIsUpdate(true)}
+          icon={<EditOutlined />}
         >
-          Modifier Rubriques
+          Modifier l'évaluation
         </Button>
       )}
     </>

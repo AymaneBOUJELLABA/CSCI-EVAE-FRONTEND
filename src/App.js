@@ -15,7 +15,7 @@ import Layout from "./shared/layout";
 import { Link } from "react-router-dom";
 import Login from "./components/Login/login";
 import Popup from "./components/Evaluation/Popup";
-import Questionnaire from './components/Questionnaire'
+import Questionnaire from "./components/Questionnaire";
 import React from "react";
 import Recaputilatif from "./components/Questionnaire/Recaputilatif";
 import { RequireAuthADM } from "./context/requireAuthADM";
@@ -27,7 +27,6 @@ import TestEtudiant from "./components/testEtudiant";
 import { useAuth } from "./context/auth";
 
 export const App = () => {
-
   return (
     <AuthProvider>
       <Layout>
@@ -38,10 +37,42 @@ export const App = () => {
           <Route element={<Login />} path="/connexion" exact />
 
           {/* protected Switch */}
-          <Route element={<RequireAuthADM><Rubriques /></RequireAuthADM>}path="/rubriques" exact/>
-          <Route element={<RequireAuthADM ><Questionnaire /></RequireAuthADM>} path="/questionnaire" exact />
-          <Route element={<RequireAuthADM ><Recaputilatif /></RequireAuthADM>} path="/recaputilatif" exact />
-          <Route exact path="/resEval/:id"  element={<RequireAuthADM><ShowRes /></RequireAuthADM>} />
+          <Route
+            element={
+              <RequireAuthADM>
+                <Rubriques />
+              </RequireAuthADM>
+            }
+            path="/rubriques"
+            exact
+          />
+          <Route
+            element={
+              <RequireAuthADM>
+                <Questionnaire />
+              </RequireAuthADM>
+            }
+            path="/questionnaire"
+            exact
+          />
+          <Route
+            element={
+              <RequireAuthADM>
+                <Recaputilatif />
+              </RequireAuthADM>
+            }
+            path="/recaputilatif"
+            exact
+          />
+          <Route
+            exact
+            path="/resEval/:id"
+            element={
+              <RequireAuthADM>
+                <ShowRes />
+              </RequireAuthADM>
+            }
+          />
           <Route
             exact
             path="/UniteEnseignement/Evaluation/:code"
@@ -60,12 +91,15 @@ export const App = () => {
               </RequireAuthADM>
             }
           />
-           <Route exact path="/UniteEnseignements/graphes/:code"
-           element={
-            <RequireAuthADM>
-             <StatistiqueGraphe />
-             </RequireAuthADM>
-             } />
+          <Route
+            exact
+            path="/UniteEnseignements/graphes/:code"
+            element={
+              <RequireAuthADM>
+                <StatistiqueGraphe />
+              </RequireAuthADM>
+            }
+          />
 
           <Route
             exact
