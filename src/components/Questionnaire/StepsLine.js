@@ -140,6 +140,11 @@ const StepsLine = ({ evaluation = {} }) => {
                   //onClick={() => onClickSuivant(rubrique)}
                 />
               ))}
+              <Step
+                disabled={true}
+                title="Récaputilatif"
+                //onClick={() => onClickSuivant(rubrique)}
+              />
             </Steps>
           </div>
           <br />
