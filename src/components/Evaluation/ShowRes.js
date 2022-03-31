@@ -1,8 +1,11 @@
 import "antd/dist/antd.css";
-import { Alert, Col, Collapse, Divider, Row, Tag } from "antd";
+
+import { Alert, Col, Collapse, Divider, Row, Spin, Tag } from "antd";
+
 import React from "react";
 import { useParams } from "react-router";
 import withRouter from "../withRouter";
+
 const { Panel } = Collapse;
 
 class ShowRes extends React.Component {
@@ -50,7 +53,8 @@ class ShowRes extends React.Component {
       .catch((err) => console.log(err));
   };
 
-  render() {
+  render()
+  {
     return (
       <div style={{ height: 300, width: "100%" }}>
         <h2>Résultat de l'évaluation de l'UE: {this.state.data.codeUe} </h2>
@@ -58,7 +62,7 @@ class ShowRes extends React.Component {
           {this.state.data.codeFormation} -{this.state.data.anneeUniversitaire}{" "}
         </h3>
         <Collapse>
-          {this.state.loading &&
+          {!this.state.loading ? <Spin size="large" tip="Chargement..."/>: 
             this.state.data.rubriques.map((rubrique) => {
               return (
                 <Panel
