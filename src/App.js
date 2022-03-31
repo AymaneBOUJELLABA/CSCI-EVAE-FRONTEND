@@ -16,9 +16,9 @@ import Questionnaire from "./components/Questionnaire";
 import React from "react";
 import Recaputilatif from "./components/Questionnaire/Recaputilatif";
 import Rubriques from "./components/rubriques";
+import EtudiantHome from "./components/Etudiant/Home";
 
 export const App = () => {
-
   return (
     // {/* <Layout> */}
     <Switch>
@@ -26,6 +26,7 @@ export const App = () => {
       <Route component={Rubriques} path="/rubriques" exact />
       <Route component={Questionnaire} path="/questionnaire" exact />
       <Route component={Recaputilatif} path="/recaputilatif" exact />
+      <Route component={EtudiantHome} path="/etudianthome" exact />
       <Route
         exact
         path="/UniteEnseignement/Evaluation/:code"
