@@ -1,9 +1,6 @@
-import {
-  ALERT_TYPES,
-  ADD_EVALUATION_SUCCESS_MESSAGE,
-} from "../../shared/constant";
-import { Alert, Button, Collapse, Space, message } from "antd";
-
+import { ALERT_TYPES, onShowAlert } from "../../shared/constant";
+import { Alert, Button, Collapse, PageHeader, Space, message } from "antd";
+import { FileTextOutlined, PlusOutlined } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
 import { ajoutEvaluation, getEvaluationOfUe } from "./EvaluationSlice";
 
@@ -11,10 +8,9 @@ import AddEvaluation from "./AddEvaluation";
 import DragDropRubriques from "../ues/dragDropRubriques";
 import InfoEvaluation from "./InfoEvaluation";
 import { getAllRubriques } from "../../services/RubriqueService";
-import { useParams } from "react-router";
 import { getUeByCode } from "../../services/UeService";
-import { PlusOutlined } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router";
+
 const { Panel } = Collapse;
 
 function callback(key) {
@@ -34,6 +30,12 @@ export default function Popup(props) {
   const [isUpdate, setIsUpdate] = useState(false);
   const [UeInfo, setUeInfo] = useState({});
   const navigate = useNavigate();
+
+  const handleCancel = () => {
+    //setOpenPopup(false);
+    setIsUpdate(false);
+    setToggleAdd(true);
+  };
   const handleChange = (value) => {
     setSelectedTitle(value);
   };
@@ -154,7 +156,7 @@ export default function Popup(props) {
 
   if (isExist) {
     content = isUpdate ? (
-      <DragDropRubriques evaluation={evaluation} />
+      <DragDropRubriques evaluation={evaluation} handleCancel={handleCancel}/>
     ) : (
       <InfoEvaluation evaluation={evaluation} ue={UeInfo} callback={callback} />
     );
@@ -200,15 +202,10 @@ export default function Popup(props) {
       />
     );
   }
-  const handleCancel = () => {
-    //setOpenPopup(false);
-    setIsUpdate(false);
-    setToggleAdd(true);
-    setEvaluation(initalEvalState);
-  };
-
   return (
     <>
+      <PageHeader onBack={() => history.back()} title={<span><FileTextOutlined />Évaluation</span>}
+        subTitle={"Page de l'évaluation d'une unité d'enseignements" } />
       <div style={{ overflow: "auto" }}>{content}</div>
       {isExist && !isUpdate && (
         <Button

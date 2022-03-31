@@ -21,6 +21,9 @@ export const USER_FAILED_LOGIN_MESSAGE = {
   FAILED:
     "Connexion échouée. Vérifiez votre email et mot de passe et réessayez!",
 };
+export const QUESTIONNAIRE_SUCCESS_MESSAGES = {
+  ADDED: "Votre réponse a été envoyée ",
+};
 
 export const ALERT_TYPES = {
   SUCCESS: "success",

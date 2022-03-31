@@ -1,3 +1,4 @@
+import { getGraph } from "../../services/StatistiqueGraph";
 
 const url = "http://localhost:8082/api/"; 
 
@@ -20,6 +21,8 @@ export const getUeDetails = async (codeUe) =>
         console.error(e);
     }
 }
+
+
 
 
 export const getEvaluationOfUe = async(codeUe) => {
@@ -54,6 +57,28 @@ export const getEvalParId = async (id) => {
     }
     
   }
+
+
+  export const getResultatEvaluationById = async(id)  =>
+{
+    try
+    {
+        const id =1;
+        console.log("fetch id"+id);
+        const response = await fetch(url + "evaluations/statEval/"+id,
+        {
+            method:'GET'
+        });
+        
+
+        const json = await response.json();
+        
+        return json; 
+    }catch(e)
+    {
+        console.error(e);
+    }    
+}
 
   export const getrubriques = async (id) =>
   {
@@ -138,6 +163,24 @@ export const getStudentsUnswerNumber = async (id) =>
 
         const json = response.json();
         return json;
+
+    }catch(e)
+    {
+        console.error(e);
+    }
+}
+export const getAverageUnswer = async () =>
+{
+    //codeFormation
+    //reponseEvaluation
+        //rubriques
+        //codeUe
+    //anneuniv
+    try
+    {
+        const response = await getGraph();
+
+        return response;
 
     }catch(e)
     {

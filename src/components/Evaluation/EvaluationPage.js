@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 
 import { Button } from 'antd';
-import Popup from './Popup';
-import { Link } from 'react-router-dom'
 
 
 export const EvaluationPage = (props) => 

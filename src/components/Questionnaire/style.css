@@ -1,0 +1,44 @@
+.res-col {
+  justify-content: center;
+  display: flex;
+  /* padding-top: 4px;
+  padding-bottom: 4px; */
+}
+
+.res-tag {
+  width: 8em;
+  text-align: center;
+  /* padding-top: 10px; */
+}
+
+/* .emote-unhappy {
+  color: red;
+}
+.emote-unhappy::after {
+  color: rgb(17, 16, 16);
+}
+
+.emote-sad {
+  color: rgba(252, 164, 0, 0.795);
+}
+.emote-normal {
+  color: rgb(214, 214, 0);
+}
+.emote-happpy {
+  color: rgb(6, 211, 177);
+}
+.emote-vey-hapy {
+  color: rgb(17, 158, 4);
+}
+ */
+/* .ant-table-cell {
+  justify-content: center;
+  justify-items: center;
+}
+ */
+.emot-tab {
+  position: absolute;
+  right: 30px;
+  top: 1px;
+  font-size: 26px;
+}

@@ -34,7 +34,7 @@ const Container = (props) => {
           className="site-layout-background contentscroll"
           style={{
             margin: "24px 16px 0px 16px",
-            padding: 24,
+            padding : "5px 5px",
             height: "100%",
             backgroundColor: HeaderView() == "/connexion" ? "#EAEDED" : "",
           }}

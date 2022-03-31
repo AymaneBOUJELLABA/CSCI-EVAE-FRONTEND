@@ -1,5 +1,5 @@
 import "./App.css";
-import "antd/dist/antd.css";
+import "antd/dist/antd.min.css";
 
 import { Alert, Button, Result } from "antd";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -23,6 +23,7 @@ import { RequireAuthETU } from "./context/requireAuthETU";
 import TestEtudiant from "./components/testEtudiant";
 
 export const App = () => {
+
   return (
     <AuthProvider>
       <Layout>
@@ -33,15 +34,10 @@ export const App = () => {
           <Route element={<Login />} path="/connexion" exact />
 
           {/* protected Switch */}
-          <Route
-            element={
-              <RequireAuthADM>
-                <Rubriques />
-              </RequireAuthADM>
-            }
-            path="/rubriques"
-            exact
-          />
+          <Route element={<RequireAuthADM><Rubriques /></RequireAuthADM>}path="/rubriques" exact/>
+          <Route element={<RequireAuthADM ><Questionnaire /></RequireAuthADM>} path="/questionnaire" exact />
+          <Route element={<RequireAuthADM ><Recaputilatif /></RequireAuthADM>} path="/recaputilatif" exact />
+          <Route exact path="/resEval/:id"  element={<RequireAuthADM><ShowRes /></RequireAuthADM>} />
           <Route
             exact
             path="/UniteEnseignement/Evaluation/:code"
@@ -60,6 +56,13 @@ export const App = () => {
               </RequireAuthADM>
             }
           />
+           <Route exact path="/UniteEnseignements/graphes/:code"
+           element={
+            <RequireAuthADM>
+             <StatistiqueGraphe />
+             </RequireAuthADM>
+             } />
+
           <Route
             exact
             path="/UniteEnseignements"
