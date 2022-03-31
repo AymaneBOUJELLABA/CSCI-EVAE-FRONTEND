@@ -1,10 +1,43 @@
-import { Alert, Button, Card, Col, PageHeader, Result, Row, Table, Tag, Typography, Space, Spin , Divider } from 'antd';
+import { Alert, Button, Card, Col, Divider, PageHeader, Result, Row, Space, Spin, Table, Tag, Typography } from 'antd';
 import { FileSearchOutlined, MailOutlined, PhoneOutlined } from '@ant-design/icons';
 import { Link, useHistory } from 'react-router-dom';
-
 import React, { useEffect, useState } from 'react';
-import { getEvaluationOfUe, getStudentsNumber, getStudentsUnswerNumber,getAverageUnswer } from '../Evaluation/EvaluationSlice';
+import { getAverageUnswer, getEvaluationOfUe, getStudentsNumber, getStudentsUnswerNumber } from '../Evaluation/EvaluationSlice';
 
+const calculerMoyEtudUE = (response,codeUe) => {
+  let avg = 0;
+  let n = 0;
+  if(response.length>1)
+  {
+      response.forEach((promo) =>
+      {
+          if(promo.codeFormation === "M2DOSI" && promo.anneUniv==="2014-2015")
+          {
+            promo.reponseEvaluations.forEach(repEval =>
+            {
+              if(repEval.codeUe === codeUe)
+              {
+                let somme = 0;
+                repEval.rubriques.forEach((rub) =>
+                {
+                    somme+= rub.moyenne;
+                });
+                console.log("somme of rub : " , somme)
+                const l = repEval.rubriques.length;
+                avg +=  l> 0 ? (somme/l) : 0;
+                console.log("average of repEval" , avg);  
+                n++;
+              }
+            });
+          }
+      });
+  }
+
+  console.log("n :", n);
+  console.log("avg : ", avg);
+  avg = avg/n;
+  return avg.toFixed(2);
+}
 export default function DetailsUe({columns,table,loading,data})
 {
   const history = useHistory();
@@ -44,9 +77,10 @@ export default function DetailsUe({columns,table,loading,data})
         const etdUnsNum = await getStudentsUnswerNumber(evaluation.idEvaluation);
         setStudentsUnswerNumber(etdUnsNum);
       } 
-      const fetchAverage = async() => {
-        const AverageResponse = await getAverageUnswer(evaluation.idEvaluation);
-        setAverage(AverageResponse);
+      const fetchAverage = async() =>
+      {
+        const AverageResponse = await getAverageUnswer();
+        setAverage(calculerMoyEtudUE(AverageResponse,evaluation.codeUe));
       }
       fetchData();
       fetchUnsNumb();

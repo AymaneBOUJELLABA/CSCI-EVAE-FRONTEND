@@ -1,3 +1,4 @@
+import { getGraph } from "../../services/StatistiqueGraph";
 
 const url = "http://localhost:8082/api/"; 
 
@@ -144,17 +145,18 @@ export const getStudentsUnswerNumber = async (id) =>
         console.error(e);
     }
 }
-export const getAverageUnswer = async (id) =>
+export const getAverageUnswer = async () =>
 {
+    //codeFormation
+    //reponseEvaluation
+        //rubriques
+        //codeUe
+    //anneuniv
     try
     {
-        const response = await fetch('',
-        {
-            method:'GET'
-        });
+        const response = await getGraph();
 
-        const json = response.json();
-        return json;
+        return response;
 
     }catch(e)
     {
