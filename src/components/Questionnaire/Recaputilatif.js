@@ -15,6 +15,7 @@ import {
   Row,
   Tag,
 } from "antd";
+import { Link, useLocation } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import {
   RiEmotionLaughLine,
@@ -24,7 +25,6 @@ import {
   RiEmotionUnhappyLine,
 } from "react-icons/ri";
 
-import { Link } from "react-router-dom";
 import { envoyerQuestionnaire } from "../../services/QuestionnaireService";
 import { fontFamily } from "@mui/system";
 
@@ -43,13 +43,17 @@ const tagColor = {
   5: "green",
 };
 
-const Recaputilatif = (recap) => {
+const Recaputilatif = () =>
+{
+
+  const location = useLocation();
+  const recap = location.state;
   const { Panel } = Collapse;
   const { TextArea } = Input;
   const [comment, setComment] = useState("");
   const [disabled, setDisabled] = useState(false);
   const [visible, setVisible] = useState(false);
-  const [state, setstate] = useState(recap.location.state);
+  const [state, setstate] = useState(recap);
   const [response, setResponse] = useState({});
   const [done, setDone] = useState(false);
   const [isUpdate, setIsUpdate] = useState(false);

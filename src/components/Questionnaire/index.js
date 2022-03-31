@@ -3,25 +3,26 @@ import React, { useEffect, useReducer, useState } from "react";
 
 import Steps from "./StepsLine";
 import { getAllEvaluation } from "../../services/EvaluationService";
+import { useLocation } from "react-router-dom";
 
 const Questionnaire = () => {
-  const [evaluation, setEvaluation] = useState({});
+
+  const {state} = useLocation();
   const [loading, setLoading] = useState(false);
   const [idle, setIdle] = useState(true);
   const [error, setError] = useState(null);
-  
-  useEffect(() =>
+  const [evaluation, setEvaluation] = useState(state);
+
+  console.log("evaluation " , evaluation);
+  useEffect(() => 
   {
     setLoading(true);
     setIdle(false);
-    const loadData = async () => {
-      const response = await getAllEvaluation();
-      setEvaluation(response);
-      setIdle(false);
-      setError(response.status ? response : null);
+    if(evaluation.codeUe && evaluation)
+    {
       setLoading(false);
-    };
-    loadData();
+      setIdle(false);
+    }
   }, []);
 
   if (loading)

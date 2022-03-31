@@ -18,6 +18,7 @@ import {
   Tag,
   Tooltip
 } from "antd";
+import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useReducer, useState } from "react";
 import {
   RiEmotionLaughLine,
@@ -28,8 +29,8 @@ import {
 } from "react-icons/ri";
 import { find, get, isNil, uniqBy } from "lodash";
 
-import { Link } from "react-router-dom";
 import Question from "./Question";
+import { useAuth } from "../../context/auth";
 
 const { Step } = Steps;
 
@@ -120,11 +121,15 @@ const data = [
     emot5: <Tag color={"green"}>5/5</Tag>,
   },
 ];
-const StepsLine = ({ evaluation = {} }) => {
+const StepsLine = ({ evaluation = {}}) => {
   console.log("evaluation :>> ", evaluation);
+ 
+  const etudiant = useAuth();
+  const navigate = useNavigate();
+  console.log("user:  ", etudiant);
   const initialState = {
     idEvaluation: evaluation.idEvaluation,
-    idEtudiant: null,
+    idEtudiant: etudiant.noEtudiant,
     commentaire: "",
     rubriques: evaluation.rubriques.map(
       ({ idRubrique, designation, questions }) => ({
@@ -219,16 +224,14 @@ const StepsLine = ({ evaluation = {} }) => {
           <Row justify="center">
             <Col>
               {current === state.rubriques.length - 1 ? (
-                <Link
-                  to={{
-                    pathname: "/recaputilatif",
-                    state: state,
-                  }}
-                >
-                  <Button hidden={isButtonHidden} /* onClick={() => {}} */>
+
+                <Button onClick={() => navigate("/recaputilatif" , {
+                  replace : true,
+                  state : state
+                  })}                  
+                  hidden={isButtonHidden} >
                     <CheckOutlined /> Terminer
                   </Button>
-                </Link>
               ) : (
                 <>
                   <Tooltip

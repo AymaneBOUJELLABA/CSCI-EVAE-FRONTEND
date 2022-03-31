@@ -1,32 +1,37 @@
-import { Button, Card, Row, Space, Spin, Table } from "antd";
-
-import { Link } from "react-router-dom";
+import { Alert, Button, Card, Col, Row, Space, Spin, Table } from "antd";
+import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { getAllEvaluation } from "../../services/EvaluationService";
-import { list } from "./listEval";
+import { getAllEvaluation, getAllEvaluationsPublished } from "../../services/EvaluationService";
+
+import Item from "antd/lib/list/Item";
+import Questionnaire from "../Questionnaire";
+import { useAuth } from "../../context/auth";
 
 const EtudiantHome = () => {
   const nameOfStudent = "amiNe";
-  const [evaluation, setEvaluation] = useState({});
+  const [evaluations, setEvaluations] = useState([]);
   const [loading, setLoading] = useState(false);
   const [idle, setIdle] = useState(true);
   const [error, setError] = useState(null);
 
+  const auth = useAuth();
   const [isHidden, setIsHidden] = useState(false);
-  console.log("list :>> ", list);
-  useEffect(() => {
+  const navigate = useNavigate();
+  useEffect(() =>
+  {
     setLoading(true);
     setIdle(false);
     const loadData = async () => {
-      const response = await getAllEvaluation();
-      setEvaluation(response);
+      const response = await getAllEvaluationsPublished();
+      setEvaluations(response);
       setIdle(false);
       setError(response.status ? response : null);
       setLoading(false);
     };
     loadData();
   }, []);
-  console.log("evaluation12 :>> ", evaluation);
+
+  console.log("evaluations",evaluations);
   if (loading)
     return (
       <Spin
@@ -36,6 +41,16 @@ const EtudiantHome = () => {
     );
   if (error !== null) return <h1>Error</h1>;
   if (idle) return <div />;
+
+
+  if(evaluations.length < 1)
+  {
+    return <Spin
+          style={{ position: "absolute", right: "46%", bottom: "42%" }}
+          size="large"
+          tip="Chargement des données..."
+        />
+  }
   return (
     <>
       <Row justify="center">
@@ -48,7 +63,7 @@ const EtudiantHome = () => {
 
       <Card
         justify="center"
-        title={`Évaluations ${evaluation.anneeUniversitaire}`}
+        title={`Évaluations ${evaluations[0].anneeUniversitaire}`}
       >
         <Card type="inner" title="À propos des évaluations">
           <div hidden={isHidden}>
@@ -65,7 +80,33 @@ const EtudiantHome = () => {
           </div>
           <div hidden={!isHidden}>
             <p>Liste des évaluations disponible :</p>
-            <Table></Table>
+            
+            {
+              evaluations.length >= 1 ? 
+              
+                evaluations.map((evaluation,idx) => (
+
+                  <Row>
+                    <Col>
+                      {evaluation.designation}
+                    </Col>
+                    <Col>
+                      <Button onClick={() => navigate("/questionnaire" , {
+                        replace : true,
+                        state : evaluation
+                      })}>
+                        Évaluer l'UE + {evaluation.codeUe}
+                      </Button>
+                    </Col>
+                  </Row>
+
+                ))
+              :
+
+              <Table></Table>
+
+            }
+
           </div>
           <Row justify="center">
             <Button

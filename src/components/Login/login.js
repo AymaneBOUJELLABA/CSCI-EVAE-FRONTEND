@@ -1,4 +1,8 @@
-import React from "react";
+import {
+  ALERT_TYPES,
+  USER_FAILED_LOGIN_MESSAGE,
+  USER_SUCCESS_LOGIN_MESSAGE,
+} from "../../shared/constant";
 import {
   AccountCircle,
   Domain,
@@ -26,18 +30,18 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { makeStyles } from "@material-ui/core/styles";
+import { useLocation, useNavigate } from "react-router-dom";
+
 import LoginIcon from "@mui/icons-material/Login";
+import React from "react";
 import { fontWeight } from "@mui/system";
+import { makeStyles } from "@material-ui/core/styles";
 import { message } from "antd";
-import {
-  ALERT_TYPES,
-  USER_FAILED_LOGIN_MESSAGE,
-  USER_SUCCESS_LOGIN_MESSAGE,
-} from "../../shared/constant";
-//import { useAuth } from "../../context/auth";
 import { useAuth } from "../../context/auth";
-import { useNavigate, useLocation } from "react-router-dom";
+
+//import { useAuth } from "../../context/auth";
+
+
 const useStyles = makeStyles((theme) => ({
   textField: {
     "& p": {
@@ -228,7 +232,8 @@ export default function Login() {
               response.login,
               response.pwd,
               response.pseudo,
-              response.role
+              response.role,
+              response.noEtudiant
             );
             if (response.role == "ETU") navigate("/home");
             else navigate("/");
