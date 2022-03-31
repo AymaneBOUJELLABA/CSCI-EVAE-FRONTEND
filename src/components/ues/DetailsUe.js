@@ -13,6 +13,7 @@ export default function DetailsUe({columns,table,loading,data})
   const [ studentsUnswerNumber , setStudentsUnswerNumber ] = useState();
   const [evaluation, setEvaluation] = useState();
   const { Title } = Typography;
+  const [ average , setAverage ] = useState();
 
   
   useEffect(() => 
@@ -129,7 +130,7 @@ export default function DetailsUe({columns,table,loading,data})
         </Row>
         <Divider style={{ marginTop : 60, marginBottom : 20}} />
 
-                <Title level={3}> Plus de détails sur l'Evaluation </Title>
+                <Title level={3}> Plus de détails sur l'Évaluation </Title>
         <Row>
         <Col style={{marginTop:40}} span ={6} offset={6}>
             <Card title={"Historique "} type='inner' >
@@ -142,10 +143,10 @@ export default function DetailsUe({columns,table,loading,data})
 
           {evaluation && evaluation.codeFormation &&
           <Col style={{marginTop:40}} span ={6} offset={6}>
-            <Card title={ evaluation.designation} type='inner' >
+            <Card title='Évaluation' type='inner' >
               <Space direction="vertical">
               <Text > Élève : {studentsUnswerNumber? studentsUnswerNumber+'/'+studentsNumber: <Spin />}  </Text>
-              <Text > AVG :  </Text>
+              <Text > Moyenne de l'évaluation :  </Text>
               <Button type="primary" onClick={() => console.log("this button shows statistics !")}>Statistique </Button>
               </Space>
             </Card>

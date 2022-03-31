@@ -144,3 +144,20 @@ export const getStudentsUnswerNumber = async (id) =>
         console.error(e);
     }
 }
+export const getAverageUnswer = async (id) =>
+{
+    try
+    {
+        const response = await fetch('',
+        {
+            method:'GET'
+        });
+
+        const json = response.json();
+        return json;
+
+    }catch(e)
+    {
+        console.error(e);
+    }
+}
