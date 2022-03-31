@@ -1,4 +1,15 @@
-import { Steps, Divider, Row, Col, Tag, Rate, Button, Card, Table } from "antd";
+import {
+  Steps,
+  Divider,
+  Row,
+  Col,
+  Tag,
+  Rate,
+  Button,
+  Card,
+  Table,
+  Space,
+} from "antd";
 import { find, get, isNil, uniqBy } from "lodash";
 import React, { useReducer, useState, useEffect } from "react";
 import {
@@ -243,38 +254,66 @@ const StepsLine = ({ evaluation = {} }) => {
       >
         <Card type="inner" title="Instructions">
           <ol>
-            <li>
-              L'évaluation est sous forme des étapes, chaque étape représente
-              une rubrique qui contient des questions.
-            </li>
-            <li>
-              Pour répondre à une question , vous avez le choix entre 5
-              emoticones , chaque emoticone represente une valeur de 1 à 5:
-              <br />{" "}
-              <Row justify="center">
-                <Table
-                  bordered={true}
-                  columns={columns}
-                  dataSource={data}
-                  style={{ width: "max-content" }}
-                  pagination={false}
-                />
-              </Row>
-            </li>
-            <li>
-              Vous avez à la fin de chaque rubrique (étape) un bouton "Suivant"
-              qui vous permettra de passer à la rubrique suivante.
-              <ul>
-                PS: Vous devez impérativement répondre à toutes les questions
-                pour passer à la rubrique suivante.
-              </ul>
-            </li>
-            <li>
-              Quand vous terminerez l'évaluation vous pouvez consulter un
-              récapitulatif de toutes vos réponces , ensuite veillez valider vos
-              réponses après que vous nous laissiez un commentaire ou votre avis
-              sur le déroulement de cet évaluation.
-            </li>
+            <Space
+              direction="vertical"
+              size="middle"
+              style={{ display: "flex" }}
+            >
+              <li>
+                L'évaluation est sous forme des étapes, chaque étape représente
+                une rubrique qui contient des questions.
+              </li>
+
+              <li>
+                <Space
+                  direction="vertical"
+                  size="middle"
+                  style={{ display: "flex" }}
+                >
+                  <div>
+                    Pour répondre à une question , vous avez le choix entre{" "}
+                    <strong>5 emoticones</strong> , chaque emoticone represente
+                    une valeur de <strong>1</strong> à <strong>5</strong> :
+                  </div>
+                  <Row>
+                    <Col offset={4}>
+                      <Table
+                        bordered={true}
+                        columns={columns}
+                        dataSource={data}
+                        style={{ width: "max-content" }}
+                        pagination={false}
+                      />
+                    </Col>
+                  </Row>
+                </Space>
+              </li>
+              <li>
+                Vous avez à la fin de chaque rubrique (étape) un bouton
+                <strong>"Suivant"</strong> qui vous permettra de passer à la
+                rubrique suivante.
+                <ul style={{ color: "#ea0b0b" }}>
+                  <strong>PS:</strong> Vous devez impérativement répondre à
+                  toutes les questions pour passer à la rubrique suivante.
+                </ul>
+              </li>
+              <li>
+                Quand vous terminerez l'évaluation vous pouvez consulter un
+                récaputilatif de toutes vos réponces , ensuite veillez valider
+                vos réponses en cliquant sur le boutton{" "}
+                <strong>"Valider"</strong>
+              </li>
+              <li>
+                Nous vous prions de bien vouloir nous laissiez un commentaire ou
+                votre avis sur le déroulement de cet évaluation dans le champs
+                du texte approprié avant que vous envoyez votre reponse final de
+                tout l'évaluation.
+              </li>
+              <li>
+                Cliquer sur le bouton <strong>"Commencer"</strong> pour
+                commencer l'évaluation.
+              </li>
+            </Space>
           </ol>
         </Card>
         <Row justify="center">
