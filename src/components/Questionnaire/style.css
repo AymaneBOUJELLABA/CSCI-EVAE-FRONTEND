@@ -11,31 +11,45 @@
   /* padding-top: 10px; */
 }
 
-/* .emote-unhappy {
+/* .emote-unhappy :hove {
   color: red;
 }
-.emote-unhappy::after {
-  color: rgb(17, 16, 16);
+.emote-unhappy {
+  color: rgba(255, 0, 0, 0.404);
 }
 
-.emote-sad {
+.emote-sad:hover {
   color: rgba(252, 164, 0, 0.795);
 }
-.emote-normal {
+.emote-sad {
+  color: rgba(252, 164, 0, 0.404);
+}
+.emote-normal:hover {
   color: rgb(214, 214, 0);
 }
-.emote-happpy {
+.emote-normal {
+  color: rgb(214, 214, 0.404);
+}
+.emote-happpy:hover {
   color: rgb(6, 211, 177);
 }
-.emote-vey-hapy {
+.emote-happpy {
+  color: rgb(6, 211, 0.404);
+}
+.emote-vey-hapy:hover {
   color: rgb(17, 158, 4);
 }
- */
-/* .ant-table-cell {
-  justify-content: center;
-  justify-items: center;
+.emote-vey-hapy {
+  color: rgb(17, 158, 0.404);
 }
  */
+
+/* .ant-rate-star-first {
+  color: aquamarine;
+}
+.ant-rate-star-second {
+  color: rgb(49, 9, 59);
+} */
 .emot-tab {
   position: absolute;
   right: 30px;

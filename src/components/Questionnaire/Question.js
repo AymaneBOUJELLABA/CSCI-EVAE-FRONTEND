@@ -1,7 +1,7 @@
 import "./style.css";
 
-import { Col, Divider, Rate, Row, Tag } from "antd";
-import React, { useEffect, useState } from "react";
+import { Badge, Col, Divider, Rate, Row, Space, Tag } from "antd";
+import React, { useEffect, useRef, useState } from "react";
 import {
   RiEmotionLaughLine,
   RiEmotionLine,
@@ -11,6 +11,7 @@ import {
 } from "react-icons/ri";
 
 const Question = (props) => {
+  const status = (value) => {};
   const [recap, setRecap] = useState({
     idEvaluation: props.idEvaluation,
     idEtudiant: null,
@@ -23,6 +24,7 @@ const Question = (props) => {
     ],
   });
   const [note, setNote] = useState(0);
+
   const starsColor = (value) => {
     if (value === 1) return "red";
     else if (value === 2) return "yellow";
@@ -49,8 +51,9 @@ const Question = (props) => {
     });
   }, [props.idRubrique]);
 
-  const onSetNewResponse = (value, idQuestion, intitule, order) =>
-  {
+  const [isHidden, setHidden] = useState(false);
+
+  const onSetNewResponse = (value, idQuestion, intitule, order) => {
     const response = {
       idQuestion: idQuestion,
       intitule: intitule,
@@ -83,11 +86,12 @@ const Question = (props) => {
             </Col>
             <Col className="res-col" span={8}>
               <Rate
+                key={`${qst.idQuestion}+${index}+${props.idRubrique}`}
                 // show numbers instead of Start
                 // character={({ index }) => index + 1}
                 //show emojis insteed of stars
                 character={({ index }) => customIcons[index + 1]}
-                key={props.questions.idQuestion}
+                // key={props.questions.idQuestion}
                 style={{ fontSize: "29px" }}
                 /* onHoverChange={(value, index) => {
                   const color = starsColor(value);
@@ -101,6 +105,7 @@ const Question = (props) => {
                     qst.intitule,
                     qst.order
                   );
+                  setHidden(!isHidden);
                 }}
               />
             </Col>
@@ -119,6 +124,15 @@ const Question = (props) => {
               </Tag>
             </Col> */}
           </Row>
+          {/* <Row justify="center">
+            <Space size={25}>
+              <Badge color={"red"} />
+              <Badge color={"#fca400cb"} />
+              <Badge color={"#d6d600"} status={"default"} />
+              <Badge status="processing" color={"#06d3b1"} />
+              <Badge color={"#119e04"} />
+            </Space>
+          </Row> */}
 
           <Divider />
         </div>

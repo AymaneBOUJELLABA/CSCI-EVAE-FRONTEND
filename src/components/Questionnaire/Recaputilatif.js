@@ -88,9 +88,7 @@ const Recaputilatif = (recap) => {
     console.log("new state" , r);
     setstate(r);
   }
-
-  console.log("state " , state);
-  useEffect(() =>{
+  useEffect(() => {
     if (done) {
       if (response && response.data) {
         onShowAlert(QUESTIONNAIRE_SUCCESS_MESSAGES, ALERT_TYPES.SUCCESS);
@@ -122,9 +120,8 @@ const Recaputilatif = (recap) => {
             {rubrique.questions.map((qst) => (
               <div key={qst.idQuestion}>
                 <Row style={{ fontSize: "15px", fontWeight: "normal" }}>
-               
-                <Col span={16}>{qst.intitule}</Col>
-                {isUpdate ? 
+                  <Col span={16}>{qst.intitule}</Col>
+                  {isUpdate ? 
                 <Rate
                   defaultValue={qst.reponse}
                   onChange={(v) => changeValue(qst.idQuestion, rubrique.idRubrique, v)}
@@ -203,7 +200,6 @@ const Recaputilatif = (recap) => {
           Envoyer
         </Button>
         <Button
-
          type="primary"
           hidden={disabled || isUpdate}
           onClick={() => {

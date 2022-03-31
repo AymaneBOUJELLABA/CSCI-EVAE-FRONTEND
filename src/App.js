@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import { AuthProvider } from "./context/auth";
 import Error from "./shared/Error";
+import EtudiantHome from "./components/Etudiant/Home";
 import EvaluationPage from "./components/Evaluation/EvaluationPage";
 import GetEval from "./components/ues/getEval";
 import GetUe from "./components/ues/getUe";
@@ -46,24 +47,7 @@ export const App = () => {
             path="/rubriques"
             exact
           />
-          <Route
-            element={
-              <RequireAuthADM>
-                <Questionnaire />
-              </RequireAuthADM>
-            }
-            path="/questionnaire"
-            exact
-          />
-          <Route
-            element={
-              <RequireAuthADM>
-                <Recaputilatif />
-              </RequireAuthADM>
-            }
-            path="/recaputilatif"
-            exact
-          />
+          
           <Route
             exact
             path="/resEval/:id"
@@ -133,10 +117,29 @@ export const App = () => {
           <Route
             element={
               <RequireAuthETU>
-                <TestEtudiant />
+                <EtudiantHome />
               </RequireAuthETU>
             }
             path="/home"
+            exact
+          />
+
+          <Route
+            element={
+              <RequireAuthETU>
+                <Questionnaire />
+              </RequireAuthETU>
+            }
+            path="/questionnaire"
+            exact
+          />
+          <Route
+            element={
+              <RequireAuthETU>
+                <Recaputilatif />
+              </RequireAuthETU>
+            }
+            path="/recaputilatif"
             exact
           />
 

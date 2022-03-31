@@ -16,6 +16,7 @@ import {
   Steps,
   Table,
   Tag,
+  Tooltip
 } from "antd";
 import React, { useEffect, useReducer, useState } from "react";
 import {
@@ -230,18 +231,32 @@ const StepsLine = ({ evaluation = {} }) => {
                 </Link>
               ) : (
                 <>
-                  <Button
-                    hidden={isButtonHidden}
-                    disabled={
+                  <Tooltip
+                    title={
                       element && element.questions.some((e) => e.reponse === 0)
+                        ? "Veuillez repondre à toutes les questions"
+                        : "Passer à la rubrique suivante"
                     }
-                    onClick={() => {
-                      onChangeCurrent(current + 1);
-                    }}
+                    color={
+                      element && element.questions.some((e) => e.reponse === 0)
+                        ? "#f50"
+                        : "#87d068"
+                    }
                   >
-                    <ArrowRightOutlined />
-                    Suivant
-                  </Button>
+                    <Button
+                      hidden={isButtonHidden}
+                      disabled={
+                        element &&
+                        element.questions.some((e) => e.reponse === 0)
+                      }
+                      onClick={() => {
+                        onChangeCurrent(current + 1);
+                      }}
+                    >
+                      <ArrowRightOutlined />
+                      Suivant
+                    </Button>
+                  </Tooltip>
                 </>
               )}
             </Col>
@@ -302,7 +317,7 @@ const StepsLine = ({ evaluation = {} }) => {
               <li>
                 Quand vous terminerez l'évaluation vous pouvez consulter un
                 récaputilatif de toutes vos réponces , ensuite veillez valider
-                vos réponses en cliquant sur le boutton{" "}
+                vos réponses en cliquant sur le bouton{" "}
                 <strong>"Valider"</strong>
               </li>
               <li>
