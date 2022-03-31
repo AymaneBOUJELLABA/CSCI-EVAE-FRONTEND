@@ -9,16 +9,17 @@ import {
   FileTextOutlined,
   PlusOutlined,
 } from "@ant-design/icons";
+import { Link, useHistory } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { ajoutEvaluation, getEvaluationOfUe } from "./EvaluationSlice";
+import { ajoutEvaluation, getEvaluationOfUe, publierEvaluation } from "./EvaluationSlice";
 
 import AddEvaluation from "./AddEvaluation";
 import DragDropRubriques from "../ues/dragDropRubriques";
 import InfoEvaluation from "./InfoEvaluation";
 import { getAllRubriques } from "../../services/RubriqueService";
 import { getUeByCode } from "../../services/UeService";
-import { useParams } from "react-router";
 import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router";
 
 const { Panel } = Collapse;
 
@@ -29,7 +30,7 @@ function callback(key) {
 const initalEvalState = { designation: "", idEvaluation: -1, rubriques: [] };
 export default function Popup(props) {
   let { codeUe } = useParams();
-  console.log("Code ue", codeUe);
+  // console.log("Code ue", codeUe);
   const [evaluation, setEvaluation] = useState(initalEvalState);
   const [toggleAdd, setToggleAdd] = useState(true);
   const [rubriques, setRubriques] = useState([]);
@@ -62,7 +63,7 @@ export default function Popup(props) {
     }
   };
 
-  console.log("evaluation : ", evaluation);
+  // console.log("evaluation : ", evaluation);
 
   const onFinish = (values) => {
     const pvalues = {
@@ -125,7 +126,6 @@ export default function Popup(props) {
     };
     fetchUe();
     fetchData();
-
     return () => {
       setEvaluation(initalEvalState);
     };
@@ -148,6 +148,19 @@ export default function Popup(props) {
     nomEnseignant: UeInfo.nomEnseigant,
     prenomEnseignant: UeInfo.prenomEnseignant,
   };
+
+  /*
+   Publication d'une évaluation
+   */
+  const publishEvaluation = async (idEval) => {
+    if(isExist && evaluation.etat==="ELA") {
+        const response = await publierEvaluation(idEval);
+        console.log("server response ", response);
+        setEvaluation(response);
+
+        message.info("Publication de lévaluation avec succès");
+      };
+  }
 
   const handleDelete = (id) => {
     let rub;
@@ -220,7 +233,25 @@ export default function Popup(props) {
             Évaluation
           </span>
         }
-        subTitle={"Page de l'évaluation d'une unité d'enseignement"}
+        subTitle={"Page de l'évaluation de l'unité d'enseignement ( " +codeUe + " )" }
+      
+        extra = {
+          <Button
+          type="primary"
+          shape="round"
+          size="large"
+          className="addButton"
+          icon={<ShareAltOutlined/>}
+          style={{
+            visibility: evaluation.etat==="ELA" ? 'visible' : 'hidden'
+          }}
+          onClick={() => publishEvaluation(evaluation.idEvaluation)}
+          >
+            Publier
+          </Button>
+        }
+      
+      
       />
       <div style={{ overflow: "auto" }}>{content}</div>
       {isExist && !isUpdate && (

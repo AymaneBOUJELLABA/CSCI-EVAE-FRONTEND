@@ -1,7 +1,7 @@
-import { UnorderedListOutlined } from "@ant-design/icons";
 import { Alert, Col, Collapse, Divider, Row, Tag } from "antd";
 
 import React from "react";
+import { UnorderedListOutlined } from "@ant-design/icons";
 
 const { Panel } = Collapse;
 export default function InfoEvaluation({ evaluation, callback, ue }) {
