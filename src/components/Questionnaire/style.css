@@ -11,7 +11,7 @@
   /* padding-top: 10px; */
 }
 
-.emote-unhappy {
+/* .emote-unhappy {
   color: red;
 }
 .emote-unhappy::after {
@@ -29,4 +29,16 @@
 }
 .emote-vey-hapy {
   color: rgb(17, 158, 4);
+}
+ */
+/* .ant-table-cell {
+  justify-content: center;
+  justify-items: center;
+}
+ */
+.emot-tab {
+  position: absolute;
+  right: 30px;
+  top: 1px;
+  font-size: 26px;
 }

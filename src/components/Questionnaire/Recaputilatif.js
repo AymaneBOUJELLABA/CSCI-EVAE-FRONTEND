@@ -49,45 +49,35 @@ const Recaputilatif = (recap) => {
   const [disabled, setDisabled] = useState(false);
   const [visible, setVisible] = useState(false);
   const [state, setstate] = useState(recap.location.state);
-  const [response,setResponse] = useState({});
+  const [response, setResponse] = useState({});
   const [done, setDone] = useState(false);
   /*console.log("comment :>> ", comment);
   console.log("state12 :>> ", state);*/
 
-  
-  console.log("response : " , response);
-  const handleSend = async () =>
-  {
-      const sendData = async () => {
-        console.log("...sending data...");
-        const r = await envoyerQuestionnaire(state);
-        setResponse(r);
-        console.log("....data sent!");
-        console.log(response);
-        setDone(true);
-      }
-      await sendData();
+  console.log("response : ", response);
+  const handleSend = async () => {
+    const sendData = async () => {
+      console.log("...sending data...");
+      const r = await envoyerQuestionnaire(state);
+      setResponse(r);
+      console.log("....data sent!");
+      console.log(response);
+      setDone(true);
+    };
+    await sendData();
   };
-  
-
 
   useEffect(() => {
-    if(done)
-    {
-      if(response &&response.data)
-      {
+    if (done) {
+      if (response && response.data) {
         onShowAlert(QUESTIONNAIRE_SUCCESS_MESSAGES, ALERT_TYPES.SUCCESS);
-      }
-      else if(response && response.error)
-      {
+      } else if (response && response.error) {
         onShowAlert(response.error.message, ALERT_TYPES.WARNING);
       }
     }
-    return () => {
-      
-    }
-  }, [done])
-  
+    return () => {};
+  }, [done]);
+
   return (
     <>
       <Row justify="center">
