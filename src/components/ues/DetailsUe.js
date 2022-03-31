@@ -3,7 +3,7 @@ import { FileSearchOutlined, MailOutlined, PhoneOutlined } from '@ant-design/ico
 import { Link, useHistory } from 'react-router-dom';
 
 import React, { useEffect, useState } from 'react';
-import { getEvaluationOfUe, getStudentsNumber, getStudentsUnswerNumber } from '../Evaluation/EvaluationSlice';
+import { getEvaluationOfUe, getStudentsNumber, getStudentsUnswerNumber,getAverageUnswer } from '../Evaluation/EvaluationSlice';
 
 export default function DetailsUe({columns,table,loading,data})
 {
@@ -44,8 +44,13 @@ export default function DetailsUe({columns,table,loading,data})
         const etdUnsNum = await getStudentsUnswerNumber(evaluation.idEvaluation);
         setStudentsUnswerNumber(etdUnsNum);
       } 
+      const fetchAverage = async() => {
+        const AverageResponse = await getAverageUnswer(evaluation.idEvaluation);
+        setAverage(AverageResponse);
+      }
       fetchData();
       fetchUnsNumb();
+      fetchAverage();
     }
   
   },[evaluation])
@@ -146,7 +151,7 @@ export default function DetailsUe({columns,table,loading,data})
             <Card title='Évaluation' type='inner' >
               <Space direction="vertical">
               <Text > Élève : {studentsUnswerNumber? studentsUnswerNumber+'/'+studentsNumber: <Spin />}  </Text>
-              <Text > Moyenne de l'évaluation :  </Text>
+              <Text > Moyenne de l'évaluation : { average } </Text>
               <Button type="primary" onClick={() => console.log("this button shows statistics !")}>Statistique </Button>
               </Space>
             </Card>
