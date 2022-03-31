@@ -67,6 +67,7 @@ const reducer = (state, action) => {
 };
 
 const StepsLine = ({ evaluation = {} }) => {
+  console.log("evaluation :>> ", evaluation);
   const initialState = {
     idEvaluation: evaluation.idEvaluation,
     idEtudiant: null,
@@ -225,7 +226,11 @@ const StepsLine = ({ evaluation = {} }) => {
           <Divider />
         </div>
       )}
-      <Card hidden={!isButtonHidden} justify="center" title="Questionnaire ">
+      <Card
+        hidden={!isButtonHidden}
+        justify="center"
+        title={`${evaluation.designation} ${evaluation.anneeUniversitaire}`}
+      >
         <Card type="inner" title="Instructions">
           <ol>
             <li>
