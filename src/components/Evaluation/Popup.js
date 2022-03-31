@@ -1,12 +1,12 @@
 import { ALERT_TYPES, onShowAlert } from "../../shared/constant";
-import { Alert, Button, Collapse, Space, message } from "antd";
+import { Alert, Button, Collapse, PageHeader, Space, message } from "antd";
+import { FileTextOutlined, PlusOutlined } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
 import { ajoutEvaluation, getEvaluationOfUe } from "./EvaluationSlice";
 
 import AddEvaluation from "./AddEvaluation";
 import DragDropRubriques from "../ues/dragDropRubriques";
 import InfoEvaluation from "./InfoEvaluation";
-import { PlusOutlined } from "@ant-design/icons";
 import { getAllRubriques } from "../../services/RubriqueService";
 import { getUeByCode } from "../../services/UeService";
 import { useParams } from "react-router";
@@ -201,6 +201,8 @@ export default function Popup(props) {
   }
   return (
     <>
+      <PageHeader onBack={() => history.back()} title={<span><FileTextOutlined />Évaluation</span>}
+        subTitle={"Page de l'évaluation d'une unité d'enseignements" } />
       <div style={{ overflow: "auto" }}>{content}</div>
       {isExist && !isUpdate && (
         <Button
