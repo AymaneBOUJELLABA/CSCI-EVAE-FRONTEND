@@ -72,7 +72,7 @@ class ShowUe extends React.Component {
                   (window.location.href = `/UniteEnseignement/${record.codeUe}`)
                 }
               >
-                Details
+                Détails
               </Button>
             </Tooltip>
 
@@ -88,7 +88,7 @@ class ShowUe extends React.Component {
                   (window.location.href = `/Evaluation/popup/${record.codeUe}`)
                 }
               >
-                Evaluation
+                Évaluation
               </Button>
             </Tooltip>
           </Space>

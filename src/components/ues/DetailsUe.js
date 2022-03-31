@@ -4,15 +4,13 @@ import { Link, useHistory } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { getEvaluationOfUe, getStudentsNumber, getStudentsUnswerNumber } from '../Evaluation/EvaluationSlice';
 
+const { Title , Text } = Typography;
 export default function DetailsUe({columns,table,loading,data})
 {
   const history = useHistory();
-  const { Text } = Typography;
   const [ studentsNumber, setStudentsNumber ] = useState();
   const [ studentsUnswerNumber , setStudentsUnswerNumber ] = useState();
   const [evaluation, setEvaluation] = useState();
-  const { Title } = Typography;
-
   
   useEffect(() => 
   {
@@ -59,7 +57,7 @@ export default function DetailsUe({columns,table,loading,data})
   {
     EnseignantInfo = {
       nom : data.nomEnseigant,
-      pernom : data.prenomEnseignant,
+      prenom : data.prenomEnseignant,
       emailUbo : data.emailUbo,
       mobile: data.mobile
     }
@@ -88,15 +86,15 @@ export default function DetailsUe({columns,table,loading,data})
         subTitle={"Page de détails d'une unité d'enseignements" } 
           />
     <div className='details-ue'>
-      <Card loading={!loading} title={<span>{data.designation + ' ( ' + data.codeUe + ' )'}<Tag style={{float:'right'}} color="magenta">Semestre 9</Tag></span>}>
+      <Card loading={!loading} title={<span><Title level={3} style={{display:'inline'}}>{data.designation + ' ( ' + data.codeUe + ' )'}</Title><Tag style={{float:'right', fontSize:'20px'}} color="magenta">Semestre {data.semestre}</Tag></span>}>
         <Row justify='space-between'>
           <Col span={16}>
             <Card title="Volume Horaire" type='inner'>
-              <Table size='middle' columns={columns} dataSource={table} pagination={false} />  
+              <Table size='small' columns={columns} dataSource={table} pagination={false} />  
             </Card>
           </Col>
           <Col span={6}>
-            <Card title={"Enseigné par "+ EnseignantInfo.nom + ' '+EnseignantInfo.pernom} type='inner'>
+            <Card title={"Enseigné par "+ EnseignantInfo.nom + ' '+EnseignantInfo.prenom} type='inner'>
               {
                 Object.entries(EnseignantInfo).map(([key,item],idx)=>{
                   
@@ -117,9 +115,9 @@ export default function DetailsUe({columns,table,loading,data})
         <Row justify='space-between'>
           <Col style={{marginTop:40}} span={16}>
                 {!data.description ?
-                  <Alert message={"Déscription de "+data.codeUe+ " :"} type="info" description="Aucune description disponible" />
+                  <Alert message={"Description de "+data.codeUe+ " :"} type="info" description="Aucune description disponible" />
                   :
-                  <Card type="inner" title={"Déscription de l'UE : " + data.codeUe}>
+                  <Card type="inner" title={"Description de l'UE : " + data.codeUe}>
                     {data.description}
                   </Card>
                 }
