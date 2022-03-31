@@ -61,21 +61,21 @@ const Sider2 = (props) => {
             <SubMenu key="sub1" icon={<DatabaseOutlined />} title="Rubrique">
               <Menu.Item icon={<UnorderedListOutlined />} key="1">
                 <Link to="/rubriques" style={{ textDecoration: "none" }}>
-                  Liste des Rubriques
+                  Liste des rubriques
                 </Link>
               </Menu.Item>
             </SubMenu>
             <SubMenu
               key="sub2"
               icon={<DatabaseOutlined />}
-              title="Unite Enseignementes"
+              title="Unité d'enseignement"
             >
               <Menu.Item icon={<UnorderedListOutlined />} key="2">
                 <Link
                   to="/UniteEnseignements"
                   style={{ textDecoration: "none" }}
                 >
-                  Liste des UEs
+                  Liste des unités d'enseignement
                 </Link>
               </Menu.Item>
             </SubMenu>

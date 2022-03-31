@@ -15,12 +15,12 @@ export default function Home() {
         >
           <Link to="/rubriques">
             <Button type="primary" size="large">
-              Liste des Rubriques
+              Liste des rubriques
             </Button>
           </Link>
           <Link to="/UniteEnseignements">
             <Button type="primary" size="large">
-              Liste des UEs
+              Liste des unités d'enseignement
             </Button>
           </Link>
         </Space>

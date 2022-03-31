@@ -45,7 +45,7 @@ export default function ShowUe() {
             record.nom.toUpperCase()
           : record.prenom + " " + record.nom,
       sortDirections: ["ascend"],
-      sorter: (a, b) => a.nom.localeCompare(b.nom),
+      sorter: (a, b) => a.prenom.localeCompare(b.prenom),
     },
     {
       title: () => <div style={{ fontWeight: "bolder" }}>Action</div>,
