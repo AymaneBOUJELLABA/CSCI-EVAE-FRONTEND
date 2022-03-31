@@ -22,7 +22,7 @@ import { RequireAuthADM } from "./context/requireAuthADM";
 import { RequireAuthETU } from "./context/requireAuthETU";
 import Rubriques from "./components/rubriques";
 import ShowRes from "./components/Evaluation/ShowRes";
-import StatistiqueGraphe from "./components/"
+import StatistiqueGraphe from "./components/ues/StatistiqueGraphe";
 import TestEtudiant from "./components/testEtudiant";
 import { useAuth } from "./context/auth";
 
