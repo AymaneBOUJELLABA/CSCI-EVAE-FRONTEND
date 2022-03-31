@@ -1,4 +1,4 @@
-import { Steps, Divider, Row, Col, Tag, Rate, Button, Card } from "antd";
+import { Steps, Divider, Row, Col, Tag, Rate, Button, Card, Table } from "antd";
 import { find, get, isNil, uniqBy } from "lodash";
 import React, { useReducer, useState, useEffect } from "react";
 import {
@@ -66,6 +66,47 @@ const reducer = (state, action) => {
   }
 };
 
+const columns = [
+  {
+    title: <RiEmotionUnhappyLine className="emot-tab" color="red" />,
+    dataIndex: "emot1",
+    key: "emot1",
+  },
+  {
+    title: <RiEmotionSadLine className="emot-tab" color="#aeae00" />,
+    dataIndex: "emot2",
+    key: "emot2",
+    responsive: ["md"],
+  },
+  {
+    title: <RiEmotionNormalLine className="emot-tab" color="orange" />,
+    dataIndex: "emot3",
+    key: "emot3",
+    responsive: ["lg"],
+  },
+  {
+    title: <RiEmotionLine className="emot-tab" color="blue" />,
+    dataIndex: "emot4",
+    key: "emot4",
+    responsive: ["lg"],
+  },
+  {
+    title: <RiEmotionLaughLine className="emot-tab" color="green" />,
+    dataIndex: "emot5",
+    key: "emot5",
+    responsive: ["lg"],
+  },
+];
+const data = [
+  {
+    key: "1",
+    emot1: <Tag color={"red"}>1/5</Tag>,
+    emot2: <Tag color={"yellow"}>2/5</Tag>,
+    emot3: <Tag color={"orange"}>3/5</Tag>,
+    emot4: <Tag color={"blue"}>4/5</Tag>,
+    emot5: <Tag color={"green"}>5/5</Tag>,
+  },
+];
 const StepsLine = ({ evaluation = {} }) => {
   console.log("evaluation :>> ", evaluation);
   const initialState = {
@@ -143,14 +184,9 @@ const StepsLine = ({ evaluation = {} }) => {
                   disabled={true}
                   key={index}
                   title={rubrique.designation}
-                  //onClick={() => onClickSuivant(rubrique)}
                 />
               ))}
-              <Step
-                disabled={true}
-                title="Récaputilatif"
-                //onClick={() => onClickSuivant(rubrique)}
-              />
+              <Step disabled={true} title="Récaputilatif" />
             </Steps>
           </div>
           <br />
@@ -167,21 +203,6 @@ const StepsLine = ({ evaluation = {} }) => {
             />
           </div>
           <Row justify="center">
-            {/*     <Button
-                hidden={isButtonHidden}
-                disabled={
-                  element && element.questions.some((e) => e.reponse === 0)
-                }
-                onClick={() => {
-                  onChangeCurrent(current + 1);
-                }}
-              >
-                {current === state.rubriques.length - 1 ? (
-                  <>Terminer</>
-                ) : (
-                  <>Suivant</>
-                )}
-              </Button> */}
             <Col>
               {current === state.rubriques.length - 1 ? (
                 <Link
@@ -208,17 +229,6 @@ const StepsLine = ({ evaluation = {} }) => {
                     <ArrowRightOutlined />
                     Suivant
                   </Button>
-
-                  {/* <Button
-                    hidden={isButtonHidden}
-                    disabled={false}
-                    onClick={() => {
-                      onChangeCurrent(current - 1);
-                    }}
-                  >
-                    <ArrowRightOutlined />
-                    Precedant
-                  </Button> */}
                 </>
               )}
             </Col>
@@ -240,23 +250,16 @@ const StepsLine = ({ evaluation = {} }) => {
             <li>
               Pour répondre à une question , vous avez le choix entre 5
               emoticones , chaque emoticone represente une valeur de 1 à 5:
-              <ul>
-                <li>
-                  <RiEmotionUnhappyLine /> : 1/5
-                </li>
-                <li>
-                  <RiEmotionSadLine /> : 2/5
-                </li>
-                <li>
-                  <RiEmotionNormalLine /> : 3/5
-                </li>
-                <li>
-                  <RiEmotionLine /> : 4/5
-                </li>
-                <li>
-                  <RiEmotionLaughLine /> : 5/5
-                </li>
-              </ul>
+              <br />{" "}
+              <Row justify="center">
+                <Table
+                  bordered={true}
+                  columns={columns}
+                  dataSource={data}
+                  style={{ width: "max-content" }}
+                  pagination={false}
+                />
+              </Row>
             </li>
             <li>
               Vous avez à la fin de chaque rubrique (étape) un bouton "Suivant"

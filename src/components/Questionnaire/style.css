@@ -31,3 +31,14 @@
   color: rgb(17, 158, 4);
 }
  */
+/* .ant-table-cell {
+  justify-content: center;
+  justify-items: center;
+}
+ */
+.emot-tab {
+  position: absolute;
+  right: 29px;
+  top: 1px;
+  font-size: 29px;
+}
