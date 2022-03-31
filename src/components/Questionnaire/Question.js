@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { Divider, Row, Col, Tag, Rate } from "antd";
 import "./style.css";
 
+import { Col, Divider, Rate, Row, Tag } from "antd";
+import React, { useEffect, useState } from "react";
 import {
-  RiEmotionUnhappyLine,
-  RiEmotionSadLine,
-  RiEmotionNormalLine,
-  RiEmotionLine,
   RiEmotionLaughLine,
+  RiEmotionLine,
+  RiEmotionNormalLine,
+  RiEmotionSadLine,
+  RiEmotionUnhappyLine,
 } from "react-icons/ri";
 
 const Question = (props) => {
@@ -49,7 +49,8 @@ const Question = (props) => {
     });
   }, [props.idRubrique]);
 
-  const onSetNewResponse = (value, idQuestion, intitule, order) => {
+  const onSetNewResponse = (value, idQuestion, intitule, order) =>
+  {
     const response = {
       idQuestion: idQuestion,
       intitule: intitule,

@@ -11,6 +11,7 @@ import {
   Input,
   List,
   Modal,
+  Rate,
   Row,
   Tag,
 } from "antd";
@@ -23,6 +24,7 @@ import {
   RiEmotionUnhappyLine,
 } from "react-icons/ri";
 
+import { Link } from "react-router-dom";
 import { envoyerQuestionnaire } from "../../services/QuestionnaireService";
 import { fontFamily } from "@mui/system";
 
@@ -51,6 +53,7 @@ const Recaputilatif = (recap) => {
   const [state, setstate] = useState(recap.location.state);
   const [response, setResponse] = useState({});
   const [done, setDone] = useState(false);
+  const [isUpdate, setIsUpdate] = useState(false);
   /*console.log("comment :>> ", comment);
   console.log("state12 :>> ", state);*/
 
@@ -67,7 +70,22 @@ const Recaputilatif = (recap) => {
     await sendData();
   };
 
-  useEffect(() => {
+  const changeValue = (idQuestion , idRub, reponse) =>
+  {
+
+    recap.rubriques.forEach(rub => {
+      if(rub.idRubrique === idRub)
+      {
+        rub.questions.forEach(q => {
+          if(q.idQuestion === idQuestion)
+          {
+            q.reponse = response;
+          }
+        })
+      }
+    })
+  }
+  useEffect(() =>{
     if (done) {
       if (response && response.data) {
         onShowAlert(QUESTIONNAIRE_SUCCESS_MESSAGES, ALERT_TYPES.SUCCESS);
@@ -77,6 +95,8 @@ const Recaputilatif = (recap) => {
     }
     return () => {};
   }, [done]);
+
+
 
   return (
     <>
@@ -97,7 +117,13 @@ const Recaputilatif = (recap) => {
             {rubrique.questions.map((qst) => (
               <div key={qst.idQuestion}>
                 <Row style={{ fontSize: "15px", fontWeight: "normal" }}>
-                  <Col span={16}>{qst.intitule}</Col>
+               
+                <Col span={16}>{qst.intitule}</Col>
+                {isUpdate ? 
+                <Rate
+                
+                ></Rate> : 
+                  <>
                   <Col span={4}>
                     <Tag
                       style={{ width: "8em", textAlign: "center" }}
@@ -114,6 +140,8 @@ const Recaputilatif = (recap) => {
                       {customIcons[qst.reponse]}
                     </Tag>
                   </Col>
+                  </>
+                  }
 
                   <Divider />
                 </Row>
@@ -121,6 +149,8 @@ const Recaputilatif = (recap) => {
             ))}
           </Panel>
         ))}
+        {comment !== "" && <Panel header={<Tag color="cyan">Commentaire</Tag>} key="12">{comment}</Panel>
+        }
       </Collapse>
       <Divider />
 
@@ -164,6 +194,16 @@ const Recaputilatif = (recap) => {
           }}
         >
           Envoyer
+        </Button>
+        <Button
+         type="primary"
+          hidden={disabled}
+          onClick={() => {
+            /* setstate({ ...state, commentaire: comment }); */
+            setIsUpdate(true);
+          }}
+        >
+          Modifier
         </Button>
       </Row>
       <Divider />

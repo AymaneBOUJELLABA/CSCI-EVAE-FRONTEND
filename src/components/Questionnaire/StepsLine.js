@@ -1,33 +1,34 @@
+import "./style.css";
+
 import {
-  Steps,
-  Divider,
-  Row,
-  Col,
-  Tag,
-  Rate,
-  Button,
-  Card,
-  Table,
-  Space,
-} from "antd";
-import { find, get, isNil, uniqBy } from "lodash";
-import React, { useReducer, useState, useEffect } from "react";
-import {
-  RiEmotionUnhappyLine,
-  RiEmotionSadLine,
-  RiEmotionNormalLine,
-  RiEmotionLine,
-  RiEmotionLaughLine,
-} from "react-icons/ri";
-import {
-  PlayCircleOutlined,
   ArrowRightOutlined,
   CheckOutlined,
+  PlayCircleOutlined,
 } from "@ant-design/icons";
+import {
+  Button,
+  Card,
+  Col,
+  Divider,
+  Rate,
+  Row,
+  Space,
+  Steps,
+  Table,
+  Tag,
+} from "antd";
+import React, { useEffect, useReducer, useState } from "react";
+import {
+  RiEmotionLaughLine,
+  RiEmotionLine,
+  RiEmotionNormalLine,
+  RiEmotionSadLine,
+  RiEmotionUnhappyLine,
+} from "react-icons/ri";
+import { find, get, isNil, uniqBy } from "lodash";
 
-import Question from "./Question";
-import "./style.css";
 import { Link } from "react-router-dom";
+import Question from "./Question";
 
 const { Step } = Steps;
 
@@ -135,6 +136,7 @@ const StepsLine = ({ evaluation = {} }) => {
       })
     ),
   };
+
   const onChangeStep = ({ idRubrique, designation }) =>
     dispatch({ type: "changeStep", idRubrique, designation });
 

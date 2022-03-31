@@ -1,14 +1,17 @@
-import React, { useEffect, useState, useReducer } from "react";
-import { getAllEvaluation } from "../../services/EvaluationService";
 import { Button, Col, Row, Spin } from "antd";
+import React, { useEffect, useReducer, useState } from "react";
+
 import Steps from "./StepsLine";
+import { getAllEvaluation } from "../../services/EvaluationService";
+
 const Questionnaire = () => {
   const [evaluation, setEvaluation] = useState({});
   const [loading, setLoading] = useState(false);
   const [idle, setIdle] = useState(true);
   const [error, setError] = useState(null);
-
-  useEffect(() => {
+  
+  useEffect(() =>
+  {
     setLoading(true);
     setIdle(false);
     const loadData = async () => {
@@ -32,7 +35,7 @@ const Questionnaire = () => {
   if (idle) return <div />;
   return (
     <>
-      <Steps {...{ evaluation }} />
+      <Steps {...{ evaluation}} />
     </>
   );
 };
