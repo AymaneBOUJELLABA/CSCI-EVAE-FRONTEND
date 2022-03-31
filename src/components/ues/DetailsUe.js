@@ -2,15 +2,52 @@ import { Alert, Button, Card, Col, Divider, PageHeader, Result, Row, Space, Spin
 import { FileSearchOutlined, MailOutlined, PhoneOutlined } from '@ant-design/icons';
 import { Link, useHistory } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
-import { getEvaluationOfUe, getStudentsNumber, getStudentsUnswerNumber } from '../Evaluation/EvaluationSlice';
+import { getAverageUnswer, getEvaluationOfUe, getStudentsNumber, getStudentsUnswerNumber } from '../Evaluation/EvaluationSlice';
 
-const { Title , Text } = Typography;
+const calculerMoyEtudUE = (response,codeUe) => {
+  let avg = 0;
+  let n = 0;
+  if(response.length>1)
+  {
+      response.forEach((promo) =>
+      {
+          if(promo.codeFormation === "M2DOSI" && promo.anneUniv==="2014-2015")
+          {
+            promo.reponseEvaluations.forEach(repEval =>
+            {
+              if(repEval.codeUe === codeUe)
+              {
+                let somme = 0;
+                repEval.rubriques.forEach((rub) =>
+                {
+                    somme+= rub.moyenne;
+                });
+                console.log("somme of rub : " , somme)
+                const l = repEval.rubriques.length;
+                avg +=  l> 0 ? (somme/l) : 0;
+                console.log("average of repEval" , avg);  
+                n++;
+              }
+            });
+          }
+      });
+  }
+
+  console.log("n :", n);
+  console.log("avg : ", avg);
+  avg = avg/n;
+  return avg.toFixed(2);
+}
+
 export default function DetailsUe({columns,table,loading,data})
 {
   const history = useHistory();
   const [ studentsNumber, setStudentsNumber ] = useState();
   const [ studentsUnswerNumber , setStudentsUnswerNumber ] = useState();
   const [evaluation, setEvaluation] = useState();
+  const { Title,Text } = Typography;
+  const [ average , setAverage ] = useState();
+
   
   useEffect(() => 
   {
@@ -40,8 +77,14 @@ export default function DetailsUe({columns,table,loading,data})
         const etdUnsNum = await getStudentsUnswerNumber(evaluation.idEvaluation);
         setStudentsUnswerNumber(etdUnsNum);
       } 
+      const fetchAverage = async() =>
+      {
+        const AverageResponse = await getAverageUnswer();
+        setAverage(calculerMoyEtudUE(AverageResponse,evaluation.codeUe));
+      }
       fetchData();
       fetchUnsNumb();
+      fetchAverage();
     }
   
   },[evaluation])
@@ -126,7 +169,7 @@ export default function DetailsUe({columns,table,loading,data})
         </Row>
         <Divider style={{ marginTop : 60, marginBottom : 20}} />
 
-                <Title level={3}> Plus de détails sur l'Evaluation </Title>
+                <Title level={3}> Plus de détails sur l'Évaluation </Title>
         <Row>
         <Col style={{marginTop:40}} span ={6} offset={6}>
             <Card title={"Historique "} type='inner' >
@@ -141,14 +184,12 @@ export default function DetailsUe({columns,table,loading,data})
 
           {evaluation && evaluation.codeFormation &&
           <Col style={{marginTop:40}} span ={6} offset={6}>
-            <Card title={ evaluation.designation} type='inner' >
+            <Card title='Évaluation' type='inner' >
               <Space direction="vertical">
               <Text > Élève : {studentsUnswerNumber? studentsUnswerNumber+'/'+studentsNumber: <Spin />}  </Text>
-              <Text > AVG :  </Text>
-              
+              <Text > Moyenne de l'évaluation : { average } </Text>
               <Button type="primary" style={{}}
               onClick={() => window.location.href=`/resEval/${evaluation.idEvaluation}`}>Statistique </Button>
-             
               </Space>
             </Card>
           </Col>
