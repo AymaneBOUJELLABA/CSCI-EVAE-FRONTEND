@@ -85,36 +85,36 @@ class ShowRes extends React.Component {
                 rubrique.questions.map((ques)=>{
                     return (               
                     <div key={ques.idQuestion}>
-                        <Row gutter={[[64,64]]} style={{fontSize: '15px', fontWeight : "bold",fontFamily:"Garamond", textAlign:"center"}}>
+                        <Row gutter={[[64,64]]} style={{fontSize: '15px', fontWeight : "bold",fontFamily:"Garamond"}}>
                         <Col span={8}style={{ display:"inline"}}>{ques.intitule}</Col>
-                        <Col span={4} style={{display:"inline"}}><Tag style={{width:'8em',textAlign:"center"}} color="blue" >{ques.qualificatif.maximal}</Tag></Col>
+                        <Col span={4} style={{display:"inline",textAlign:"center"}}><Tag style={{width:'8em',textAlign:"center"}} color="red" >{ques.qualificatif.maximal}</Tag></Col>
                         {ques.nbrPos1>0 &&ques.nbrPos1 == ques.max?
-                        <Col span={1} style={{display:"inline", background:"yellow"}}> {ques.nbrPos1}</Col>
+                        <Col span={1} style={{display:"inline", background:"yellow",textAlign:"center"}}> {ques.nbrPos1}</Col>
                     :
-                    <Col span={1} style={{display:"inline"}}> {ques.nbrPos1}</Col>}
+                    <Col span={1} style={{display:"inline",textAlign:"center"}}> {ques.nbrPos1}</Col>}
 
 
                    { ques.nbrPos2>0 && ques.nbrPos2 == ques.max? 
-                        <Col span={1} style={{display:"inline", background:"yellow"}}> {ques.nbrPos2}</Col>
+                        <Col span={1} style={{display:"inline", background:"yellow",textAlign:"center"}}> {ques.nbrPos2}</Col>
                     :
-                    <Col span={1} style={{display:"inline"}}> {ques.nbrPos2}</Col>}
+                    <Col span={1} style={{display:"inline",textAlign:"center"}}> {ques.nbrPos2}</Col>}
 
                     {ques.nbrPos3>0 && ques.nbrPos3 == ques.max?
-                        <Col span={1} style={{display:"inline", background:"yellow"}}> {ques.nbrPos3}</Col>
+                        <Col span={1} style={{display:"inline", background:"yellow",textAlign:"center"}}> {ques.nbrPos3}</Col>
                     :
-                    <Col span={1} style={{display:"inline"}}> {ques.nbrPos3}</Col>}
+                    <Col span={1} style={{display:"inline",textAlign:"center"}}> {ques.nbrPos3}</Col>}
 
                     {ques.nbrPos4>0 && ques.nbrPos4 == ques.max?
-                        <Col span={1} style={{display:"inline", background:"yellow"}}> {ques.nbrPos4}</Col>
+                        <Col span={1} style={{display:"inline", background:"yellow",textAlign:"center"}}> {ques.nbrPos4}</Col>
                     :
-                    <Col span={1} style={{display:"inline"}}> {ques.nbrPos4}</Col>}
+                    <Col span={1} style={{display:"inline",textAlign:"center"}}> {ques.nbrPos4}</Col>}
 
                     {ques.nbrPos5>0 && ques.nbrPos5 == ques.max?
-                        <Col span={1} style={{display:"inline", background:"yellow", marginRight:'2pt'}}> {ques.nbrPos5}</Col>
+                        <Col span={1} style={{display:"inline", background:"yellow", marginRight:'2pt',textAlign:"center"}}> {ques.nbrPos5}</Col>
                     :
-                    <Col span={1} style={{display:"inline", marginRight:'2pt'}}> {ques.nbrPos5}</Col>}                               
-                        <Col span={4} style={{display:"inline"}}> <Tag style={{width:'8em',textAlign:"center"}} color="red" >{ques.qualificatif.minimal}</Tag></Col>
-                        <Col span={2} style={{display:"inline"}}> {ques.moyenne}</Col>                      
+                    <Col span={1} style={{display:"inline", marginRight:'2pt',textAlign:"center"}}> {ques.nbrPos5}</Col>}                               
+                        <Col span={4} style={{display:"inline",textAlign:"center"}}> <Tag style={{width:'8em',textAlign:"center"}} color="green" >{ques.qualificatif.minimal}</Tag></Col>
+                        <Col span={2} style={{display:"inline",textAlign:"center"}}> {ques.moyenne}</Col>                      
                         <Divider style={{marginTop:"1pt", marginBottom : "1pt"}}/>
                       </Row>
                     </div>                   
