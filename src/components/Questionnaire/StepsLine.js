@@ -9,6 +9,7 @@ import {
   Card,
   Table,
   Space,
+  Tooltip,
 } from "antd";
 import { find, get, isNil, uniqBy } from "lodash";
 import React, { useReducer, useState, useEffect } from "react";
@@ -228,18 +229,32 @@ const StepsLine = ({ evaluation = {} }) => {
                 </Link>
               ) : (
                 <>
-                  <Button
-                    hidden={isButtonHidden}
-                    disabled={
+                  <Tooltip
+                    title={
                       element && element.questions.some((e) => e.reponse === 0)
+                        ? "Veuillez repondre à toutes les questions"
+                        : "Passer à la rubrique suivante"
                     }
-                    onClick={() => {
-                      onChangeCurrent(current + 1);
-                    }}
+                    color={
+                      element && element.questions.some((e) => e.reponse === 0)
+                        ? "#f50"
+                        : "#87d068"
+                    }
                   >
-                    <ArrowRightOutlined />
-                    Suivant
-                  </Button>
+                    <Button
+                      hidden={isButtonHidden}
+                      disabled={
+                        element &&
+                        element.questions.some((e) => e.reponse === 0)
+                      }
+                      onClick={() => {
+                        onChangeCurrent(current + 1);
+                      }}
+                    >
+                      <ArrowRightOutlined />
+                      Suivant
+                    </Button>
+                  </Tooltip>
                 </>
               )}
             </Col>
