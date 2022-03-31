@@ -18,7 +18,6 @@ function callback(key) {
 }
 
 const initalEvalState = { designation: "", idEvaluation: -1, rubriques: [] };
-const onShowAlert = (msg, type) => message[type](msg);
 export default function Popup(props) {
   let { codeUe } = useParams();
   console.log("Code ue", codeUe);

@@ -4,6 +4,7 @@ import "antd/dist/antd.min.css";
 import { Alert, Button, Result } from "antd";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
+import { AuthProvider } from "./context/auth";
 import Error from "./shared/Error";
 import EvaluationPage from "./components/Evaluation/EvaluationPage";
 import GetEval from "./components/ues/getEval";
@@ -12,15 +13,18 @@ import GetUeCode from "./components/ues/getUeCode";
 import Home from "./components/home";
 import Layout from "./shared/layout";
 import { Link } from "react-router-dom";
-import React from "react";
-import Rubriques from "./components/rubriques";
-import Popup from "./components/Evaluation/Popup";
 import Login from "./components/Login/login";
-import { AuthProvider } from "./context/auth";
-import { useAuth } from "./context/auth";
+import Popup from "./components/Evaluation/Popup";
+import Questionnaire from './components/Questionnaire'
+import React from "react";
+import Recaputilatif from "./components/Questionnaire/Recaputilatif";
 import { RequireAuthADM } from "./context/requireAuthADM";
 import { RequireAuthETU } from "./context/requireAuthETU";
+import Rubriques from "./components/rubriques";
+import ShowRes from "./components/Evaluation/ShowRes";
+import StatistiqueGraphe from "./components/"
 import TestEtudiant from "./components/testEtudiant";
+import { useAuth } from "./context/auth";
 
 export const App = () => {
 

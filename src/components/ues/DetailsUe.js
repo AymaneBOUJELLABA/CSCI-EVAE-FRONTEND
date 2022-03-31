@@ -1,8 +1,9 @@
 import { Alert, Button, Card, Col, Divider, PageHeader, Result, Row, Space, Spin, Table, Tag, Typography } from 'antd';
 import { FileSearchOutlined, MailOutlined, PhoneOutlined } from '@ant-design/icons';
-import { Link, useHistory } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { getAverageUnswer, getEvaluationOfUe, getStudentsNumber, getStudentsUnswerNumber } from '../Evaluation/EvaluationSlice';
+
+import { Link } from 'react-router-dom';
 
 const calculerMoyEtudUE = (response,codeUe) => {
   let avg = 0;
@@ -41,7 +42,7 @@ const calculerMoyEtudUE = (response,codeUe) => {
 
 export default function DetailsUe({columns,table,loading,data})
 {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [ studentsNumber, setStudentsNumber ] = useState();
   const [ studentsUnswerNumber , setStudentsUnswerNumber ] = useState();
   const [evaluation, setEvaluation] = useState();
@@ -125,7 +126,7 @@ export default function DetailsUe({columns,table,loading,data})
 
   return (
     <>
-    <PageHeader onBack={() => history.goBack()} title={<span><FileSearchOutlined />Détails</span>}
+    <PageHeader onBack={() => navigate(-1)} title={<span><FileSearchOutlined />Détails</span>}
         subTitle={"Page de détails d'une unité d'enseignements" } 
           />
     <div className='details-ue'>
