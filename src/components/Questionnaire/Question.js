@@ -9,14 +9,7 @@ import {
   RiEmotionLine,
   RiEmotionLaughLine,
 } from "react-icons/ri";
-import { useHistory } from "react-router-dom";
-const tagColor = {f
-  1: "red",
-  2: "yellow",
-  3: "orange",
-  4: "blue",
-  5: "green",
-};
+
 const Question = (props) => {
   const [recap, setRecap] = useState({
     idEvaluation: props.idEvaluation,
@@ -77,7 +70,7 @@ const Question = (props) => {
   return (
     <>
       {props.questions.map((qst, index) => (
-        <div key={`${qst.idQuestion}+${index}`}>
+        <div key={`${qst.idQuestion}+${index}+${props.idRubrique}`}>
           <Row justify="center">
             <Col>{qst.intitule}</Col>
           </Row>

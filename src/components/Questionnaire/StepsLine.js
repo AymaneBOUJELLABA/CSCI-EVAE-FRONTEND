@@ -1,7 +1,13 @@
 import { Steps, Divider, Row, Col, Tag, Rate, Button, Card } from "antd";
 import { find, get, isNil, uniqBy } from "lodash";
 import React, { useReducer, useState, useEffect } from "react";
-
+import {
+  RiEmotionUnhappyLine,
+  RiEmotionSadLine,
+  RiEmotionNormalLine,
+  RiEmotionLine,
+  RiEmotionLaughLine,
+} from "react-icons/ri";
 import {
   PlayCircleOutlined,
   ArrowRightOutlined,
@@ -85,7 +91,6 @@ const StepsLine = ({ evaluation = {} }) => {
   const [questions, setQuestions] = useState([]);
   const [infoRubrique, setInfoRubrique] = useState({});
 
-  const [isStepDisabeld, setStepIsDisabeld] = useState(false);
   const [isButtonHidden, setButtonIsHidden] = useState(true);
   //state contient toutes les donnees
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -149,7 +154,7 @@ const StepsLine = ({ evaluation = {} }) => {
           </div>
           <br />
           <Divider />
-          <div>
+          <div id="topPage">
             <Question
               {...{
                 questions: questions,
@@ -202,6 +207,7 @@ const StepsLine = ({ evaluation = {} }) => {
                     <ArrowRightOutlined />
                     Suivant
                   </Button>
+
                   {/* <Button
                     hidden={isButtonHidden}
                     disabled={false}
@@ -222,10 +228,45 @@ const StepsLine = ({ evaluation = {} }) => {
       <Card hidden={!isButtonHidden} justify="center" title="Questionnaire ">
         <Card type="inner" title="Instructions">
           <ol>
-            <li>Instruction 1</li>
-            <li>Instruction 2</li>
-            <li>Instruction 3</li>
-            <li>Instruction 4</li>
+            <li>
+              L'évaluation est sous forme des étapes, chaque étape représente
+              une rubrique qui contient des questions.
+            </li>
+            <li>
+              Pour répondre à une question , vous avez le choix entre 5
+              emoticones , chaque emoticone represente une valeur de 1 à 5:
+              <ul>
+                <li>
+                  <RiEmotionUnhappyLine /> : 1/5
+                </li>
+                <li>
+                  <RiEmotionSadLine /> : 2/5
+                </li>
+                <li>
+                  <RiEmotionNormalLine /> : 3/5
+                </li>
+                <li>
+                  <RiEmotionLine /> : 4/5
+                </li>
+                <li>
+                  <RiEmotionLaughLine /> : 5/5
+                </li>
+              </ul>
+            </li>
+            <li>
+              Vous avez à la fin de chaque rubrique (étape) un bouton "Suivant"
+              qui vous permettra de passer à la rubrique suivante.
+              <ul>
+                PS: Vous devez impérativement répondre à toutes les questions
+                pour passer à la rubrique suivante.
+              </ul>
+            </li>
+            <li>
+              Quand vous terminerez l'évaluation vous pouvez consulter un
+              récapitulatif de toutes vos réponces , ensuite veillez valider vos
+              réponses après que vous nous laissiez un commentaire ou votre avis
+              sur le déroulement de cet évaluation.
+            </li>
           </ol>
         </Card>
         <Row justify="center">
