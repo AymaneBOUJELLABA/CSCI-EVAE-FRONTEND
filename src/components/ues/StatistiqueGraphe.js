@@ -1,17 +1,21 @@
-import React, { useEffect, useState } from 'react'
-import Chart from 'react-google-charts'
 import 'antd/dist/antd.css';
+
+import { Alert, Button, PageHeader } from "antd";
+import { FileSearchOutlined, LineChartOutlined } from '@ant-design/icons';
+import { Link, useHistory } from "react-router-dom";
+import React, { useEffect, useState } from 'react'
+
+import Chart from 'react-google-charts'
 import { Spin } from 'antd';
-import { useParams } from 'react-router-dom';
 import { getGraph } from '../../services/StatistiqueGraph';
-import { Alert, Button } from "antd";
-import { Link } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 
 export default function StatistiqueGraphe() {
 
     const [r,setR]=useState([]);
     const [l, setL] = useState([]);
     const params = useParams();
+
     useEffect(()=>{
        
     const loadData = async () => {
@@ -207,25 +211,27 @@ if(x.length==1 ){
     )
 }
 
-
-
+const history = useHistory();
   return (
-    
+      <>
+      <PageHeader onBack={() => history.push('/UniteEnseignements')} title={<span><LineChartOutlined />Historique</span>}
+        subTitle={"Page du historique d'une unité d'enseignements" } 
+          />
+        <div className="container mt-5 " style={{textAlign:'center'}} >
+            {t==0?<h2 >statistique graphe</h2>:<h2 >statistique pour { params.code } (il y a pas des statistique pour promotion 2014-2015 )</h2>}
+            <Chart
+            style={{margin:'0 auto', backgroundColor:'red'}}
+            width={'750px'}
+            height={'440px'}
+            chartType="LineChart"
+            loader={<Spin />}
+            data={LineData1}
+            options={LineChartOptions}
+            rootProps={{ 'data-testid': '2' }}
+            />
+        </div>
+      </>
 
-<div className="container mt-5 " style={{textAlign:'center'}} >
-       {t==0?<h2 >statistique graphe</h2>:<h2 >statistique graphe (il y a pas des statistique pour promotion 2014-2015 )</h2>}
-        
-        <Chart
-          style={{margin:'0 auto', backgroundColor:'red'}}
-          width={'750px'}
-          height={'440px'}
-          chartType="LineChart"
-          loader={<Spin />}
-          data={LineData1}
-          options={LineChartOptions}
-          rootProps={{ 'data-testid': '2' }}
-        />
-      </div>
     
   )
   

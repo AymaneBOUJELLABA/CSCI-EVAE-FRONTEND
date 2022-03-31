@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:8082/api/evaluations/reponses/graphes";
+const API_URL = "http://localhost:8082/api/questionnaire/graphes";
 
 export const getGraph = async () => {
   const response = fetch(API_URL, {

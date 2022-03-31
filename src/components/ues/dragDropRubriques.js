@@ -96,7 +96,7 @@ export default class DragDropRubriques extends React.Component {
     //this.setState({dataF[rubriques]:dataF});
     //window.location.href=`/`;
     this.editEvaluation();
-    this.props.onAnnuler();
+    this.props.handleCancel();
   };
 
   editEvaluation = () => {
@@ -225,7 +225,7 @@ export default class DragDropRubriques extends React.Component {
 
   handleCancel = () => {
     console.log("annuler mod");
-    this.props.onAnnuler();
+    this.props.handleCancel();
   };
 
   openMessage = () => {

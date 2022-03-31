@@ -25,7 +25,6 @@ export const App = () => {
 
   return (
       <Layout>
-        <Router>
         <Switch>
           {/** ADD YOUR COMPONENT ROUTES HERE! */}
           <Route component={Rubriques} path="/rubriques" exact/>
@@ -51,7 +50,6 @@ export const App = () => {
           }} />
                     
         </Switch>
-        </Router>
       </Layout>
   );
 };
