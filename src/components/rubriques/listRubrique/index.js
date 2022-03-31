@@ -1,7 +1,21 @@
 import { Alert, Col, Collapse, Divider, Row, Tag } from "antd";
 
 import React from "react";
+import {
+  RiEmotionUnhappyLine,
+  RiEmotionSadLine,
+  RiEmotionNormalLine,
+  RiEmotionLine,
+  RiEmotionLaughLine,
+} from "react-icons/ri";
 
+const customIcons = {
+  1: <RiEmotionUnhappyLine className="emote-unhappy" />,
+  2: <RiEmotionSadLine className="emote-sad" />,
+  3: <RiEmotionNormalLine className="emote-normal" />,
+  4: <RiEmotionLine className="emote-happpy" />,
+  5: <RiEmotionLaughLine className="emote-vey-hapy" />,
+};
 const { Panel } = Collapse;
 export default function ListRubrique(props) {
   return (
@@ -18,9 +32,14 @@ export default function ListRubrique(props) {
             }
             key={item.idRubrique}
           >
-            {item.questions.length < 1 ? 
-               <Alert showIcon type="info" description="Aucune question disponible pour cette rubrique" message=""/>
-              :
+            {item.questions.length < 1 ? (
+              <Alert
+                showIcon
+                type="info"
+                description="Aucune question disponible pour cette rubrique"
+                message=""
+              />
+            ) : (
               item.questions.map((question) => (
                 <div key={question.idQuestion}>
                   <Row style={{ fontSize: "15px", fontWeight: "normal" }}>
@@ -45,8 +64,7 @@ export default function ListRubrique(props) {
                   </Row>
                 </div>
               ))
-            } 
-            
+            )}
           </Panel>
         ))}
       </Collapse>

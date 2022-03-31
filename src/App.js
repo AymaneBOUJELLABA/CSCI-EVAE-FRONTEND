@@ -1,32 +1,36 @@
 import "./App.css";
 import "antd/dist/antd.min.css";
 
-
 import { Alert, Button, Result } from "antd";
+import { Link, BrowserRouter as Router } from "react-router-dom";
 import { Route, Switch } from "react-router-dom";
 
-import Error from './shared/Error';
+import Error from "./shared/Error";
 import EvaluationPage from "./components/Evaluation/EvaluationPage";
-import GetEval from "./components/ues/getEval"
-import GetUe from "./components/ues/getUe";
+import GetEval from "./components/ues/getEval";
 import GetRes from "./components/ues/getRes";
-import ShowRes from "./components/Evaluation/ShowRes"; 
+import GetUe from "./components/ues/getUe";
 import GetUeCode from "./components/ues/getUeCode";
 import Home from './components/home';
 import Layout from './shared/layout';
-import { Link, BrowserRouter as Router} from "react-router-dom";
-import React from 'react';
-import Rubriques from './components/rubriques';
-import StatistiqueGraphe from "./components/ues/StatistiqueGraphe";
 import Popup from "./components/Evaluation/Popup";
+import Questionnaire from "./components/Questionnaire";
+import React from 'react';
+import Recaputilatif from "./components/Questionnaire/Recaputilatif";
+import Rubriques from './components/rubriques';
+import ShowRes from "./components/Evaluation/ShowRes";
+import StatistiqueGraphe from "./components/ues/StatistiqueGraphe";
 
 export const App = () => {
+
   return (
       <Layout>
         <Router>
         <Switch>
           {/** ADD YOUR COMPONENT ROUTES HERE! */}
           <Route component={Rubriques} path="/rubriques" exact/>
+          <Route component={Questionnaire} path="/questionnaire" exact />
+          <Route component={Recaputilatif} path="/recaputilatif" exact />
           <Route exact path="/UniteEnseignement/Evaluation/:code" component={GetEval} />
           <Route exact path="/UniteEnseignement/:code" component={GetUeCode} />
           <Route exact path="/UniteEnseignements" component={GetUe} />
@@ -52,6 +56,4 @@ export const App = () => {
   );
 };
 
-
 export default App;
-
