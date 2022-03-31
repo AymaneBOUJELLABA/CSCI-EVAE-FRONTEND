@@ -44,7 +44,6 @@ const tagColor = {
 };
 
 const Recaputilatif = (recap) => {
-  console.log("recap :>> ", recap);
   const { Panel } = Collapse;
   const { TextArea } = Input;
   const [comment, setComment] = useState("");
@@ -72,19 +71,25 @@ const Recaputilatif = (recap) => {
 
   const changeValue = (idQuestion , idRub, reponse) =>
   {
-
-    recap.rubriques.forEach(rub => {
+    let r = recap.location.state;
+    
+    r.rubriques.forEach(rub => {
       if(rub.idRubrique === idRub)
       {
         rub.questions.forEach(q => {
           if(q.idQuestion === idQuestion)
           {
-            q.reponse = response;
+            q.reponse = reponse;
           }
         })
       }
     })
+
+    console.log("new state" , r);
+    setstate(r);
   }
+
+  console.log("state " , state);
   useEffect(() =>{
     if (done) {
       if (response && response.data) {
@@ -121,8 +126,9 @@ const Recaputilatif = (recap) => {
                 <Col span={16}>{qst.intitule}</Col>
                 {isUpdate ? 
                 <Rate
-                
-                ></Rate> : 
+                  defaultValue={qst.reponse}
+                  onChange={(v) => changeValue(qst.idQuestion, rubrique.idRubrique, v)}
+                /> : 
                   <>
                   <Col span={4}>
                     <Tag
@@ -183,6 +189,7 @@ const Recaputilatif = (recap) => {
           onClick={() => {
             /* setstate({ ...state, commentaire: comment }); */
             setVisible(true);
+            setIsUpdate(false);
           }}
         >
           Valider
@@ -196,8 +203,9 @@ const Recaputilatif = (recap) => {
           Envoyer
         </Button>
         <Button
+
          type="primary"
-          hidden={disabled}
+          hidden={disabled || isUpdate}
           onClick={() => {
             /* setstate({ ...state, commentaire: comment }); */
             setIsUpdate(true);
