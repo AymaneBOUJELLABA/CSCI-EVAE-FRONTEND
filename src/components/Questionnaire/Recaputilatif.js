@@ -51,6 +51,7 @@ const Recaputilatif = (recap) => {
   const [state, setstate] = useState(recap.location.state);
   const [response, setResponse] = useState({});
   const [done, setDone] = useState(false);
+  const [isUpdate, setIsUpdate] = useState(false);
   /*console.log("comment :>> ", comment);
   console.log("state12 :>> ", state);*/
 
@@ -67,6 +68,26 @@ const Recaputilatif = (recap) => {
     await sendData();
   };
 
+
+  const changeValue = (idQuestion , idRub, reponse) =>
+  {
+    let r = recap.location.state;
+    
+    r.rubriques.forEach(rub => {
+      if(rub.idRubrique === idRub)
+      {
+        rub.questions.forEach(q => {
+          if(q.idQuestion === idQuestion)
+          {
+            q.reponse = reponse;
+          }
+        })
+      }
+    })
+
+    console.log("new state" , r);
+    setstate(r);
+  }
   useEffect(() => {
     if (done) {
       if (response && response.data) {
@@ -98,6 +119,12 @@ const Recaputilatif = (recap) => {
               <div key={qst.idQuestion}>
                 <Row style={{ fontSize: "15px", fontWeight: "normal" }}>
                   <Col span={16}>{qst.intitule}</Col>
+                  {isUpdate ? 
+                <Rate
+                  defaultValue={qst.reponse}
+                  onChange={(v) => changeValue(qst.idQuestion, rubrique.idRubrique, v)}
+                /> : 
+                  <>
                   <Col span={4}>
                     <Tag
                       style={{ width: "8em", textAlign: "center" }}
@@ -114,6 +141,8 @@ const Recaputilatif = (recap) => {
                       {customIcons[qst.reponse]}
                     </Tag>
                   </Col>
+                  </>
+                  }
 
                   <Divider />
                 </Row>
@@ -121,6 +150,8 @@ const Recaputilatif = (recap) => {
             ))}
           </Panel>
         ))}
+        {comment !== "" && <Panel header={<Tag color="cyan">Commentaire</Tag>} key="12">{comment}</Panel>
+        }
       </Collapse>
       <Divider />
 
@@ -153,6 +184,7 @@ const Recaputilatif = (recap) => {
           onClick={() => {
             /* setstate({ ...state, commentaire: comment }); */
             setVisible(true);
+            setIsUpdate(false);
           }}
         >
           Valider
@@ -164,6 +196,16 @@ const Recaputilatif = (recap) => {
           }}
         >
           Envoyer
+        </Button>
+        <Button
+         type="primary"
+          hidden={disabled || isUpdate}
+          onClick={() => {
+            /* setstate({ ...state, commentaire: comment }); */
+            setIsUpdate(true);
+          }}
+        >
+          Modifier
         </Button>
       </Row>
       <Divider />
