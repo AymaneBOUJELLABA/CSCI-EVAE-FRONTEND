@@ -300,7 +300,7 @@ const StepsLine = ({ evaluation = {} }) => {
               <li>
                 Quand vous terminerez l'évaluation vous pouvez consulter un
                 récaputilatif de toutes vos réponces , ensuite veillez valider
-                vos réponses en cliquant sur le boutton{" "}
+                vos réponses en cliquant sur le bouton{" "}
                 <strong>"Valider"</strong>
               </li>
               <li>

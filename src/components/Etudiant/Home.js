@@ -3,6 +3,7 @@ import { Button, Card, Row, Space, Spin, Table } from "antd";
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { getAllEvaluation } from "../../services/EvaluationService";
+import { list } from "./listEval";
 
 const EtudiantHome = () => {
   const nameOfStudent = "amiNe";
@@ -10,9 +11,9 @@ const EtudiantHome = () => {
   const [loading, setLoading] = useState(false);
   const [idle, setIdle] = useState(true);
   const [error, setError] = useState(null);
-  const [listEvaluation, setListEvaluation] = useState(false);
-  const [isHidden, setIsHidden] = useState(false);
 
+  const [isHidden, setIsHidden] = useState(false);
+  console.log("list :>> ", list);
   useEffect(() => {
     setLoading(true);
     setIdle(false);
@@ -58,8 +59,8 @@ const EtudiantHome = () => {
               évaluations qui prendront que quelques minutes de votre temps.
             </p>
             <p>
-              Pour afficher tous les évaluations disponible cliquer sur{" "}
-              <strong>Liste des évaluations</strong>{" "}
+              Pour afficher tous les évaluations disponible cliquer sur le
+              bouton<strong>"Liste des évaluations"</strong>
             </p>
           </div>
           <div hidden={!isHidden}>
