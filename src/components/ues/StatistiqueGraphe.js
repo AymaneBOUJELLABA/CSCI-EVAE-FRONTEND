@@ -15,6 +15,7 @@ export default function StatistiqueGraphe() {
     const [r,setR]=useState([]);
     const [l, setL] = useState([]);
     const params = useParams();
+    const history = useHistory();
 
     useEffect(()=>{
        
@@ -211,7 +212,7 @@ if(x.length==1 ){
     )
 }
 
-const history = useHistory();
+
   return (
       <>
       <PageHeader onBack={() => history.push('/UniteEnseignements')} title={<span><LineChartOutlined />Historique</span>}

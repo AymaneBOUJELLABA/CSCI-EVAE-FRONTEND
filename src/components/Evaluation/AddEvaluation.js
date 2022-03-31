@@ -222,12 +222,10 @@ export default function AddEvaluation({
   return (
     <div>
       <PageHeader
-        onBack={() => history.goBack()}
         title={
           <span>
             <FileAddOutlined style={{ fontSize: "24px" }} /> Ajouter une
-            évaluation à l'unité d'enseignement {initialValues.designation} (
-            {initialValues.codeUe}) &nbsp;
+            évaluation
           </span>
         }
         subTitle={

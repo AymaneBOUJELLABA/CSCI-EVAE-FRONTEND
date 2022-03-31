@@ -3,7 +3,7 @@ import { Alert, Button, Collapse, PageHeader, Space, message } from "antd";
 import { FileTextOutlined, PlusOutlined } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
 import { ajoutEvaluation, getEvaluationOfUe } from "./EvaluationSlice";
-
+import { Link, useHistory } from "react-router-dom";
 import AddEvaluation from "./AddEvaluation";
 import DragDropRubriques from "../ues/dragDropRubriques";
 import InfoEvaluation from "./InfoEvaluation";
@@ -19,6 +19,7 @@ function callback(key) {
 
 const initalEvalState = { designation: "", idEvaluation: -1, rubriques: [] };
 
+
 export default function Popup(props) {
   let { codeUe } = useParams();
   console.log("Code ue", codeUe);
@@ -29,6 +30,7 @@ export default function Popup(props) {
   const [selectedTitle, setSelectedTitle] = useState("");
   const [isUpdate, setIsUpdate] = useState(false);
   const [UeInfo, setUeInfo] = useState({});
+  const history = useHistory();
 
   const handleCancel = () => {
     //setOpenPopup(false);
@@ -201,8 +203,14 @@ export default function Popup(props) {
   }
   return (
     <>
-      <PageHeader onBack={() => history.back()} title={<span><FileTextOutlined />Évaluation</span>}
-        subTitle={"Page de l'évaluation d'une unité d'enseignements" } />
+      <PageHeader onBack={() => history.goBack()}
+                  title={
+                      <span>
+                        <FileTextOutlined />
+                        Évaluation
+                      </span>
+                  }
+        subTitle={"Page de l'évaluation de l'unité d'enseignement ( " +codeUe + " )" } />
       <div style={{ overflow: "auto" }}>{content}</div>
       {isExist && !isUpdate && (
         <Button

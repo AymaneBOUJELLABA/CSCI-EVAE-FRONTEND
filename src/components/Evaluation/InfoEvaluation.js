@@ -7,7 +7,7 @@ export default function InfoEvaluation({evaluation, callback , ue})
 {
   return (
     <div style = {{height :300 , width: '100%'}}>
-        <h3>Rubriques de l'UE {ue.codeUe}</h3>
+        <h3>Les Rubriques de l'évaluation : </h3>
         <Collapse onChange={callback}>
         {
             evaluation.rubriques.map((rubrique) =>
