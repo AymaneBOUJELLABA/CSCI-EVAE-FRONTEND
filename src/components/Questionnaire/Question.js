@@ -10,7 +10,7 @@ import {
   RiEmotionLaughLine,
 } from "react-icons/ri";
 import { useHistory } from "react-router-dom";
-const tagColor = {
+const tagColor = {f
   1: "red",
   2: "yellow",
   3: "orange",
