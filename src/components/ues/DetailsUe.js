@@ -131,7 +131,9 @@ export default function DetailsUe({columns,table,loading,data})
             <Card title={"Historique "} type='inner' >
               <Space direction="vertical">
              
-              <Button type="primary" style={{}}>Historique (Graphe)</Button>
+               <Link to={"/UniteEnseignements/graphes/"+data.codeUe}>
+                <Button type="primary" style={{}}>Historique (Graphe)</Button>
+               </Link>
               </Space>
             </Card>
           </Col>
@@ -142,7 +144,10 @@ export default function DetailsUe({columns,table,loading,data})
               <Space direction="vertical">
               <Text > Élève : {studentsUnswerNumber? studentsUnswerNumber+'/'+studentsNumber: <Spin />}  </Text>
               <Text > AVG :  </Text>
-              <Button type="primary" style={{}}>Statistique </Button>
+              
+              <Button type="primary" style={{}}
+              onClick={() => window.location.href=`/resEval/${evaluation.idEvaluation}`}>Statistique </Button>
+             
               </Space>
             </Card>
           </Col>
