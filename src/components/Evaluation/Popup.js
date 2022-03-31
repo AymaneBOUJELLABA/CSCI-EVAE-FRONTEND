@@ -1,8 +1,8 @@
 import { ALERT_TYPES, onShowAlert } from "../../shared/constant";
 import { Alert, Button, Collapse, PageHeader, Space, message } from "antd";
-import { FileTextOutlined, PlusOutlined } from "@ant-design/icons";
+import { FileTextOutlined, PlusOutlined, ShareAltOutlined } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
-import { ajoutEvaluation, getEvaluationOfUe } from "./EvaluationSlice";
+import { ajoutEvaluation, getEvaluationOfUe, publierEvaluation } from "./EvaluationSlice";
 import { Link, useHistory } from "react-router-dom";
 import AddEvaluation from "./AddEvaluation";
 import DragDropRubriques from "../ues/dragDropRubriques";
@@ -22,7 +22,7 @@ const initalEvalState = { designation: "", idEvaluation: -1, rubriques: [] };
 
 export default function Popup(props) {
   let { codeUe } = useParams();
-  console.log("Code ue", codeUe);
+  // console.log("Code ue", codeUe);
   const [evaluation, setEvaluation] = useState(initalEvalState);
   const [toggleAdd, setToggleAdd] = useState(true);
   const [rubriques, setRubriques] = useState([]);
@@ -31,6 +31,8 @@ export default function Popup(props) {
   const [isUpdate, setIsUpdate] = useState(false);
   const [UeInfo, setUeInfo] = useState({});
   const history = useHistory();
+  const  [disabled , setDisabled ] = useState("true") ;
+
 
   const handleCancel = () => {
     //setOpenPopup(false);
@@ -55,7 +57,7 @@ export default function Popup(props) {
     }
   };
 
-  console.log("evaluation : ", evaluation);
+  // console.log("evaluation : ", evaluation);
 
   const onFinish = (values) => {
     const pvalues = {
@@ -116,7 +118,6 @@ export default function Popup(props) {
     };
     fetchUe();
     fetchData();
-
     return () => {
       setEvaluation(initalEvalState);
     };
@@ -130,7 +131,7 @@ export default function Popup(props) {
     codeUe: UeInfo.codeUe,
     codeEc: null,
     noEvaluation: 3,
-    designation: UeInfo.designation,
+    designation: "Evaluation " + UeInfo.codeUe,//props.ue.codeUe
     etat: "ELA",
     periode: "",
     debutReponse: "",
@@ -139,6 +140,19 @@ export default function Popup(props) {
     nomEnseignant: UeInfo.nomEnseigant,
     prenomEnseignant: UeInfo.prenomEnseignant,
   };
+
+  /*
+   Publication d'une évaluation
+   */
+  const publishEvaluation = async (idEval) => {
+    if(isExist && evaluation.etat==="ELA") {
+        const response = await publierEvaluation(idEval);
+        console.log("server response ", response);
+        setEvaluation(response);
+
+        message.info("Publication de lévaluation avec succès");
+      };
+  }
 
   const handleDelete = (id) => {
     let rub;
@@ -210,11 +224,27 @@ export default function Popup(props) {
                         Évaluation
                       </span>
                   }
-        subTitle={"Page de l'évaluation de l'unité d'enseignement ( " +codeUe + " )" } />
+        subTitle={"Page de l'évaluation de l'unité d'enseignement ( " +codeUe + " )" }
+                    extra = {
+                      <Button
+                      type="primary"
+                      shape="round"
+                      size="large"
+                      className="addButton"
+                      icon={<ShareAltOutlined/>}
+                      style={{
+                        visibility: evaluation.etat==="ELA" ? 'visible' : 'hidden'
+                      }}
+                      onClick={() => publishEvaluation(evaluation.idEvaluation)}
+                      >
+                        Publier
+                      </Button>
+      }
+      />
       <div style={{ overflow: "auto" }}>{content}</div>
       {isExist && !isUpdate && (
         <Button
-          style={{ marginTop: 15 }}
+          style={{ marginTop: 10, marginLeft : 425 }}
           type="primary"
           onClick={() => setIsUpdate(true)}
         >

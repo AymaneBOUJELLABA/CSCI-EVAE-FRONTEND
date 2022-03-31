@@ -17,4 +17,9 @@ export const ALERT_TYPES = {
   WARNING: "warning",
 };
 
+export const ALERT_PUBLIER_EVALUATION = {
+  PUBLISHED: "L'évaluation est publier avec success",
+  WARNING: "Cette évaluation est déja publiée"
+}
+
 export const onShowAlert = (msg, type) => message[type](msg);
