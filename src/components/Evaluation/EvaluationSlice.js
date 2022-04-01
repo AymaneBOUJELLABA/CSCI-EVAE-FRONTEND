@@ -1,3 +1,4 @@
+import { getGraph } from "../../services/StatistiqueGraph";
 
 const url = "http://localhost:8082/api/"; 
 
@@ -21,7 +22,28 @@ export const getUeDetails = async (codeUe) =>
     }
 }
 
+export const publierEvaluation =(id) => {
+        const response = fetch(url+"evaluations/"+id+"/publier",
+            {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
+            .then((response) => response.json())
+            .then((data) =>
+            {
+                console.log("Publier l'évaluation : ", data);
+                return data;
+            })
+            .catch((error) =>
+            {
+                console.error("Erreur pendant la publication de l'évaluation", error);
+                return error;
+            });
 
+        return response;
+}
 
 
 export const getEvaluationOfUe = async(codeUe) => {
@@ -162,6 +184,24 @@ export const getStudentsUnswerNumber = async (id) =>
 
         const json = response.json();
         return json;
+
+    }catch(e)
+    {
+        console.error(e);
+    }
+}
+export const getAverageUnswer = async () =>
+{
+    //codeFormation
+    //reponseEvaluation
+        //rubriques
+        //codeUe
+    //anneuniv
+    try
+    {
+        const response = await getGraph();
+
+        return response;
 
     }catch(e)
     {

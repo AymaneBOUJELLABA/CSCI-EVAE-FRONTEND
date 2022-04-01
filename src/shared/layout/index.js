@@ -6,8 +6,15 @@ import React, { useState } from "react";
 import Header from "./Header";
 import { Layout } from "antd";
 import Sider from "./Sider";
+import { useLocation } from "react-router-dom";
 
 const { Content, Footer } = Layout;
+
+function HeaderView() {
+  const location = useLocation();
+  console.log(location.pathname);
+  return location.pathname;
+}
 
 const Container = (props) => {
   const [collapsed, setCollapsed] = useState(false);
@@ -27,15 +34,16 @@ const Container = (props) => {
           className="site-layout-background contentscroll"
           style={{
             margin: "24px 16px 0px 16px",
-            padding: 24,
+            padding : "5px 5px",
             height: "100%",
+            backgroundColor: HeaderView() == "/connexion" ? "#EAEDED" : "",
           }}
         >
           {props.children}
         </Content>
 
-        <Footer style={{ textAlign: "center",maxHeight:15}}>
-          CSCI-EVAE © 2022 créer par DOSI DEV Tiger
+        <Footer style={{ textAlign: "center", maxHeight: 15 }}>
+          CSCI-EVAE © 2022 créé par DOSI DEV Tiger
         </Footer>
       </Layout>
     </Layout>

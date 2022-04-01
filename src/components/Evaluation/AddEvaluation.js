@@ -1,3 +1,18 @@
+import "moment/locale/fr";
+import "antd/dist/antd.css";
+
+import { ALERT_TYPES, RUBRIQUES_WARNING_MESSAGES } from "../../shared/constant";
+import {
+  BulbFilled,
+  CheckOutlined,
+  EditOutlined,
+  FileAddOutlined,
+  FileSearchOutlined,
+  MinusCircleTwoTone,
+  PlusCircleOutlined,
+  PlusCircleTwoTone,
+  PlusSquareOutlined,
+} from "@ant-design/icons";
 import {
   Button,
   Card,
@@ -11,29 +26,13 @@ import {
   Select,
   Tag,
 } from "antd";
-import {
-  BulbFilled,
-  CheckOutlined,
-  EditOutlined,
-  FileAddOutlined,
-  FileSearchOutlined,
-  MinusCircleTwoTone,
-  PlusCircleOutlined,
-  PlusCircleTwoTone,
-  PlusSquareOutlined,
-} from "@ant-design/icons";
-
-import "moment/locale/fr";
-import locale from "antd/lib/locale/fr_FR";
-import React from "react";
-import "antd/dist/antd.css";
-
-import { ALERT_TYPES, RUBRIQUES_WARNING_MESSAGES } from "../../shared/constant";
 import { List, Space, Spin, Tooltip, message } from "antd";
 import { MenuOutlined, MinusOutlined, PlusOutlined } from "@ant-design/icons";
 
+import React from "react";
 import ReactDragListView from "react-drag-listview";
-import { useHistory } from "react-router-dom";
+import locale from "antd/lib/locale/fr_FR";
+import { useNavigate } from "react-router-dom";
 
 const { Option } = Select;
 
@@ -60,7 +59,7 @@ export default function AddEvaluation({
       },
     ],
   };
-  const history = useHistory();
+  const navigate = useNavigate();
   const [dataB, setDataB] = React.useState([]);
   const [data, setData] = React.useState([]);
   const [dataF, setDataF] = React.useState([]);
@@ -222,10 +221,10 @@ export default function AddEvaluation({
   return (
     <div>
       <PageHeader
-        onBack={() => history.goBack()}
+        //onBack={() => navigate(-1)}
         title={
           <span>
-            <FileAddOutlined style={{ fontSize: "24px" }} /> Ajouter une
+            <FileAddOutlined style={{ fontSize: "17px" }} /> Ajouter une
             évaluation à l'unité d'enseignement {initialValues.designation} (
             {initialValues.codeUe}) &nbsp;
           </span>

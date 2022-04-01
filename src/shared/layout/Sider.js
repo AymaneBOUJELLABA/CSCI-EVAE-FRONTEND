@@ -7,6 +7,7 @@ import { Layout, Menu } from "antd";
 import React, { useState } from "react";
 
 import { Link } from "react-router-dom";
+import { useAuth } from "../../context/auth";
 import ubo from "../../ubo.png";
 
 const { Sider } = Layout;
@@ -14,6 +15,7 @@ const { SubMenu } = Menu;
 const rootSubmenuKeys = ["sub1", "sub2", "sub3"];
 
 const Sider2 = (props) => {
+  const auth = useAuth();
   const [openKeys, setOpenKeys] = React.useState(["sub1"]);
   const { _collapsed } = props;
   const onOpenChange = (keys) => {
@@ -53,20 +55,34 @@ const Sider2 = (props) => {
         theme="dark"
         inlineCollapsed={collapsed}
       >
-        <SubMenu key="sub1" icon={<DatabaseOutlined />} title="Rubrique">
-          <Menu.Item icon={<UnorderedListOutlined />} key="1">
-            <Link to="/rubriques" style={{ textDecoration: "none" }}>
-              Liste des Rubriques
-            </Link>
-          </Menu.Item>
-        </SubMenu>
-        <SubMenu key="sub2" icon={<DatabaseOutlined />} title="Unite Enseignementes">
-          <Menu.Item icon={<UnorderedListOutlined />} key="2">
-            <Link to="/UniteEnseignements" style={{ textDecoration: "none" }}>
-              Liste des UEs
-            </Link>
-          </Menu.Item>
-        </SubMenu>
+        {auth.user && auth.role != "ETU" ? (
+          <>
+            {" "}
+            <SubMenu key="sub1" icon={<DatabaseOutlined />} title="Rubrique">
+              <Menu.Item icon={<UnorderedListOutlined />} key="1">
+                <Link to="/rubriques" style={{ textDecoration: "none" }}>
+                  Liste des rubriques
+                </Link>
+              </Menu.Item>
+            </SubMenu>
+            <SubMenu
+              key="sub2"
+              icon={<DatabaseOutlined />}
+              title="Unité d'enseignement"
+            >
+              <Menu.Item icon={<UnorderedListOutlined />} key="2">
+                <Link
+                  to="/UniteEnseignements"
+                  style={{ textDecoration: "none" }}
+                >
+                  Liste des unités d'enseignement
+                </Link>
+              </Menu.Item>
+            </SubMenu>
+          </>
+        ) : (
+          <></>
+        )}
       </Menu>
     </Sider>
   );

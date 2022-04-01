@@ -1,0 +1,58 @@
+.res-col {
+  justify-content: center;
+  display: flex;
+  /* padding-top: 4px;
+  padding-bottom: 4px; */
+}
+
+.res-tag {
+  width: 8em;
+  text-align: center;
+  /* padding-top: 10px; */
+}
+
+/* .emote-unhappy :hove {
+  color: red;
+}
+.emote-unhappy {
+  color: rgba(255, 0, 0, 0.404);
+}
+
+.emote-sad:hover {
+  color: rgba(252, 164, 0, 0.795);
+}
+.emote-sad {
+  color: rgba(252, 164, 0, 0.404);
+}
+.emote-normal:hover {
+  color: rgb(214, 214, 0);
+}
+.emote-normal {
+  color: rgb(214, 214, 0.404);
+}
+.emote-happpy:hover {
+  color: rgb(6, 211, 177);
+}
+.emote-happpy {
+  color: rgb(6, 211, 0.404);
+}
+.emote-vey-hapy:hover {
+  color: rgb(17, 158, 4);
+}
+.emote-vey-hapy {
+  color: rgb(17, 158, 0.404);
+}
+ */
+
+/* .ant-rate-star-first {
+  color: aquamarine;
+}
+.ant-rate-star-second {
+  color: rgb(49, 9, 59);
+} */
+.emot-tab {
+  position: absolute;
+  right: 30px;
+  top: 1px;
+  font-size: 26px;
+}

@@ -96,7 +96,7 @@ export default class DragDropRubriques extends React.Component {
     //this.setState({dataF[rubriques]:dataF});
     //window.location.href=`/`;
     this.editEvaluation();
-    this.props.onAnnuler();
+    this.props.handleCancel();
   };
 
   editEvaluation = () => {
@@ -225,7 +225,7 @@ export default class DragDropRubriques extends React.Component {
 
   handleCancel = () => {
     console.log("annuler mod");
-    this.props.onAnnuler();
+    this.props.handleCancel();
   };
 
   openMessage = () => {
@@ -241,9 +241,9 @@ export default class DragDropRubriques extends React.Component {
         {this.state.data && this.state.rubriquesBis ? (
           <>
             <div>
-              <h2 style={{ margin: "20px" }}>
+              <h3 style={{ marginTop: "23px" }}>
                 <EditOutlined /> &nbsp; Modifier l'évaluation
-              </h2>
+              </h3>
               <ReactDragListView
                 nodeSelector=".ant-list-item.draggble"
                 onDragEnd={this.onDragEnd}
@@ -252,7 +252,7 @@ export default class DragDropRubriques extends React.Component {
                   size="large"
                   bordered
                   dataSource={this.state.data}
-                  style={{ marginTop: "50px" }}
+                  style={{ marginTop: "8px" }}
                   renderItem={(item) => {
                     //
                     const draggble =
@@ -297,7 +297,7 @@ export default class DragDropRubriques extends React.Component {
             </div>
 
             <Row style={{ marginTop: "110px" }}>
-              <Col offset={4}>
+              <Col offset={6}>
                 <Space>
                   <Select
                     style={{ width: 270 }}
