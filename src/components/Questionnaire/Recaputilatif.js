@@ -15,7 +15,7 @@ import {
   Row,
   Tag,
 } from "antd";
-import { Link, useLocation } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import {
   RiEmotionLaughLine,
@@ -43,9 +43,7 @@ const tagColor = {
   5: "green",
 };
 
-const Recaputilatif = () =>
-{
-
+const Recaputilatif = () => {
   const location = useLocation();
   const recap = location.state;
   const { Panel } = Collapse;
@@ -57,6 +55,7 @@ const Recaputilatif = () =>
   const [response, setResponse] = useState({});
   const [done, setDone] = useState(false);
   const [isUpdate, setIsUpdate] = useState(false);
+  const navigate = useNavigate();
   /*console.log("comment :>> ", comment);
   console.log("state12 :>> ", state);*/
 
@@ -73,42 +72,38 @@ const Recaputilatif = () =>
     await sendData();
   };
 
-  const changeValue = (idQuestion , idRub, reponse) =>
-  {
+  const changeValue = (idQuestion, idRub, reponse) => {
     let r = recap.location.state;
-    
-    r.rubriques.forEach(rub => {
-      if(rub.idRubrique === idRub)
-      {
-        rub.questions.forEach(q => {
-          if(q.idQuestion === idQuestion)
-          {
+
+    r.rubriques.forEach((rub) => {
+      if (rub.idRubrique === idRub) {
+        rub.questions.forEach((q) => {
+          if (q.idQuestion === idQuestion) {
             q.reponse = reponse;
           }
-        })
+        });
       }
-    })
+    });
 
-    console.log("new state" , r);
+    console.log("new state", r);
     setstate(r);
-  }
+  };
   useEffect(() => {
     if (done) {
       if (response && response.data) {
-        onShowAlert(QUESTIONNAIRE_SUCCESS_MESSAGES, ALERT_TYPES.SUCCESS);
+        onShowAlert(QUESTIONNAIRE_SUCCESS_MESSAGES.ADDED, ALERT_TYPES.SUCCESS);
       } else if (response && response.error) {
-        onShowAlert(response.error.message, ALERT_TYPES.WARNING);
+        onShowAlert(QUESTIONNAIRE_SUCCESS_MESSAGES.FAILED, ALERT_TYPES.WARNING);
       }
+      navigate("/home");
     }
     return () => {};
   }, [done]);
 
-
-
   return (
     <>
       <Row justify="center">
-        <h1 style={{ margin: "10px" }}>Recaputilatif:</h1>
+        <h1 style={{ margin: "10px" }}>Récapitulatif:</h1>
       </Row>
       <Collapse accordion defaultActiveKey={["1"]}>
         {state.rubriques.map((rubrique) => (
@@ -125,30 +120,33 @@ const Recaputilatif = () =>
               <div key={qst.idQuestion}>
                 <Row style={{ fontSize: "15px", fontWeight: "normal" }}>
                   <Col span={16}>{qst.intitule}</Col>
-                  {isUpdate ? 
-                <Rate
-                  defaultValue={qst.reponse}
-                  onChange={(v) => changeValue(qst.idQuestion, rubrique.idRubrique, v)}
-                /> : 
-                  <>
-                  <Col span={4}>
-                    <Tag
-                      style={{ width: "8em", textAlign: "center" }}
-                      color={tagColor[qst.reponse]}
-                    >
-                      Note :{qst.reponse}/5
-                    </Tag>
-                  </Col>
-                  <Col span={4}>
-                    <Tag
-                      style={{ width: "8em", textAlign: "center" }}
-                      color={tagColor[qst.reponse]}
-                    >
-                      {customIcons[qst.reponse]}
-                    </Tag>
-                  </Col>
-                  </>
-                  }
+                  {isUpdate ? (
+                    <Rate
+                      defaultValue={qst.reponse}
+                      onChange={(v) =>
+                        changeValue(qst.idQuestion, rubrique.idRubrique, v)
+                      }
+                    />
+                  ) : (
+                    <>
+                      <Col span={4}>
+                        <Tag
+                          style={{ width: "8em", textAlign: "center" }}
+                          color={tagColor[qst.reponse]}
+                        >
+                          Note :{qst.reponse}/5
+                        </Tag>
+                      </Col>
+                      <Col span={4}>
+                        <Tag
+                          style={{ width: "8em", textAlign: "center" }}
+                          color={tagColor[qst.reponse]}
+                        >
+                          {customIcons[qst.reponse]}
+                        </Tag>
+                      </Col>
+                    </>
+                  )}
 
                   <Divider />
                 </Row>
@@ -156,13 +154,16 @@ const Recaputilatif = () =>
             ))}
           </Panel>
         ))}
-        {comment !== "" && <Panel header={<Tag color="cyan">Commentaire</Tag>} key="12">{comment}</Panel>
-        }
+        {comment !== "" && (
+          <Panel header={<Tag color="cyan">Commentaire</Tag>} key="12">
+            {comment}
+          </Panel>
+        )}
       </Collapse>
       <Divider />
 
       <Modal
-        title="Laissez nous votre commentaire"
+        title="Laissez-nous votre commentaire"
         visible={visible}
         onOk={() => {
           setstate({ ...state, commentaire: comment });
@@ -204,7 +205,7 @@ const Recaputilatif = () =>
           Envoyer
         </Button>
         <Button
-         type="primary"
+          type="primary"
           hidden={disabled || isUpdate}
           onClick={() => {
             /* setstate({ ...state, commentaire: comment }); */

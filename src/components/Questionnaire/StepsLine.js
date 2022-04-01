@@ -16,7 +16,7 @@ import {
   Steps,
   Table,
   Tag,
-  Tooltip
+  Tooltip,
 } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useReducer, useState } from "react";
@@ -121,9 +121,9 @@ const data = [
     emot5: <Tag color={"green"}>5/5</Tag>,
   },
 ];
-const StepsLine = ({ evaluation = {}}) => {
+const StepsLine = ({ evaluation = {} }) => {
   console.log("evaluation :>> ", evaluation);
- 
+
   const etudiant = useAuth();
   const navigate = useNavigate();
   console.log("user:  ", etudiant);
@@ -224,14 +224,17 @@ const StepsLine = ({ evaluation = {}}) => {
           <Row justify="center">
             <Col>
               {current === state.rubriques.length - 1 ? (
-
-                <Button onClick={() => navigate("/recaputilatif" , {
-                  replace : true,
-                  state : state
-                  })}                  
-                  hidden={isButtonHidden} >
-                    <CheckOutlined /> Terminer
-                  </Button>
+                <Button
+                  onClick={() =>
+                    navigate("/recaputilatif", {
+                      replace: true,
+                      state: state,
+                    })
+                  }
+                  hidden={isButtonHidden}
+                >
+                  <CheckOutlined /> Terminer
+                </Button>
               ) : (
                 <>
                   <Tooltip
@@ -280,8 +283,8 @@ const StepsLine = ({ evaluation = {}}) => {
               style={{ display: "flex" }}
             >
               <li>
-                L'évaluation est sous forme des étapes, chaque étape représente
-                une rubrique qui contient des questions.
+                L'évaluation est sous la forme d'un ensemble d'étapes. Chaque
+                étape représente une rubrique qui contient des questions.
               </li>
 
               <li>
@@ -292,7 +295,7 @@ const StepsLine = ({ evaluation = {}}) => {
                 >
                   <div>
                     Pour répondre à une question , vous avez le choix entre{" "}
-                    <strong>5 emoticones</strong> , chaque emoticone represente
+                    <strong>5 émoticônes</strong>. Chaque émoticône représente
                     une valeur de <strong>1</strong> à <strong>5</strong> :
                   </div>
                   <Row>
@@ -318,19 +321,18 @@ const StepsLine = ({ evaluation = {}}) => {
                 </ul>
               </li>
               <li>
-                Quand vous terminerez l'évaluation vous pouvez consulter un
-                récaputilatif de toutes vos réponces , ensuite veillez valider
+                Quand vous allez terminer l'évaluation, vous pouvez consulter un
+                récapitulatif de toutes vos réponses, ensuite veuillez valider
                 vos réponses en cliquant sur le bouton{" "}
                 <strong>"Valider"</strong>
               </li>
               <li>
-                Nous vous prions de bien vouloir nous laissiez un commentaire ou
-                votre avis sur le déroulement de cet évaluation dans le champs
-                du texte approprié avant que vous envoyez votre reponse final de
-                tout l'évaluation.
+                Nous vous prions de bien vouloir nous laisser un commentaire ou
+                votre avis sur le déroulement de cette évaluation dans le champs
+                du texte approprié avant que vous envoyez votre réponse finale.
               </li>
               <li>
-                Cliquer sur le bouton <strong>"Commencer"</strong> pour
+                Cliquez sur le bouton <strong>"Commencer"</strong> pour
                 commencer l'évaluation.
               </li>
             </Space>

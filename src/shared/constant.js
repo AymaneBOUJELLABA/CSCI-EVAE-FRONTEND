@@ -23,6 +23,7 @@ export const USER_FAILED_LOGIN_MESSAGE = {
 };
 export const QUESTIONNAIRE_SUCCESS_MESSAGES = {
   ADDED: "Votre réponse a été envoyée ",
+  FAILED: "Vous avez déjà répondu à ce questionnaire",
 };
 
 export const ALERT_TYPES = {
@@ -32,8 +33,8 @@ export const ALERT_TYPES = {
 };
 
 export const ALERT_PUBLIER_EVALUATION = {
-  PUBLISHED: "L'évaluation est publier avec success",
-  WARNING: "Cette évaluation est déja publiée"
-}
+  PUBLISHED: "L'évaluation est publiée avec succès",
+  WARNING: "Cette évaluation est déjà publiée",
+};
 
 export const onShowAlert = (msg, type) => message[type](msg);

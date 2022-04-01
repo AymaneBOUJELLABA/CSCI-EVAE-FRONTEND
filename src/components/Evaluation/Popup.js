@@ -12,7 +12,11 @@ import {
 } from "@ant-design/icons";
 import { Link, useHistory } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { ajoutEvaluation, getEvaluationOfUe, publierEvaluation } from "./EvaluationSlice";
+import {
+  ajoutEvaluation,
+  getEvaluationOfUe,
+  publierEvaluation,
+} from "./EvaluationSlice";
 
 import AddEvaluation from "./AddEvaluation";
 import DragDropRubriques from "../ues/dragDropRubriques";
@@ -140,7 +144,7 @@ export default function Popup(props) {
     codeUe: UeInfo.codeUe,
     codeEc: null,
     noEvaluation: 3,
-    designation: "Evaluation " + UeInfo.codeUe,
+    designation: "Évaluation " + UeInfo.codeUe,
     etat: "ELA",
     periode: "",
     debutReponse: "",
@@ -154,14 +158,14 @@ export default function Popup(props) {
    Publication d'une évaluation
    */
   const publishEvaluation = async (idEval) => {
-    if(isExist && evaluation.etat==="ELA") {
-        const response = await publierEvaluation(idEval);
-        console.log("server response ", response);
-        setEvaluation(response);
+    if (isExist && evaluation.etat === "ELA") {
+      const response = await publierEvaluation(idEval);
+      console.log("server response ", response);
+      setEvaluation(response);
 
-        message.info("Publication de lévaluation avec succès");
-      };
-  }
+      message.info("L'évaluation est publiée avec succès");
+    }
+  };
 
   const handleDelete = (id) => {
     let rub;
@@ -234,25 +238,24 @@ export default function Popup(props) {
             Évaluation
           </span>
         }
-        subTitle={"Page de l'évaluation de l'unité d'enseignement ( " +codeUe + " )" }
-      
-        extra = {
+        subTitle={
+          "Page de l'évaluation de l'unité d'enseignement ( " + codeUe + " )"
+        }
+        extra={
           <Button
-          type="primary"
-          shape="round"
-          size="large"
-          className="addButton"
-          icon={<ShareAltOutlined/>}
-          style={{
-            visibility: evaluation.etat==="ELA" ? 'visible' : 'hidden'
-          }}
-          onClick={() => publishEvaluation(evaluation.idEvaluation)}
+            type="primary"
+            shape="round"
+            size="large"
+            className="addButton"
+            icon={<ShareAltOutlined />}
+            style={{
+              visibility: evaluation.etat === "ELA" ? "visible" : "hidden",
+            }}
+            onClick={() => publishEvaluation(evaluation.idEvaluation)}
           >
             Publier
           </Button>
         }
-      
-      
       />
       <div style={{ overflow: "auto" }}>{content}</div>
       {isExist && !isUpdate && (
