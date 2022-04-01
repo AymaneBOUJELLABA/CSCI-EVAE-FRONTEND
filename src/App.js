@@ -50,7 +50,7 @@ export const App = () => {
           
           <Route
             exact
-            path="/resEval/:id"
+            path="/evaluation/statistiques/:id"
             element={
               <RequireAuthADM>
                 <ShowRes />

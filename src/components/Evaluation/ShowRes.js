@@ -185,13 +185,13 @@ class ShowRes extends React.Component {
                               textAlign: "center",
                             }}
                           >
-                            <Col span={8} style={{ display: "inline" }}>
+                            <Col span={8} style={{ display: "inline", textAlign: 'left'}}>
                               {ques.intitule}
                             </Col>
                             <Col span={4} style={{ display: "inline" }}>
                               <Tag
                                 style={{ width: "8em", textAlign: "center" }}
-                                color="blue"
+                                color="red"
                               >
                                 {ques.qualificatif.maximal}
                               </Tag>
@@ -296,7 +296,7 @@ class ShowRes extends React.Component {
                               {" "}
                               <Tag
                                 style={{ width: "8em", textAlign: "center" }}
-                                color="red"
+                                color="green"
                               >
                                 {ques.qualificatif.minimal}
                               </Tag>

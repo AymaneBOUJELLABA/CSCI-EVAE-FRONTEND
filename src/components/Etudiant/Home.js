@@ -11,13 +11,14 @@ import Questionnaire from "../Questionnaire";
 import { useAuth } from "../../context/auth";
 
 const EtudiantHome = () => {
-  const nameOfStudent = "amiNe";
+  
   const [evaluations, setEvaluations] = useState([]);
   const [loading, setLoading] = useState(false);
   const [idle, setIdle] = useState(true);
   const [error, setError] = useState(null);
 
   const auth = useAuth();
+  const nameOfStudent = auth.user.toUpperCase();
   const [isHidden, setIsHidden] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
@@ -44,22 +45,19 @@ const EtudiantHome = () => {
   if (error !== null) return <h1>Error</h1>;
   if (idle) return <div />;
 
-  if (evaluations.length < 1) {
-    return (
-      <Spin
-        style={{ position: "absolute", right: "46%", bottom: "42%" }}
-        size="large"
-        tip="Chargement des données..."
-      />
-    );
+  if(evaluations.length < 1)
+  {
+    return <>
+      <Card title="Pas d'évaluations publiée">
+      <Table locale={{ emptyText: 'Aucune évaluation publiée' }} />
+      </Card>
+      </>
   }
   return (
     <>
       <Row justify="center">
         <h1>
-          Bienvenue{" "}
-          {nameOfStudent.charAt(0).toUpperCase() +
-            nameOfStudent.slice(1).toLowerCase()}{" "}
+          Bienvenue{" chèr etudiant"}
         </h1>
       </Row>
 
@@ -87,9 +85,9 @@ const EtudiantHome = () => {
               evaluations.map((evaluation, idx) => (
                 <Row>
                   <Space>
-                    <Col>{evaluation.designation}</Col>
+                    <Col span={6}>{evaluation.designation}</Col>
 
-                    <Col>
+                    <Col span={4}>
                       <Button
                         onClick={() =>
                           navigate("/questionnaire", {

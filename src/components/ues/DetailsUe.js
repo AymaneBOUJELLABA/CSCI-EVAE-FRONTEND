@@ -25,8 +25,9 @@ import {
   getStudentsNumber,
   getStudentsUnswerNumber,
 } from "../Evaluation/EvaluationSlice";
-import { useNavigate } from "react-router-dom";
+
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const calculerMoyEtudUE = (response, codeUe) => {
   let avg = 0;
@@ -239,6 +240,8 @@ export default function DetailsUe({ columns, table, loading, data }) {
             {evaluation && evaluation.codeFormation && (
               <Col style={{ marginTop: 40 }} span={6} offset={6}>
                 <Card title="Évaluation" type="inner">
+                  
+                  {isNaN(average) ? "Aucune Réponse pour le moment! ou Évaluation non publiée": 
                   <Space direction="vertical">
                     <Text>
                       {" "}
@@ -254,12 +257,13 @@ export default function DetailsUe({ columns, table, loading, data }) {
                       type="primary"
                       style={{}}
                       onClick={() =>
-                        navigate(`/resEval/${evaluation.idEvaluation}`)
+                        navigate(`/evaluation/statistiques/${evaluation.idEvaluation}`)
                       }
                     >
                       Statistique{" "}
                     </Button>
                   </Space>
+                  }
                 </Card>
               </Col>
             )}

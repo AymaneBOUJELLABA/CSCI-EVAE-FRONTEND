@@ -59,6 +59,14 @@ const Recaputilatif = () => {
   /*console.log("comment :>> ", comment);
   console.log("state12 :>> ", state);*/
 
+
+  const customIcons = {
+    1: <RiEmotionUnhappyLine className="emote-unhappy" />,
+    2: <RiEmotionSadLine className="emote-sad" />,
+    3: <RiEmotionNormalLine className="emote-normal" />,
+    4: <RiEmotionLine className="emote-happpy" />,
+    5: <RiEmotionLaughLine className="emote-vey-hapy" />,
+  };
   console.log("response : ", response);
   const handleSend = async () => {
     const sendData = async () => {
@@ -70,6 +78,8 @@ const Recaputilatif = () => {
       setDone(true);
     };
     await sendData();
+
+    navigate("/home");
   };
 
   const changeValue = (idQuestion, idRub, reponse) => {
@@ -122,6 +132,7 @@ const Recaputilatif = () => {
                   <Col span={16}>{qst.intitule}</Col>
                   {isUpdate ? (
                     <Rate
+                      character={({index}) => customIcons[index+1]}
                       defaultValue={qst.reponse}
                       onChange={(v) =>
                         changeValue(qst.idQuestion, rubrique.idRubrique, v)

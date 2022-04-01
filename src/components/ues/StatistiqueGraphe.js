@@ -51,14 +51,14 @@ export default function StatistiqueGraphe() {
   ];
   const LineChartOptions = {
     hAxis: {
-      title: "les annee",
+      title: "les années",
       format: "YYYY-YYYY",
       slantedText: true,
       slantedTextAngle: 45,
     },
 
     vAxis: {
-      title: "moyen des rubrique",
+      title: "Moyenne des rubrique",
     },
     series: {
       1: { curveType: "function" },
@@ -193,7 +193,7 @@ export default function StatistiqueGraphe() {
       />
       <div className="container mt-5 " style={{ textAlign: "center" }}>
         {t == 0 ? (
-          <h2>Graphe représentant les statistiques</h2>
+          <h2>Graphe représentant les statistiques : moyenne de chaque rubrique de l'UE {params.code} pour chaque promotion</h2>
         ) : (
           <h2>
             Statistiques pour {params.code} (il n'y a pas de statistiques pour

@@ -79,7 +79,7 @@ const Question = (props) => {
             <Col>{qst.intitule}</Col>
           </Row>
           <Row justify="center">
-            <Col className="res-col" span={8}>
+            <Col className="res-col" span={6} offset={4}>
               <Tag className="res-tag" color="red">
                 {qst.qualificatif.minimal}
               </Tag>
@@ -109,7 +109,7 @@ const Question = (props) => {
                 }}
               />
             </Col>
-            <Col className="res-col" span={8}>
+            <Col className="res-col" span={4}>
               <Tag className="res-tag" color="green">
                 {qst.qualificatif.maximal}
               </Tag>
