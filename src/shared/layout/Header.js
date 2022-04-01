@@ -1,15 +1,15 @@
-import React from "react";
-
 import { Button, Dropdown, Layout, Menu } from "antd";
 import {
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
   DownOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
   UserOutlined,
 } from "@ant-design/icons";
+
+import Avatar from "antd/lib/avatar/avatar";
+import React from "react";
 import { useAuth } from "../../context/auth";
 import { useNavigate } from "react-router-dom";
-import Avatar from "antd/lib/avatar/avatar";
 
 const { Header } = Layout;
 export default function HeaderApp(props) {
@@ -27,7 +27,7 @@ export default function HeaderApp(props) {
   const menu = (
     <Menu>
       <Menu.Item key="1" onClick={handleLogout}>
-        <b>Logout</b>
+        <b style={{width:'50px', marginRight:'5px'}}>Se déconnecter</b>
       </Menu.Item>
     </Menu>
   );
